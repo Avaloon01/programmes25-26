@@ -26,69 +26,69 @@ function selectSheet(name, btn){
   renderTable();
 }
 
+function getCurrentData(){
+  const pack = window.ALL.programmes[CURRENT_SHEET] || {columns:[], rows:[]};
+  // Ensure 'Semaine' first if present
+  const cols = [...pack.columns];
+  const idx = cols.indexOf('Semaine');
+  if(idx>0){ cols.splice(idx,1); cols.unshift('Semaine'); }
+  return {columns: cols, rows: pack.rows || []};
+}
+
 function renderTable(){
   const tbody = document.querySelector('tbody#rows');
-  tbody.innerHTML='';
-  const rows = window.ALL.programmes[CURRENT_SHEET]||[];
+  const thead = document.querySelector('thead#headers');
+  tbody.innerHTML=''; thead.innerHTML='';
+  const {columns, rows} = getCurrentData();
+  // Build thead
+  const trh = document.createElement('tr');
+  columns.forEach(k=>{ const th=document.createElement('th'); th.textContent=k; trh.appendChild(th); });
+  thead.appendChild(trh);
+  // Filters
   const q = document.getElementById('q').value.trim().toLowerCase();
   const week = document.getElementById('week').value;
-  const filtered = rows.filter(r=>{
-    const inWeek = (week==='all' || String(r['Semaine'])===week);
-    const text = Object.values(r).join(' ').toLowerCase();
-    const inQ = !q || text.includes(q);
-    return inWeek && inQ;
-  });
-  filtered.forEach(r=>{
-    const tr = document.createElement('tr');
-    const cols = Object.keys(r);
-    ['Semaine','Objectif','Activité','Activité / Objectif','Trace écrite','Fait/Monument','Personnage Belge','Personnage du Monde'].forEach(k=>{
-      if(cols.includes(k)){
-        const td = document.createElement('td');
-        if(k==='Semaine'){
-          td.innerHTML = '<span class="badge">S'+r[k]+'</span>';
-        } else {
-          td.textContent = r[k];
-        }
-        tr.appendChild(td);
-      }
-    });
-    tbody.appendChild(tr);
-  });
-  // Build thead dynamically
-  const thead = document.querySelector('thead#headers');
-  thead.innerHTML='';
-  const sample = window.ALL.programmes[CURRENT_SHEET]?.[0] || {};
-  const wanted = ['Semaine','Objectif','Activité','Activité / Objectif','Trace écrite','Fait/Monument','Personnage Belge','Personnage du Monde'];
-  const cols = wanted.filter(k=> Object.keys(sample).includes(k));
-  const trh = document.createElement('tr');
-  cols.forEach(k=>{
-    const th = document.createElement('th'); th.textContent = k;
-    trh.appendChild(th);
-  });
-  thead.appendChild(trh);
-  // Populate week filter options
+  // Populate week filter options once per sheet
   const weekSel = document.getElementById('week');
   if(weekSel.dataset.sheet!==CURRENT_SHEET){
     weekSel.innerHTML = '<option value="all">Toutes</option>';
-    const weeks = [...new Set((window.ALL.programmes[CURRENT_SHEET]||[]).map(r=>r['Semaine']))].sort((a,b)=>Number(a)-Number(b));
+    const weeks = [...new Set(rows.map(r=>r['Semaine']))].filter(w=>w!==undefined && w!=="").sort((a,b)=>Number(a)-Number(b));
     weeks.forEach(w=>{
       const opt = document.createElement('option'); opt.value = String(w); opt.textContent = 'Semaine '+w;
       weekSel.appendChild(opt);
     });
     weekSel.dataset.sheet = CURRENT_SHEET;
   }
+  // Filtered rows
+  const filtered = rows.filter(r=>{
+    const inWeek = (week==='all' || String(r['Semaine'])===week);
+    const text = Object.values(r).join(' ').toLowerCase();
+    const inQ = !q || text.includes(q);
+    return inWeek && inQ;
+  });
+  // Render rows
+  filtered.forEach(r=>{
+    const tr = document.createElement('tr');
+    columns.forEach(k=>{
+      const td = document.createElement('td');
+      let val = r[k];
+      if(k==='Semaine' && (val!=='' && val!==undefined)){
+        td.innerHTML = '<span class="badge">S'+val+'</span>';
+      } else {
+        td.textContent = (val===null || val===undefined) ? '' : String(val);
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
 }
 
 function applyFilters(){ renderTable(); }
 
 function exportCSV(){
-  const rows = window.ALL.programmes[CURRENT_SHEET]||[];
-  let cols = new Set();
-  rows.forEach(r=> Object.keys(r).forEach(k=> cols.add(k)));
-  cols = Array.from(cols);
-  let csv = cols.join(';')+'\n';
+  const {columns, rows} = getCurrentData();
+  let csv = columns.join(';')+'\n';
   rows.forEach(r=>{
-    csv += cols.map(k=> String(r[k]??'').replaceAll(';',',')).join(';')+'\n';
+    csv += columns.map(k=> String(r[k]??'').replaceAll(';',',').replaceAll('\n',' ')).join(';')+'\n';
   });
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
