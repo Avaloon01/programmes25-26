@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programmes P4 — Toujours avec moi</title>
+<link rel="stylesheet" href="./styles.css">
+<meta name="theme-color" content="#2563eb">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📘 Programmes P4 — Toujours avec moi</h1>
+      <div class="searchbar">
+        <input id="q" type="search" placeholder="Rechercher (objectif, activité, mot-clé)…">
+        <select id="week" aria-label="Filtrer par semaine">
+          <option value="all">Toutes</option>
+        </select>
+        <button id="export" title="Exporter la feuille courante en CSV">Exporter CSV</button>
+      </div>
+    </header>
+
+    <div id="tabs" class="tabs"></div>
+
+    <div class="card">
+      <table class="table">
+        <thead id="headers"></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <p class="footer">Astuce : ajoute cette page à l’écran d’accueil de ton téléphone pour l’avoir hors-ligne. Imprime proprement via Ctrl/Cmd+P.</p>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
