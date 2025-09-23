@@ -1,15 +1,16 @@
 {
   "sheets": [
     "Math",
+    "Géométrie",
+    "Algèbre",
+    "Grandeurs",
+    "Traitement de données",
     "Fluences",
     "Ecriture",
     "Géographie",
-    "Géométrie",
-    "lecture mystère, culture ",
-    "algèbre",
-    "Grandeurs",
-    "traitement",
-    "Histoire"
+    "Histoire",
+    "Lecture mystère, culture "
+
   ],
   "programmes": {
     "Math": {
