@@ -1,326 +1,366 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Adaptateur de semaines – Programmes P4</title>
-<style>
-  :root{
-    --bg:#f7f7fb; --card:#fff; --ink:#111; --muted:#666; --accent:#2563eb;
-    --ok:#16a34a; --warn:#b45309; --err:#dc2626; --b:#e5e7eb; --radius:14px;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-  header{padding:18px 22px;background:var(--card);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:5}
-  header h1{margin:0;font-size:20px}
-  main{max-width:1200px;margin:20px auto;padding:0 16px;display:grid;gap:16px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .card{background:var(--card);border:1px solid var(--b);border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,.06)}
-  .card header{border:0;border-bottom:1px solid var(--b);border-radius:var(--radius) var(--radius) 0 0}
-  .card header h2{font-size:16px;margin:0}
-  textarea{width:100%;min-height:360px;border:0;outline:none;padding:14px;border-radius:0 0 var(--radius) var(--radius);font:13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;background:#fcfcff}
-  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 14px;border-top:1px solid var(--b)}
-  button{appearance:none;border:1px solid var(--b);background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
-  button.secondary{background:#fff;color:#111}
-  button.ghost{background:#fff;border-color:var(--b);color:#111}
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--b);border-radius:999px;background:#fff;font-size:12px}
-  .muted{color:var(--muted)}
-  .small{font-size:12px}
-  .flex{display:flex;gap:10px;align-items:center}
-  .table{overflow:auto;max-height:240px;border-top:1px solid var(--b)}
-  table{border-collapse:collapse;width:100%;font-size:13px}
-  th,td{border-bottom:1px solid var(--b);padding:8px 10px;text-align:left;white-space:nowrap}
-  th{background:#fafafc;position:sticky;top:0}
-  code.k{background:#f3f4f6;border:1px solid var(--b);padding:2px 6px;border-radius:6px}
-  .hint{padding:10px 14px}
-  .ok{color:var(--ok)} .warn{color:var(--warn)} .err{color:var(--err)}
-</style>
-</head>
-<body>
-<header>
-  <h1>Adaptateur de semaines (S1 → Sx) par matière</h1>
-  <div class="small muted">Collez votre JSON complet, puis cliquez “Adapter les semaines”.</div>
-</header>
-
-<main>
-  <section class="grid">
-    <div class="card">
-      <header><h2>Entrée — Votre JSON</h2></header>
-      <textarea id="in" spellcheck="false" placeholder='Collez ici l’objet JSON {"sheets":[...],"programmes":{...}}'></textarea>
-      <div class="controls">
-        <button class="secondary" id="beautify">Reformater</button>
-        <button class="ghost" id="loadSample">Charger mini-exemple</button>
-        <span class="pill"><span>Valide :</span><strong id="validBadge" class="err">Non</strong></span>
-      </div>
-    </div>
-
-    <div class="card">
-      <header><h2>Sortie — JSON adapté</h2></header>
-      <textarea id="out" spellcheck="false" placeholder="Le JSON adapté apparaîtra ici…" readonly></textarea>
-      <div class="controls">
-        <button id="adapt">Adapter les semaines</button>
-        <button class="secondary" id="download" disabled>Télécharger</button>
-        <span class="pill"><span>Feuilles modifiées :</span><strong id="modCount">0</strong></span>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <header><h2>Règles de décalage</h2></header>
-    <div class="hint">
-      <div class="small muted">Modifiez au besoin (0 = inchangé). Les clés doivent correspondre exactement aux noms de feuilles.</div>
-    </div>
-    <div class="table">
-      <table id="rulesTbl">
-        <thead><tr><th>Feuille</th><th>Décalage</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="controls">
-      <button class="secondary" id="resetRules">Rétablir règles par défaut</button>
-      <span class="small muted">Astuce : double-cliquez sur un décalage pour l’éditer.</span>
-    </div>
-  </section>
-
-  <section class="card">
-    <header><h2>Journal</h2></header>
-    <div id="log" class="hint small muted">En attente…</div>
-  </section>
-</main>
-
-<script>
-/* ===================== RÈGLES PAR DÉFAUT ===================== */
-const DEFAULT_OFFSETS = {
-  "Math": 0,
-  "Géométrie": 1,
-  "Algèbre": 2,
-  "Grandeurs": 4,
-  "Traitement de données": 4,
-  "Fluences": 1,          // nom de feuille dans ton JSON
-  "Ecriture": 4,
-  "Géographie": 4,
-  "Histoire": 4,
-  "Lecture mystère, culture ": 0 // (espace final conservé)
-};
-
-/* ===================== UTILITAIRES ===================== */
-// "S7" / "s 7" / 7 / "7"  -> 7
-function weekToNumber(w) {
-  if (typeof w === "number") return w;
-  if (typeof w === "string") {
-    const m = w.trim().match(/^s?\s*(\d+)$/i);
-    if (m) return parseInt(m[1], 10);
-  }
-  throw new Error(`Format de semaine inattendu: ${String(w)}`);
+{
+  "sheets": [
+    "Math",
+    "Géométrie",
+    "Algèbre",
+    "Grandeurs",
+    "Traitement de données",
+    "Fluences",
+    "Ecriture",
+    "Géographie",
+    "Histoire",
+    "Lecture mystère, culture "
+  ],
+  "programmes": {
+    "Math": {
+      "columns": ["Semaine","Matière","Objectifs","Notions travaillées"],
+      "rows": [
+        {"Semaine":"S1","Matière":"Additions ≤ 100","Objectifs":"Réaliser 20 additions simples en 1 minute avec ≥ 80% de réussite.","Notions travaillées":"+9, +11, Passage par la dizaine"},
+        {"Semaine":"S2","Matière":"Soustractions ≤ 100","Objectifs":"Réaliser 20 soustractions simples en 1 minute avec ≥ 80% de réussite.","Notions travaillées":"-9, -11, Passage par la dizaine"},
+        {"Semaine":"S3","Matière":"Doubles & moitiés ≤ 100","Objectifs":"Automatiser les doubles/moitiés pour répondre en < 3s par calcul.","Notions travaillées":"Doubles 1–50, Moitiés paires ≤ 100"},
+        {"Semaine":"S4","Matière":"Tables ×2, ×3, ×4, ×5","Objectifs":"20 réponses en 1 minute, ≥ 80% exact.","Notions travaillées":"Produits, Facteurs manquants"},
+        {"Semaine":"S5","Matière":"Tables ×6, ×7, ×8, ×9","Objectifs":"20 réponses en 1–2 minutes, ≥ 80% exact.","Notions travaillées":"Produits, Facteurs manquants"},
+        {"Semaine":"S6","Matière":"Divisions liées aux tables","Objectifs":"20 divisions en 2 minutes, ≥ 80% exact.","Notions travaillées":"÷2 à ÷9, Sans reste"},
+        {"Semaine":"S7","Matière":"Mélange add/sous/mult ≤ 100","Objectifs":"Répondre vite et juste sur des calculs variés.","Notions travaillées":"+ − ×, Reconnaitre l’opération"},
+        {"Semaine":"S8","Matière":"Centaines simples","Objectifs":"Calculer mentalement avec centaines (300+400, 800−500).","Notions travaillées":"+ et − sur centaines, Changements d’unités simples"},
+        {"Semaine":"S9","Matière":"×10 / ×100 et ÷10 / ÷100","Objectifs":"Automatiser les décalages de chiffres.","Notions travaillées":"Unités, dizaines, centaines"},
+        {"Semaine":"S10","Matière":"Problèmes flash (1 étape)","Objectifs":"Lire vite, identifier l’opération, calculer.","Notions travaillées":"Paquets, partages, achats"},
+        {"Semaine":"S11","Matière":"Estimation & arrondis","Objectifs":"Arrondir à la dizaine/centaine, estimer un résultat.","Notions travaillées":"≈, Comparer estimation / exact"},
+        {"Semaine":"S12","Matière":"Mélange général 1","Objectifs":"Consolider les acquis du bloc 1–2.","Notions travaillées":"Mix calculs & mini-problèmes"},
+        {"Semaine":"S13","Matière":"Conversions de mesures","Objectifs":"Convertir cm↔m, g↔kg, min↔h.","Notions travaillées":"Unités usuelles"},
+        {"Semaine":"S14","Matière":"Add/Sous de mesures","Objectifs":"Additionner/soustraire des mesures (format mixte).","Notions travaillées":"m & cm, kg & g, h & min"},
+        {"Semaine":"S15","Matière":"Monnaie : rendre la monnaie","Objectifs":"Faire des compléments jusqu’à 10€ rapidement.","Notions travaillées":"Prix & rendu"},
+        {"Semaine":"S16","Matière":"Fractions simples ½ ¼ ⅓","Objectifs":"Associer fraction ↔ quantité ↔ calcul.","Notions travaillées":"Part d’un nombre"},
+        {"Semaine":"S17","Matière":"Problèmes flash (2 étapes)","Objectifs":"Enchaîner 2 opérations cohérentes.","Notions travaillées":"Achats, trajets, regroupements"},
+        {"Semaine":"S18","Matière":"Mélange général 2","Objectifs":"Consolider (mesures, monnaie, fractions).","Notions travaillées":"Mix varié"},
+        {"Semaine":"S19","Matière":"× à 2 chiffres × 1 chiffre","Objectifs":"Produits du type 34×2, 56×3.","Notions travaillées":"Décomposition ×"},
+        {"Semaine":"S20","Matière":"Divisions sans reste","Objectifs":"Divisions exactes (84÷7).","Notions travaillées":"Liées aux tables"},
+        {"Semaine":"S21","Matière":"Tables vitesse (battles)","Objectifs":"Fluidité maximale sur toutes les tables.","Notions travaillées":"Battles chrono"},
+        {"Semaine":"S22","Matière":"Comparaisons rapides","Objectifs":"Comparer nombres & fractions simples.","Notions travaillées":">, <, ="},
+        {"Semaine":"S23","Matière":"Temps & durées","Objectifs":"Calculer durées en h/min, lire l’horloge.","Notions travaillées":"Ajouter/retirer des durées"},
+        {"Semaine":"S24","Matière":"Mélange général 3","Objectifs":"Consolider (19–23).","Notions travaillées":"Mix varié"},
+        {"Semaine":"S25","Matière":"×/÷ avec dizaines","Objectifs":"Ex. 120÷6, 14×30.","Notions travaillées":"Zéros et décalages"},
+        {"Semaine":"S26","Matière":"Fraction d’un nombre","Objectifs":"½ de 18, ¼ de 32, ⅓ de 27.","Notions travaillées":"Proportion simple"},
+        {"Semaine":"S27","Matière":"Problèmes mixtes 2 domaines","Objectifs":"Mesures + multiplications, etc.","Notions travaillées":"Stratégies rapides"},
+        {"Semaine":"S28","Matière":"Puzzle chrono (20 calc/2min)","Objectifs":"Maintenir justesse sous pression.","Notions travaillées":"Mix intense"},
+        {"Semaine":"S29","Matière":"Grand défi (50 calc/3min)","Objectifs":"Endurance + précision.","Notions travaillées":"Mix global"},
+        {"Semaine":"S30","Matière":"Bilan & tournoi","Objectifs":"Évaluer les progrès, célébrer.","Notions travaillées":"Ceintures de rapidité"}
+      ]
+    },
+    "Fluences": {
+      "columns": ["Semaine","Titre de la fluence","Palier","Objectif","Notions abordées"],
+      "rows": [
+        {"Semaine":"S2","Titre de la fluence":"Le lama de Lali","Palier":"Palier 1 : sons simples (voyelles, l, m, r, p)","Objectif":"Décoder des mots d'une syllabe avec des sons simples","Notions abordées":"Lecture de syllabes : la, ri, mo, pu..., Lecture de mots simples : lama, mur, papa, ami., Dictée de syllabes et de mots très courts."},
+        {"Semaine":"S3","Titre de la fluence":"La salade de Tom","Palier":"Palier 1 : sons simples (t, f, s, d)","Objectif":"Élargir le répertoire de sons simples et lire des mots de deux syllabes","Notions abordées":"Lecture de syllabes : sa, di, to, fa..., Lecture de mots : salade, tomate, fatigué., Jeux de 'la syllabe manquante' pour renforcer la conscience phonologique."},
+        {"Semaine":"S4","Titre de la fluence":"Le loup sur la mousse","Palier":"Palier 1 : son complexe [ou]","Objectif":"Identifier et automatiser la lecture du son [ou]","Notions abordées":"Lecture de listes de mots avec 'ou' : loup, fourmi, mou, chou., Tri de mots : j'entends [o] / j'entends [ou]., Lecture de phrases très courtes avec le son 'ou'."},
+        {"Semaine":"S5","Titre de la fluence":"Maman et le grand pantalon","Palier":"Palier 1 : sons complexes [on] et [an]","Objectif":"Identifier et lire les sons nasaux [on] et [an]","Notions abordées":"Lecture de mots ciblés : mouton, maman, long, grand., Jeu du loto des sons [on]/[an]., Lecture de phrases contenant les deux sons pour apprendre à les différencier."},
+        {"Semaine":"S6","Titre de la fluence":"Le chemin du chat malin","Palier":"Palier 1 : sons complexes [ch] et [in]","Objectif":"Maîtriser le son [ch] et le son nasal [in]","Notions abordées":"Lecture de mots : chat, chemin, moulin, matin., Dictée de mots avec 'ch' et 'in'., Repérer les sons cibles dans un texte court."},
+        {"Semaine":"S7","Titre de la fluence":"Le roi et la poire du soir","Palier":"Palier 1 : son complexe [oi]","Objectif":"Identifier et lire la graphie complexe 'oi'","Notions abordées":"Lecture de listes de mots : roi, moi, soir, poire., Jeu de 'la course aux mots en oi'., Lecture de phrases simples avec le son 'oi'."},
+        {"Semaine":"S8","Titre de la fluence":"La limonade du pirate","Palier":"Palier 1 : fusion syllabique","Objectif":"Lire des mots de plusieurs syllabes de manière fluide","Notions abordées":"Lecture de mots longs composés uniquement des sons vus : chocolat, limonade., Exercices de 'découpage syllabique' à l'oral puis à l'écrit., Lecture de virelangues simples."},
+        {"Semaine":"S9","Titre de la fluence":"Bilan du décollage","Palier":"Palier 1 : bilan du décollage","Objectif":"Évaluer la précision et l'automaticité du décodage","Notions abordées":"Lecture chronométrée d'une liste de mots avec tous les sons vus., Dictée de phrases simples., Évaluation de la précision sur un texte court."},
+        {"Semaine":"S10","Titre de la fluence":"Le point, c'est tout","Palier":"Palier 2 : le point et le groupe de souffle","Objectif":"Utiliser le point pour marquer une pause longue et lire par unités de sens","Notions abordées":"Lecture de phrases en marquant distinctement l'arrêt au point., Exercice 'la voix qui descend' en fin de phrase., Regrouper les mots qui vont ensemble (travail avec des arcs de lecture)."},
+        {"Semaine":"S11","Titre de la fluence":"La liste de courses","Palier":"Palier 2 : la virgule (énumération)","Objectif":"Utiliser la virgule pour marquer une pause courte dans une liste","Notions abordées":"Lecture de listes : J'aime le chocolat, les frites et les bonbons., Exercices de respiration brève sur la virgule., Comparer la lecture d'une phrase avec et sans virgules."},
+        {"Semaine":"S12","Titre de la fluence":"Les amis de la forêt","Palier":"Palier 2 : liaisons obligatoires simples (D+N)","Objectif":"Réaliser la liaison entre un déterminant et un nom","Notions abordées":"Lecture de groupes nominaux au pluriel : les amis, des arbres., Surligner les liaisons à faire dans un texte avant la lecture., Jeu du 'détecteur de liaisons'."},
+        {"Semaine":"S13","Titre de la fluence":"Le beau bateau de Paul","Palier":"Palier 2 : sons complexes [eu] et [eau]","Objectif":"Maîtriser le son [eu] et le son [o] avec les graphies 'eau'/'au'","Notions abordées":"Lecture de mots ciblés : feu, jeu, chapeau, bateau., Dictée de mots en opposition pour différencier les sons : peu/pot, deux/do., Lecture de textes contenant ces sons."},
+        {"Semaine":"S14","Titre de la fluence":"Questions curieuses dans le jardin","Palier":"Palier 2 : le point d'interrogation","Objectif":"Utiliser le '?' pour marquer l'intonation montante de la question","Notions abordées":"Lecture de paires de phrases : Il vient. / Il vient ?, Exercice 'la voix qui monte'., Lecture de petits dialogues question/réponse."},
+        {"Semaine":"S15","Titre de la fluence":"En vacances chez nos amis","Palier":"Palier 2 : liaisons obligatoires (P+V)","Objectif":"Réaliser la liaison entre un pronom sujet et un verbe","Notions abordées":"Lecture de groupes : nous avons, vous êtes, on est., Intégrer ces liaisons dans des phrases interrogatives., Textes avec une forte occurrence de ces liaisons."},
+        {"Semaine":"S16","Titre de la fluence":"La signature de la petite fille","Palier":"Palier 2 : sons complexes [gn] et [ill]","Objectif":"Maîtriser les sons [gn] et [ill] pour affiner le décodage","Notions abordées":"Lecture de mots : montagne, signature, fille, billet., Jeu de 'la famille de mots' : signer, peigner..., Lecture de textes intégrant ces nouveaux sons."},
+        {"Semaine":"S17","Titre de la fluence":"Bilan de la connexion","Palier":"Palier 2 : bilan de la connexion","Objectif":"Évaluer la lecture de phrases ponctuées avec liaisons","Notions abordées":"Lecture d'un texte avec points, virgules et questions., Vérification des liaisons obligatoires (D+N, P+V)., Évaluation de la justesse de l'intonation (montante/descendante)."},
+        {"Semaine":"S18","Titre de la fluence":"La course du lièvre et de la tortue","Palier":"Palier 3 : phrases longues (mots de liaison)","Objectif":"Maintenir sa fluidité sur des phrases plus longues grâce aux connecteurs","Notions abordées":"Lecture de phrases avec 'et', 'mais', 'alors', 'car'., Repérer les connecteurs et comprendre leur rôle pour lier les idées., Transformer deux phrases courtes en une longue en utilisant un connecteur."},
+        {"Semaine":"S19","Titre de la fluence":"La surprise d'anniversaire","Palier":"Palier 3 : le point d'exclamation","Objectif":"Utiliser le '!' pour marquer une émotion (joie, surprise, colère)","Notions abordées":"Lire une même phrase avec '.', '?' et '!'., Associer une émotion à une phrase exclamative., Lecture de courtes onomatopées : Paf! Plouf! Ouah!"},
+        {"Semaine":"S20","Titre de la fluence":"L'astronome et la comète","Palier":"Palier 3 : vocabulaire moins fréquent","Objectif":"Développer des stratégies pour décoder des mots nouveaux ou plus rares","Notions abordées":"Introduction d'un ou deux mots moins fréquents dans un texte., Utiliser le contexte pour deviner le sens d'un mot., Créer un 'mur de mots' avec les nouveaux termes appris."},
+        {"Semaine":"S21","Titre de la fluence":"Le dialogue du jardinier","Palier":"Palier 3 : les dialogues (guillemets, tirets)","Objectif":"Identifier les marques du dialogue et changer de voix pour chaque personnage","Notions abordées":"Lecture d'un texte en identifiant qui parle (narrateur, personnage 1, 2...)., Attribuer un ton et une voix différents à chaque personnage., Jouer des saynètes très courtes à partir d'un dialogue lu."},
+        {"Semaine":"S22","Titre de la fluence":"L'oiseau qui ne savait pas chanter","Palier":"Palier 3 : phrases complexes (subordonnées)","Objectif":"Lire des phrases avec des propositions relatives simples ('qui', 'que')","Notions abordées":"Lecture de phrases comme 'Le chat qui dort est gris'., Repérer le 'qui' ou le 'que' et comprendre ce qu'il désigne., Construire des phrases complexes à l'oral avant de les lire."},
+        {"Semaine":"S23","Titre de la fluence":"La pluie d'automne","Palier":"Palier 3 : les liaisons facultatives","Objectif":"Découvrir les liaisons qui rendent la lecture plus élégante","Notions abordées":"Écouter et repérer les liaisons facultatives dans un poème lu par l'enseignant., S'entraîner à lire une phrase avec et sans la liaison : des amis incroyables., Lecture chorale de poésie."},
+        {"Semaine":"S24","Titre de la fluence":"Le trésor du pirate Barbenoire","Palier":"Palier 3 : lecture en miroir (prosodie)","Objectif":"Développer l'expressivité en imitant un modèle de lecture fluide","Notions abordées":"Écouter l'enseignant lire une phrase expressive et la répéter à l'identique., Utiliser des enregistrements audio de comédiens., S'enregistrer et comparer sa propre lecture avec le modèle."},
+        {"Semaine":"S25","Titre de la fluence":"Bilan de la fluidité","Palier":"Palier 3 : bilan de la fluidité","Objectif":"Évaluer la capacité à lire un texte narratif avec dialogue de manière expressive","Notions abordées":"Lecture d'un court récit avec dialogue et ponctuation expressive., Évaluation de la gestion du souffle et du rythme sur des phrases complexes., Auto-évaluation de l'expressivité par les élèves."},
+        {"Semaine":"S26","Titre de la fluence":"Description d'un marché oriental","Palier":"Palier 4 : lire un texte descriptif","Objectif":"Adapter sa lecture pour faire vivre des images et des sensations","Notions abordées":"Lecture de textes riches en adjectifs et en comparaisons., Travailler sur un rythme plus lent et une articulation soignée., Dessiner ce qu'on a compris et ressenti après la lecture."},
+        {"Semaine":"S27","Titre de la fluence":"Le monde fascinant des abeilles","Palier":"Palier 4 : lire un texte documentaire","Objectif":"Adapter sa lecture pour transmettre une information de manière claire et neutre","Notions abordées":"Lecture de courts articles encyclopédiques., Mettre l'accent sur les mots-clés : dates, noms, chiffres., S'entraîner à résumer l'information lue à l'oral avec un ton objectif."},
+        {"Semaine":"S28","Titre de la fluence":"La mer","Palier":"Palier 4 : lire de la poésie","Objectif":"Adapter sa lecture au rythme, aux rimes et à la musicalité du poème","Notions abordées":"Lecture de poèmes en respectant les pauses en fin de vers (ou les enjambements)., Jouer avec les sonorités et les allitérations., Mise en voix d'un poème en petit groupe."},
+        {"Semaine":"S29","Titre de la fluence":"Scène de théâtre - La décision du roi","Palier":"Palier 4 : lire du théâtre","Objectif":"Incarner un personnage à travers sa voix, son ton et ses intentions","Notions abordées":"Lecture d'une courte scène de théâtre à plusieurs., Travailler sur les didascalies (indications de jeu)., Lecture dialoguée en se déplaçant dans l'espace."},
+        {"Semaine":"S30","Titre de la fluence":"Le petit inventeur et la machine à rêves","Palier":"Palier 4 : lecture longue (endurance)","Objectif":"Maintenir un bon niveau de fluidité et d'expression sur un texte plus long","Notions abordées":"Lecture d'un chapitre de roman jeunesse ou d'une nouvelle courte., Travailler la gestion du souffle et de la concentration., Faire des pauses actives pendant la lecture pour maintenir l'attention."},
+        {"Semaine":"S31","Titre de la fluence":"Le jardinier de la mémoire","Palier":"Palier 4 : bilan final (lecture performance)","Objectif":"Célébrer les progrès en préparant une lecture pour un public","Notions abordées":"Chaque élève choisit un texte qu'il a particulièrement aimé durant l'année., Répétition et coaching personnalisé pour préparer la meilleure lecture possible., Présentation de la lecture devant une autre classe ou les parents."}
+      ]
+    },
+    "Ecriture": {
+      "columns": ["Semaine","Matières","Focalisation"],
+      "rows": [
+        {"Semaine":"S5","Matières":"Ponctuation de base","Focalisation":"Majuscules et point / Point ?/!"},
+        {"Semaine":"S6","Matières":"Virgule et énumérations","Focalisation":"Virgule simple / Listes"},
+        {"Semaine":"S7","Matières":"Phrase simple","Focalisation":"Sujet-Verbe-Complément"},
+        {"Semaine":"S8","Matières":"Familles de mots","Focalisation":"Racine & dérivation"},
+        {"Semaine":"S9","Matières":"Homophones","Focalisation":"a/à ; et/est"},
+        {"Semaine":"S10","Matières":"Petite production","Focalisation":"3-4 phrases cohérentes"},
+        {"Semaine":"S11","Matières":"Déterminants","Focalisation":"Possessifs, démonstratifs"},
+        {"Semaine":"S12","Matières":"Accords GN","Focalisation":"Genre & nombre"},
+        {"Semaine":"S13","Matières":"Adjectifs","Focalisation":"Position, accord"},
+        {"Semaine":"S14","Matières":"Pluriel des noms","Focalisation":"Régulier/irrégulier"},
+        {"Semaine":"S15","Matières":"Compléments circonstanciels","Focalisation":"Temps, lieu"},
+        {"Semaine":"S16","Matières":"Récit court","Focalisation":"5-6 phrases, cohérence"},
+        {"Semaine":"S17","Matières":"Connecteurs","Focalisation":"Temps, lieu, addition"},
+        {"Semaine":"S18","Matières":"Anaphores","Focalisation":"Pronoms personnels"},
+        {"Semaine":"S19","Matières":"Schéma narratif","Focalisation":"Situation, événement, fin"},
+        {"Semaine":"S20","Matières":"Description","Focalisation":"Portrait / lieu"},
+        {"Semaine":"S21","Matières":"Révision/correction","Focalisation":"Grille de relecture"},
+        {"Semaine":"S22","Matières":"Évaluation narrative","Focalisation":"Récit cohérent"},
+        {"Semaine":"S23","Matières":"Présent","Focalisation":"1er groupe, être/avoir/aller"},
+        {"Semaine":"S24","Matières":"Imparfait / Passé composé","Focalisation":"Contraste"},
+        {"Semaine":"S25","Matières":"Futur simple","Focalisation":"Terminaisons"},
+        {"Semaine":"S26","Matières":"Accord verbe/sujet","Focalisation":"Repérage du sujet"},
+        {"Semaine":"S27","Matières":"Accords GN (suite)","Focalisation":"Pratique guidée"},
+        {"Semaine":"S28","Matières":"BD & dialogues","Focalisation":"Tirets, guillemets"},
+        {"Semaine":"S29","Matières":"Texte explicatif","Focalisation":"Notice, recette"},
+        {"Semaine":"S30","Matières":"Description enrichie","Focalisation":"Vocabulaire précis"},
+        {"Semaine":"S31","Matières":"Avis argumenté","Focalisation":"Parce que… donc…"},
+        {"Semaine":"S32","Matières":"Jeu poétique","Focalisation":"Images, rythmes"},
+        {"Semaine":"S33","Matières":"Révision globale","Focalisation":"Orthographe & accords"},
+        {"Semaine":"S34","Matières":"Projet final","Focalisation":"Planification → brouillon → version finale"}
+      ]
+    },
+    "Géographie": {
+      "columns": ["Semaine","Thème","Activité / Objectif"],
+      "rows": [
+        {"Semaine":"S5","Thème":"Les quatre directions cardinales","Activité / Objectif":"Rose des vents, boussole, points cardinaux"},
+        {"Semaine":"S6","Thème":"Se situer dans l’école","Activité / Objectif":"Lecture de plans simples, localisation"},
+        {"Semaine":"S7","Thème":"Principales villes de Belgique","Activité / Objectif":"Carte des villes : Bruxelles, Anvers, Namur, Liège, Charleroi, Gand, Bruges, Louvain"},
+        {"Semaine":"S8","Thème":"Cours d’eau principaux","Activité / Objectif":"Meuse, Escaut, Sambre, Yser + rivière locale"},
+        {"Semaine":"S9","Thème":"Grands ensembles morphologiques","Activité / Objectif":"Littoral, Basse, Moyenne, Haute Belgique"},
+        {"Semaine":"S10","Thème":"Le littoral belge","Activité / Objectif":"Dunes, digue, ports, plages"},
+        {"Semaine":"S11","Thème":"Plateaux limoneux","Activité / Objectif":"Cultures, champs, villages"},
+        {"Semaine":"S12","Thème":"L’Ardenne","Activité / Objectif":"Forêts, prairies, vallées encaissées"},
+        {"Semaine":"S13","Thème":"Sillon Sambre-et-Meuse","Activité / Objectif":"Industrie, vallée, habitat dense"},
+        {"Semaine":"S14","Thème":"Comparer deux paysages","Activité / Objectif":"Caractéristiques et différences"},
+        {"Semaine":"S15","Thème":"Occupation du sol agricole vs urbain","Activité / Objectif":"Observation et comparaison"},
+        {"Semaine":"S16","Thème":"Occupation du sol urbain","Activité / Objectif":"Routes, gares, aéroports, habitat"},
+        {"Semaine":"S17","Thème":"Observer et lire un paysage","Activité / Objectif":"Photo / vue aérienne"},
+        {"Semaine":"S18","Thème":"Lire une carte simple","Activité / Objectif":"Relief, hydrographie, légende"},
+        {"Semaine":"S19","Thème":"Croquis cartographique","Activité / Objectif":"Représentation d’un paysage"},
+        {"Semaine":"S20","Thème":"Exercices de localisation","Activité / Objectif":"Repères et directions"},
+        {"Semaine":"S21","Thème":"Relief : versant, vallée","Activité / Objectif":"Définitions et exemples"},
+        {"Semaine":"S22","Thème":"Hydrographie : rive gauche/droite","Activité / Objectif":"Lit du cours d’eau"},
+        {"Semaine":"S23","Thème":"Hydrographie : amont et aval","Activité / Objectif":"Exemples sur carte"},
+        {"Semaine":"S24","Thème":"Situer éléments naturels","Activité / Objectif":"Relief et rivières sur cartes/photos"},
+        {"Semaine":"S25","Thème":"Interpréter une carte","Activité / Objectif":"Relier relief, hydrographie et occupation du sol"},
+        {"Semaine":"S26","Thème":"Pourquoi les villes sont près des rivières ?","Activité / Objectif":"Analyse et discussion"},
+        {"Semaine":"S27","Thème":"Pourquoi les zones plates favorisent les cultures ?","Activité / Objectif":"Observation et explication"},
+        {"Semaine":"S28","Thème":"Pourquoi l’Ardenne est peu peuplée ?","Activité / Objectif":"Comparaison avec autres régions"},
+        {"Semaine":"S29","Thème":"Lien relief et transport","Activité / Objectif":"Routes, vallées, voies ferrées"},
+        {"Semaine":"S30","Thème":"Synthèse : reconnaître un paysage","Activité / Objectif":"Associer paysage et ensemble morphologique"},
+        {"Semaine":"S31","Thème":"Atelier terrain autour de l’école","Activité / Objectif":"Lecture de paysage, carte, boussole"},
+        {"Semaine":"S32","Thème":"Révision générale","Activité / Objectif":"Jeu / quizz sur villes, fleuves, reliefs"},
+        {"Semaine":"S33","Thème":"Projet cartographique","Activité / Objectif":"Carte schématique de la Belgique avec repères"},
+        {"Semaine":"S34","Thème":"Évaluation finale ludique","Activité / Objectif":"Escape game / rallye carte / kahoot"}
+      ]
+    },
+    "Géométrie": {
+      "columns": ["Semaine","Objectif","Activité de tracé","Trace écrite"],
+      "rows": [
+        {"Semaine":"S2","Objectif":"Revoir le vocabulaire géométrique","Activité de tracé":"Point, segment, droite, demi-droite, angle droit","Trace écrite":"Fiche vocabulaire + schéma annoté"},
+        {"Semaine":"S3","Objectif":"Tracer des segments","Activité de tracé":"Utiliser la latte pour tracer et comparer des longueurs","Trace écrite":"Segments tracés et comparés"},
+        {"Semaine":"S4","Objectif":"Tracer des droites perpendiculaires","Activité de tracé":"Utiliser l’équerre sur papier vierge","Trace écrite":"Droites perpendiculaires annotées"},
+        {"Semaine":"S5","Objectif":"Réactivation segments + perpendiculaires","Activité de tracé":"Tracer figures simples mélangeant segments et perpendiculaires","Trace écrite":"Figures complètes"},
+        {"Semaine":"S6","Objectif":"Tracer des droites parallèles","Activité de tracé":"Utiliser papier quadrillé et la latte","Trace écrite":"Parallèles tracées"},
+        {"Semaine":"S7","Objectif":"Tracer un rectangle","Activité de tracé":"Tracer sur papier quadrillé avec contraintes","Trace écrite":"Rectangle construit"},
+        {"Semaine":"S8","Objectif":"Tracer un carré","Activité de tracé":"Tracer sur papier quadrillé avec contraintes","Trace écrite":"Carré construit"},
+        {"Semaine":"S9","Objectif":"Tracer un parallélogramme","Activité de tracé":"Utiliser les propriétés des côtés parallèles","Trace écrite":"Parallélogramme construit"},
+        {"Semaine":"S10","Objectif":"Réactivation quadrilatères","Activité de tracé":"Tracer différents quadrilatères + parallèles/perpendiculaires","Trace écrite":"Figures composées"},
+        {"Semaine":"S11","Objectif":"Tracer un triangle rectangle","Activité de tracé":"Identifier angle droit et tracer","Trace écrite":"Triangle rectangle tracé"},
+        {"Semaine":"S12","Objectif":"Tracer un triangle isocèle","Activité de tracé":"Utiliser côtés isométriques","Trace écrite":"Triangle isocèle tracé"},
+        {"Semaine":"S13","Objectif":"Tracer un triangle équilatéral","Activité de tracé":"Méthode approximative à la latte","Trace écrite":"Triangle équilatéral tracé"},
+        {"Semaine":"S14","Objectif":"Tracer triangles dans d’autres figures","Activité de tracé":"Construire triangle dans un carré ou rectangle","Trace écrite":"Figures avec triangles"},
+        {"Semaine":"S15","Objectif":"Réactivation : triangles","Activité de tracé":"Tracer et distinguer plusieurs types de triangles","Trace écrite":"Comparaison des tracés"},
+        {"Semaine":"S16","Objectif":"Tracer une diagonale","Activité de tracé":"Dans un rectangle ou un carré","Trace écrite":"Figures avec diagonale"},
+        {"Semaine":"S17","Objectif":"Tracer deux diagonales","Activité de tracé":"Dans carré/rectangle et observer propriétés","Trace écrite":"Diagonales croisées"},
+        {"Semaine":"S18","Objectif":"Tracer une médiane","Activité de tracé":"Dans un triangle","Trace écrite":"Médiane tracée"},
+        {"Semaine":"S19","Objectif":"Tracer une hauteur","Activité de tracé":"Dans un triangle","Trace écrite":"Hauteur tracée"},
+        {"Semaine":"S20","Objectif":"Tracer des axes de symétrie","Activité de tracé":"Dans carré et rectangle","Trace écrite":"Axes de symétrie tracés"},
+        {"Semaine":"S21","Objectif":"Réactivation diagonales, médianes, hauteurs, axes","Activité de tracé":"Mélange de tracés dans figures simples","Trace écrite":"Figures annotées"},
+        {"Semaine":"S22","Objectif":"Tracer un losange","Activité de tracé":"À partir des côtés isométriques","Trace écrite":"Losange tracé"},
+        {"Semaine":"S23","Objectif":"Tracer un parallélogramme à partir d’un triangle","Activité de tracé":"Compléter la figure","Trace écrite":"Parallélogramme construit"},
+        {"Semaine":"S24","Objectif":"Tracer un triangle inscrit dans un quadrilatère","Activité de tracé":"Construire triangle à l’intérieur","Trace écrite":"Triangle inscrit tracé"},
+        {"Semaine":"S25","Objectif":"Combiner figures","Activité de tracé":"Tracer carré + diagonales + médianes","Trace écrite":"Figures composées"},
+        {"Semaine":"S26","Objectif":"Réactivation : figures composées","Activité de tracé":"Tracer une figure avec consignes complexes","Trace écrite":"Figure finale annotée"},
+        {"Semaine":"S27","Objectif":"Tracer un cercle","Activité de tracé":"Utiliser le compas, repérer centre et rayon","Trace écrite":"Cercle tracé"},
+        {"Semaine":"S28","Objectif":"Tracer un cercle inscrit dans un carré","Activité de tracé":"Utiliser diagonales pour trouver le centre","Trace écrite":"Cercle inscrit tracé"},
+        {"Semaine":"S29","Objectif":"Tracer un axe de symétrie","Activité de tracé":"D’une figure donnée","Trace écrite":"Axe tracé et annoté"},
+        {"Semaine":"S30","Objectif":"Construire une figure symétrique","Activité de tracé":"Par pliage ou axe tracé","Trace écrite":"Figure symétrique réalisée"},
+        {"Semaine":"S31","Objectif":"Synthèse finale","Activité de tracé":"Tracer figure composée (carré, diagonales, cercles, symétries)","Trace écrite":"Grande figure complète"}
+      ]
+    },
+    "Lecture mystère, culture ": {
+      "columns": ["Semaine","Personnage Belge","Personnage du Monde","Fait/Monument"],
+      "rows": [
+        {"Semaine":1,"Personnage Belge":"Adolphe Sax (saxophone)","Personnage du Monde":"Jules César","Fait/Monument":"Les pyramides d’Égypte"},
+        {"Semaine":2,"Personnage Belge":"Georges Lemaître (Big Bang)","Personnage du Monde":"Cléopâtre","Fait/Monument":"La fondation de Rome"},
+        {"Semaine":3,"Personnage Belge":"René Magritte (peintre)","Personnage du Monde":"Charlemagne","Fait/Monument":"Le Colisée de Rome"},
+        {"Semaine":4,"Personnage Belge":"Hergé (Tintin)","Personnage du Monde":"Léonard de Vinci","Fait/Monument":"La conquête des Gaules"},
+        {"Semaine":5,"Personnage Belge":"Jacques Brel (chanteur)","Personnage du Monde":"Christophe Colomb","Fait/Monument":"Les châteaux forts"},
+        {"Semaine":6,"Personnage Belge":"Eddy Merckx (cycliste)","Personnage du Monde":"Isaac Newton","Fait/Monument":"La cathédrale de Chartres"},
+        {"Semaine":7,"Personnage Belge":"Justine Henin (tennis)","Personnage du Monde":"Albert Einstein","Fait/Monument":"La découverte de l’Amérique (1492)"},
+        {"Semaine":8,"Personnage Belge":"Kim Clijsters (tennis)","Personnage du Monde":"Nelson Mandela","Fait/Monument":"L’invention de l’imprimerie (Gutenberg)"},
+        {"Semaine":9,"Personnage Belge":"Stromae (musicien)","Personnage du Monde":"Martin Luther King","Fait/Monument":"La Révolution française (1789)"},
+        {"Semaine":10,"Personnage Belge":"Angèle (chanteuse)","Personnage du Monde":"Rosa Parks","Fait/Monument":"La tour Eiffel"},
+        {"Semaine":11,"Personnage Belge":"Jean-Joseph Charlier (révolution 1830)","Personnage du Monde":"Malala Yousafzai","Fait/Monument":"La Révolution belge (1830)"},
+        {"Semaine":12,"Personnage Belge":"Léopold Ier (1er roi)","Personnage du Monde":"Gandhi","Fait/Monument":"La bataille de Waterloo (1815)"},
+        {"Semaine":13,"Personnage Belge":"Léopold II (Congo)","Personnage du Monde":"Barack Obama","Fait/Monument":"La Première Guerre mondiale"},
+        {"Semaine":14,"Personnage Belge":"Albert Ier (roi chevalier)","Personnage du Monde":"Marie Curie","Fait/Monument":"L’Armistice du 11 novembre"},
+        {"Semaine":15,"Personnage Belge":"Reine Astrid","Personnage du Monde":"Neil Armstrong","Fait/Monument":"La Seconde Guerre mondiale"},
+        {"Semaine":16,"Personnage Belge":"Princesse Élisabeth","Personnage du Monde":"Youri Gagarine","Fait/Monument":"Le débarquement de Normandie (1944)"},
+        {"Semaine":17,"Personnage Belge":"Pieter Bruegel (peintre)","Personnage du Monde":"Frida Kahlo","Fait/Monument":"La Déclaration des Droits de l’Homme (1948)"},
+        {"Semaine":18,"Personnage Belge":"Paul Delvaux (peintre)","Personnage du Monde":"Pablo Picasso","Fait/Monument":"L’homme sur la Lune (1969)"},
+        {"Semaine":19,"Personnage Belge":"Christian De Duve (Nobel médecine)","Personnage du Monde":"William Shakespeare","Fait/Monument":"La chute du mur de Berlin (1989)"},
+        {"Semaine":20,"Personnage Belge":"François Englert (Nobel physique)","Personnage du Monde":"Victor Hugo","Fait/Monument":"Les attentats du 11 septembre"},
+        {"Semaine":21,"Personnage Belge":"Toots Thielemans (harmonica)","Personnage du Monde":"Mozart","Fait/Monument":"Le palais royal de Bruxelles"},
+        {"Semaine":22,"Personnage Belge":"Salvatore Adamo (chanteur)","Personnage du Monde":"Beethoven","Fait/Monument":"L’Atomium"},
+        {"Semaine":23,"Personnage Belge":"Amélie Nothomb (écrivaine)","Personnage du Monde":"Vincent Van Gogh","Fait/Monument":"Le Manneken-Pis"},
+        {"Semaine":24,"Personnage Belge":"Marie Popelin (droits femmes)","Personnage du Monde":"Anne Frank","Fait/Monument":"Le Mont-Saint-Michel"},
+        {"Semaine":25,"Personnage Belge":"Isabelle Gatti de Gamond (égalité école)","Personnage du Monde":"Florence Nightingale","Fait/Monument":"La Grande Muraille de Chine"},
+        {"Semaine":26,"Personnage Belge":"Ernest Solvay (industriel)","Personnage du Monde":"Greta Thunberg","Fait/Monument":"Le Taj Mahal"},
+        {"Semaine":27,"Personnage Belge":"Georges Simenon (Maigret)","Personnage du Monde":"Usain Bolt","Fait/Monument":"Le Machu Picchu"},
+        {"Semaine":28,"Personnage Belge":"Benoît Poelvoorde (acteur)","Personnage du Monde":"Lionel Messi","Fait/Monument":"Les temples d’Angkor"},
+        {"Semaine":29,"Personnage Belge":"Georges Remi - Hergé (Tintin encore)","Personnage du Monde":"Serena Williams","Fait/Monument":"Le Christ Rédempteur"},
+        {"Semaine":30,"Personnage Belge":"Nafi Thiam (athlète)","Personnage du Monde":"Simone Veil","Fait/Monument":"La Statue de la Liberté"}
+      ]
+    },
+    "Algèbre": {
+      "columns": ["Semaine","Objectif","Activité","Trace écrite"],
+      "rows": [
+        {"Semaine":"S3","Objectif":"Vocabulaire numération","Activité":"Unités, dizaines, centaines, milliers","Trace écrite":"Fiche vocabulaire"},
+        {"Semaine":"S4","Objectif":"Lire/écrire nombres","Activité":"Jusqu’à 100 000","Trace écrite":"Exercices d’écriture"},
+        {"Semaine":"S5","Objectif":"Décomposer/recomposer","Activité":"Unités de valeur","Trace écrite":"Tableau de décomposition"},
+        {"Semaine":"S6","Objectif":"Comparer/ordonner","Activité":"<, >, =","Trace écrite":"Exercices de comparaison"},
+        {"Semaine":"S7","Objectif":"Compter par pas","Activité":"100, 200, 500","Trace écrite":"Suite numérique écrite"},
+        {"Semaine":"S8","Objectif":"Suites croissantes/décroissantes","Activité":"Encadrement","Trace écrite":"Suites complétées"},
+        {"Semaine":"S9","Objectif":"Régularité tables 2-4-8","Activité":"Découverte des liens","Trace écrite":"Suites multipliées"},
+        {"Semaine":"S10","Objectif":"Régularité tables 3-6-9","Activité":"Découverte des liens","Trace écrite":"Suites multipliées"},
+        {"Semaine":"S11","Objectif":"Additionner grands nombres","Activité":"Mental et posé","Trace écrite":"Opérations posées"},
+        {"Semaine":"S12","Objectif":"Soustraire grands nombres","Activité":"Mental et posé","Trace écrite":"Opérations posées"},
+        {"Semaine":"S13","Objectif":"Multiplier par 1 chiffre","Activité":"Écriture posée","Trace écrite":"Opérations posées"},
+        {"Semaine":"S14","Objectif":"Multiplier par 10, 100, 50","Activité":"Méthode mentale","Trace écrite":"Calculs rapides"},
+        {"Semaine":"S15","Objectif":"Diviser par 2, 5, 10","Activité":"Avec objets ou chiffres","Trace écrite":"Résultats notés"},
+        {"Semaine":"S16","Objectif":"Estimer un résultat","Activité":"Ordre de grandeur","Trace écrite":"Estimation notée"},
+        {"Semaine":"S17","Objectif":"Commutativité","Activité":"a+b=b+a / a×b=b×a","Trace écrite":"Exemples d’élèves"},
+        {"Semaine":"S18","Objectif":"Associativité","Activité":"(a+b)+c=a+(b+c)","Trace écrite":"Exemples d’élèves"},
+        {"Semaine":"S19","Objectif":"Distributivité","Activité":"12×15=...","Trace écrite":"Exemples d’élèves"},
+        {"Semaine":"S20","Objectif":"Compensation","Activité":"99+27=100+26","Trace écrite":"Exemples d’élèves"},
+        {"Semaine":"S21","Objectif":"Vérifier un calcul","Activité":"Opération réciproque","Trace écrite":"Double calcul"},
+        {"Semaine":"S22","Objectif":"Parenthèses","Activité":"Priorité opérations","Trace écrite":"Exercices avec ()"},
+        {"Semaine":"S23","Objectif":"Compléter une égalité","Activité":"__+17=54","Trace écrite":"Exercices à trous"},
+        {"Semaine":"S24","Objectif":"Repérer fausse égalité","Activité":"Corriger","Trace écrite":"Exemples corrigés"},
+        {"Semaine":"S25","Objectif":"Écriture simplifiée","Activité":"Symboles/égalités","Trace écrite":"Exercices"},
+        {"Semaine":"S26","Objectif":"Problèmes équivalences","Activité":"Double, tiers…","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S27","Objectif":"Égalité à trous","Activité":"Découverte de l’inconnue","Trace écrite":"Exercices"},
+        {"Semaine":"S28","Objectif":"Problème additif","Activité":"Mise en équation","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S29","Objectif":"Problème multiplicatif","Activité":"Mise en équation","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S30","Objectif":"Vérifier calculatrice","Activité":"Contrôle de résultat","Trace écrite":"Résultats vérifiés"},
+        {"Semaine":"S31","Objectif":"Synthèse générale","Activité":"Suites, opérations","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S32","Objectif":"Évaluation ludique","Activité":"Rallye calcul","Trace écrite":"Fiche résultats"}
+      ]
+    },
+    "Grandeurs": {
+      "columns": ["Semaine","Objectif","Activité","Trace écrite"],
+      "rows": [
+        {"Semaine":"S5","Objectif":"Vocabulaire des longueurs","Activité":"m, cm, km","Trace écrite":"Fiche vocabulaire"},
+        {"Semaine":"S6","Objectif":"Mesurer avec la règle","Activité":"Cm et mm","Trace écrite":"Mesures écrites"},
+        {"Semaine":"S7","Objectif":"Estimer et mesurer","Activité":"Objets de la classe","Trace écrite":"Tableau comparatif"},
+        {"Semaine":"S8","Objectif":"Conversions cm↔m↔km","Activité":"Exercices","Trace écrite":"Conversions notées"},
+        {"Semaine":"S9","Objectif":"Périmètre polygone","Activité":"Rectangle/carré","Trace écrite":"Calculs de périmètres"},
+        {"Semaine":"S10","Objectif":"Vocabulaire masses","Activité":"g, kg","Trace écrite":"Fiche vocabulaire"},
+        {"Semaine":"S11","Objectif":"Estimer une masse","Activité":"Objets quotidiens","Trace écrite":"Tableau d’estimation"},
+        {"Semaine":"S12","Objectif":"Lire une balance","Activité":"Comparer masses","Trace écrite":"Résultats notés"},
+        {"Semaine":"S13","Objectif":"Conversions g↔kg","Activité":"Exercices","Trace écrite":"Conversions notées"},
+        {"Semaine":"S14","Objectif":"Vocabulaire capacités","Activité":"L, mL","Trace écrite":"Fiche vocabulaire"},
+        {"Semaine":"S15","Objectif":"Lire un verre gradué","Activité":"Capacités mesurées","Trace écrite":"Tableau des mesures"},
+        {"Semaine":"S16","Objectif":"Estimer une contenance","Activité":"Bouteilles, verres","Trace écrite":"Tableau comparatif"},
+        {"Semaine":"S17","Objectif":"Conversions mL↔L","Activité":"Exercices","Trace écrite":"Conversions notées"},
+        {"Semaine":"S18","Objectif":"Lire l’heure","Activité":"Cadran et numérique","Trace écrite":"Heures notées"},
+        {"Semaine":"S19","Objectif":"Durée intervalle","Activité":"Début-fin","Trace écrite":"Durées calculées"},
+        {"Semaine":"S20","Objectif":"Repères calendrier","Activité":"Jours, mois, années","Trace écrite":"Tableau calendrier"},
+        {"Semaine":"S21","Objectif":"Lire un horaire","Activité":"Bus, train, cinéma","Trace écrite":"Durées lues"},
+        {"Semaine":"S22","Objectif":"Problèmes de durée","Activité":"Additions/soustractions","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S23","Objectif":"Lire un thermomètre","Activité":"°C","Trace écrite":"Températures notées"},
+        {"Semaine":"S24","Objectif":"Comparer températures","Activité":"Positives/négatives","Trace écrite":"Tableau comparatif"},
+        {"Semaine":"S25","Objectif":"Lire la monnaie","Activité":"€, centimes","Trace écrite":"Montants notés"},
+        {"Semaine":"S26","Objectif":"Problèmes d’achats","Activité":"Rendre monnaie","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S27","Objectif":"Comparer grandeurs","Activité":"Ordre de grandeur","Trace écrite":"Tableau comparatif"},
+        {"Semaine":"S28","Objectif":"Estimer avant mesurer","Activité":"Grandeurs diverses","Trace écrite":"Tableau d’estimation"},
+        {"Semaine":"S29","Objectif":"Problèmes longueurs","Activité":"Trajets, périmètres","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S30","Objectif":"Problèmes masses/capacités","Activité":"Recette","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S31","Objectif":"Problèmes temps","Activité":"Planning","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S32","Objectif":"Problèmes monnaie","Activité":"Achats cumulés","Trace écrite":"Résolutions écrites"},
+        {"Semaine":"S33","Objectif":"Révisions générales","Activité":"Toutes grandeurs","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S34","Objectif":"Évaluation ludique","Activité":"Rallye de mesure","Trace écrite":"Fiche résultats"}
+      ]
+    },
+    "Traitement de données": {
+      "columns": ["Semaine","Objectif","Activité","Trace écrite"],
+      "rows": [
+        {"Semaine":"S5","Objectif":"Lire un tableau simple","Activité":"Horaires, résultats","Trace écrite":"Questions écrites"},
+        {"Semaine":"S6","Objectif":"Compléter un tableau","Activité":"Avec données fournies","Trace écrite":"Tableau rempli"},
+        {"Semaine":"S7","Objectif":"Trouver total et comparer","Activité":"Valeurs tableau","Trace écrite":"Résultats notés"},
+        {"Semaine":"S8","Objectif":"Lire tableau double entrée","Activité":"Lignes/colonnes","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S9","Objectif":"Construire tableau fréquence","Activité":"Enquête en classe","Trace écrite":"Tableau complété"},
+        {"Semaine":"S10","Objectif":"Lire graphique barres","Activité":"Exemple fruits","Trace écrite":"Questions écrites"},
+        {"Semaine":"S11","Objectif":"Lire pictogramme","Activité":"Exemple loisirs","Trace écrite":"Questions écrites"},
+        {"Semaine":"S12","Objectif":"Construire graphique barres","Activité":"À partir d’un tableau","Trace écrite":"Graphique tracé"},
+        {"Semaine":"S13","Objectif":"Construire pictogramme","Activité":"Choisir légende","Trace écrite":"Pictogramme tracé"},
+        {"Semaine":"S14","Objectif":"Lire graphique ligne","Activité":"Température semaine","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S15","Objectif":"Comparer 2 graphiques","Activité":"Barres vs pictogramme","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S16","Objectif":"Réactivation","Activité":"Lecture+construction","Trace écrite":"Résultats notés"},
+        {"Semaine":"S17","Objectif":"Identifier max/min","Activité":"Dans un graphique","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S18","Objectif":"Calculer total/moyenne","Activité":"À partir d’un graphique","Trace écrite":"Résultats notés"},
+        {"Semaine":"S19","Objectif":"Comparer catégories","Activité":"Ex. filles/garçons","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S20","Objectif":"Lire données réelles","Activité":"Bulletin météo","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S21","Objectif":"Lire données réelles","Activité":"Résultats sportifs","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S22","Objectif":"Lire graphique temps","Activité":"Horaires bus/train","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S23","Objectif":"Enquête en classe","Activité":"Ex. animaux préférés","Trace écrite":"Tableau rempli"},
+        {"Semaine":"S24","Objectif":"Construire tableau/graphique","Activité":"Résultats enquête","Trace écrite":"Graphique tracé"},
+        {"Semaine":"S25","Objectif":"Présenter résultats","Activité":"Lecture orale","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S26","Objectif":"Problème comparaison","Activité":"À partir d’un graphique","Trace écrite":"Résultats notés"},
+        {"Semaine":"S27","Objectif":"Problème addition/soustraction","Activité":"À partir données","Trace écrite":"Résultats notés"},
+        {"Semaine":"S28","Objectif":"Lire graphique cumulatif","Activité":"Total progressif","Trace écrite":"Réponses écrites"},
+        {"Semaine":"S29","Objectif":"Réactivation générale","Activité":"Lecture+construction","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S30","Objectif":"Mini-projet météo","Activité":"Tableau+graphique","Trace écrite":"Projet réalisé"},
+        {"Semaine":"S31","Objectif":"Mini-projet sport","Activité":"Résultats matchs","Trace écrite":"Projet réalisé"},
+        {"Semaine":"S32","Objectif":"Mini-projet famille","Activité":"Activités, trajets","Trace écrite":"Projet réalisé"},
+        {"Semaine":"S33","Objectif":"Révisions générales","Activité":"Tableaux+graphiques","Trace écrite":"Résumé écrit"},
+        {"Semaine":"S34","Objectif":"Évaluation ludique","Activité":"Rallye graphiques","Trace écrite":"Fiche résultats"}
+      ]
+    },
+    "Histoire": {
+      "columns": ["Semaine","Thème","Activité / Objectif"],
+      "rows": [
+        {"Semaine":"S5","Thème":"Millénaire et siècle","Activité / Objectif":"Comprendre la différence entre les deux"},
+        {"Semaine":"S6","Thème":"Associer une date à un siècle/millénaire","Activité / Objectif":"Exercices pratiques"},
+        {"Semaine":"S7","Thème":"Les 5 grandes périodes conventionnelles","Activité / Objectif":"Découverte de la frise globale"},
+        {"Semaine":"S8","Thème":"Situer les périodes les unes par rapport aux autres","Activité / Objectif":"Avant / après"},
+        {"Semaine":"S9","Thème":"Réalités d’aujourd’hui : école obligatoire","Activité / Objectif":"Comparer avec le passé"},
+        {"Semaine":"S10","Thème":"Moment clé 1 : Période gallo-romaine","Activité / Objectif":"Contexte historique"},
+        {"Semaine":"S11","Thème":"Accès au savoir à l’époque gallo-romaine","Activité / Objectif":"Tradition orale / écrite"},
+        {"Semaine":"S12","Thème":"Moment clé 2 : Seigneuries et villes","Activité / Objectif":"Contexte médiéval"},
+        {"Semaine":"S13","Thème":"Organisation de la société médiévale","Activité / Objectif":"Noblesse, clergé, paysans, artisans"},
+        {"Semaine":"S14","Thème":"Accès au savoir au Moyen Âge","Activité / Objectif":"Monastères, universités"},
+        {"Semaine":"S15","Thème":"Comparer Gallo-romains / Moyen Âge","Activité / Objectif":"Changements et continuités"},
+        {"Semaine":"S16","Thème":"Moment clé 3 : Développements scientifiques","Activité / Objectif":"Contexte XVe → XVIIIe"},
+        {"Semaine":"S17","Thème":"L’imprimerie et la diffusion du savoir","Activité / Objectif":"Gutenberg"},
+        {"Semaine":"S18","Thème":"Langues vernaculaires vs latin","Activité / Objectif":"Évolution linguistique"},
+        {"Semaine":"S19","Thème":"Moment clé 4 : Patronat et monde ouvrier","Activité / Objectif":"XIXe → début XXe"},
+        {"Semaine":"S20","Thème":"Révolution belge (1830)","Activité / Objectif":"Causes et conséquences"},
+        {"Semaine":"S21","Thème":"Travail des enfants et lois de 1914","Activité / Objectif":"Instruction obligatoire"},
+        {"Semaine":"S22","Thème":"Comparer Moyen Âge / Développements scientifiques","Activité / Objectif":"Changements / continuités"},
+        {"Semaine":"S23","Thème":"Comparer XIXe siècle / après 1945","Activité / Objectif":"Changements / continuités"},         
+        { "Semaine":"S24,"Thème": "Moment clé 5 : Après 1945", "Activité / Objectif": "Contexte moderne" }, 
+        { "Semaine":"S25","Thème": "École obligatoire jusqu’à 18 ans", "Activité / Objectif": "Mixité scolaire" },
+        { "Semaine":"S26","Thème": "Inégalités d’accès aux savoirs aujourd’hui", "Activité / Objectif": "Technologies et internet" }, 
+        { "Semaine":"S27","Thème": "Faits marquants : conquête romaine, an 1, imprimerie", "Activité / Objectif": "Repères historiques" },
+        { "Semaine":"S28","Thème": "Faits marquants : 1830, 1914, après 1945", "Activité / Objectif": "Repères historiques" },
+        { "Semaine":"S29","Thème": "Traces du passé vs travail postérieur", "Activité / Objectif": "Méthodologie de l’historien" },
+        { "Semaine":"S30","Thème": "Lire une frise chronologique", "Activité / Objectif": "Compléter et annoter" },
+        { "Semaine":"S31","Thème": "Lire et exploiter un document", "Activité / Objectif": "Photo, texte, manuscrit" },
+        { "Semaine":"S32","Thème": "Patrimoine local", "Activité / Objectif": "Exemples : château, manuscrit, lieu scolaire" },
+        { "Semaine":"S33","Thème": "Révisions générales", "Activité / Objectif": "Frise, moments clés, faits marquants" }, 
+        { "Semaine":"S34","Thème": "Évaluation finale ludique", "Activité / Objectif": "Quizz, escape game" }
+      ] 
+    } 
+  } 
 }
-const numberToWeek = n => `S${n}`;
-
-// Retourne une copie de row avec Semaine décalée, si présent
-function shiftRowWeek(row, offset, normalizeToS=true) {
-  if (!row || !Object.prototype.hasOwnProperty.call(row, "Semaine")) return row;
-  try {
-    const n = weekToNumber(row.Semaine);
-    const newN = n + offset;
-    // normalise au format "Sx" sur les feuilles décalées (clair/net)
-    return { ...row, Semaine: normalizeToS ? numberToWeek(newN) : newN };
-  } catch {
-    // si la semaine n’est pas convertible, on ne modifie pas
-    return row;
-  }
-}
-
-// Adaptation globale sur une copie profonde
-function adaptWeeks(data, offsets) {
-  const copy = structuredClone ? structuredClone(data) : JSON.parse(JSON.stringify(data));
-  let modifiedSheets = 0;
-
-  for (const [sheetName, offset] of Object.entries(offsets)) {
-    if (!offset || offset === 0) continue;
-    const prog = copy?.programmes?.[sheetName];
-    if (!prog || !Array.isArray(prog.rows)) continue;
-
-    prog.rows = prog.rows.map(row => shiftRowWeek(row, offset, true));
-    modifiedSheets++;
-  }
-  return { adapted: copy, modifiedSheets };
-}
-
-// Validation légère de la structure attendue
-function validateRoot(obj) {
-  return obj && typeof obj === "object" && "programmes" in obj;
-}
-
-// Beautify JSON
-function pretty(obj) {
-  return JSON.stringify(obj, null, 2);
-}
-
-/* ===================== UI – RÈGLES ===================== */
-const rulesState = { ...DEFAULT_OFFSETS };
-const rulesTblBody = document.querySelector("#rulesTbl tbody");
-
-function renderRules() {
-  rulesTblBody.innerHTML = "";
-  Object.entries(rulesState).forEach(([name, val]) => {
-    const tr = document.createElement("tr");
-    const tdName = document.createElement("td");
-    const tdVal = document.createElement("td");
-    tdName.textContent = name;
-
-    const span = document.createElement("span");
-    span.textContent = val;
-    span.className = "code";
-    span.style.cursor = "pointer";
-    span.title = "Double-cliquez pour modifier";
-
-    span.addEventListener("dblclick", () => {
-      const nv = prompt(`Décalage pour "${name}" (peut être négatif, 0 ou positif) :`, String(rulesState[name]));
-      if (nv === null) return;
-      const parsed = Number(nv);
-      if (Number.isNaN(parsed) || !Number.isFinite(parsed)) {
-        log(`Décalage invalide pour ${name}.`, "err");
-        return;
-      }
-      rulesState[name] = Math.trunc(parsed);
-      renderRules();
-    });
-
-    tdVal.appendChild(span);
-    tr.appendChild(tdName);
-    tr.appendChild(tdVal);
-    rulesTblBody.appendChild(tr);
-  });
-}
-
-/* ===================== UI – PRINCIPALE ===================== */
-const elIn = document.getElementById("in");
-const elOut = document.getElementById("out");
-const elAdapt = document.getElementById("adapt");
-const elBeautify = document.getElementById("beautify");
-const elDownload = document.getElementById("download");
-const elValid = document.getElementById("validBadge");
-const elModCount = document.getElementById("modCount");
-const elLog = document.getElementById("log");
-const elLoadSample = document.getElementById("loadSample");
-const elResetRules = document.getElementById("resetRules");
-
-function log(msg, level="") {
-  const color = level==="ok" ? "ok" : level==="warn" ? "warn" : level==="err" ? "err" : "muted";
-  const line = `<div class="${color}">${new Date().toLocaleTimeString()} — ${msg}</div>`;
-  elLog.innerHTML = line + elLog.innerHTML;
-}
-
-function parseInput() {
-  try {
-    const obj = JSON.parse(elIn.value);
-    const valid = validateRoot(obj);
-    elValid.textContent = valid ? "Oui" : "Non";
-    elValid.className = valid ? "ok" : "err";
-    return valid ? obj : null;
-  } catch(e) {
-    elValid.textContent = "Non";
-    elValid.className = "err";
-    return null;
-  }
-}
-
-function doBeautify() {
-  try {
-    const obj = JSON.parse(elIn.value);
-    elIn.value = pretty(obj);
-    parseInput();
-    log("Entrée reformatée.");
-  } catch {
-    log("JSON invalide : impossible de reformater.", "err");
-  }
-}
-
-function doAdapt() {
-  const obj = parseInput();
-  if (!obj) { log("Veuillez fournir un JSON valide.", "err"); return; }
-
-  const { adapted, modifiedSheets } = adaptWeeks(obj, rulesState);
-  elOut.value = pretty(adapted);
-  elModCount.textContent = String(modifiedSheets);
-  elDownload.disabled = false;
-
-  if (modifiedSheets === 0) {
-    log("Aucune feuille n’a été modifiée (tous les décalages = 0 ou feuilles introuvables).", "warn");
-  } else {
-    log(`Adaptation effectuée sur ${modifiedSheets} feuille(s).`, "ok");
-  }
-}
-
-function doDownload() {
-  const blob = new Blob([elOut.value], { type: "application/json;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url; a.download = "programmes_adaptes.json";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  log("Fichier téléchargé : programmes_adaptes.json", "ok");
-}
-
-function loadSample() {
-  const sample = {
-    "sheets": ["Math","Géométrie","Algèbre","Grandeurs","Traitement de données","Fluences","Ecriture","Géographie","Histoire","Lecture mystère, culture "],
-    "programmes": {
-      "Math": {
-        "columns":["Semaine","Matière","Objectifs","Notions travaillées"],
-        "rows":[
-          {"Semaine":"S1","Matière":"Additions ≤ 100","Objectifs":"…","Notions travaillées":"…"},
-          {"Semaine":"S2","Matière":"Soustractions ≤ 100","Objectifs":"…","Notions travaillées":"…"}
-        ]
-      },
-      "Géométrie": {
-        "columns":["Semaine","Objectif","Activité de tracé","Trace écrite"],
-        "rows":[
-          {"Semaine":1,"Objectif":"Revoir le vocabulaire","Activité de tracé":"…","Trace écrite":"…"},
-          {"Semaine":2,"Objectif":"Tracer des segments","Activité de tracé":"…","Trace écrite":"…"}
-        ]
-      },
-      "Algèbre": {
-        "columns":["Semaine","Objectif","Activité","Trace écrite"],
-        "rows":[
-          {"Semaine":"S1","Objectif":"Numération","Activité":"…","Trace écrite":"…"},
-          {"Semaine":"S3","Objectif":"Décomposer","Activité":"…","Trace écrite":"…"}
-        ]
-      },
-      "Grandeurs": { "columns":["Semaine"], "rows":[ {"Semaine":"S1"},{"Semaine":"S4"} ] },
-      "Traitement de données": { "columns":["Semaine"], "rows":[ {"Semaine":"S2"},{"Semaine":"S5"} ] },
-      "Fluences": { "columns":["Semaine"], "rows":[ {"Semaine":"S7"},{"Semaine":"S8"} ] },
-      "Ecriture": { "columns":["Semaine"], "rows":[ {"Semaine":"S10"} ] },
-      "Géographie": { "columns":["Semaine"], "rows":[ {"Semaine": 3} ] },
-      "Histoire": { "columns":["Semaine"], "rows":[ {"Semaine":"7"} ] },
-      "Lecture mystère, culture ": {
-        "columns":["Semaine","Personnage Belge","Personnage du Monde","Fait/Monument"],
-        "rows":[ {"Semaine":1,"Personnage Belge":"Adolphe Sax","Personnage du Monde":"Jules César","Fait/Monument":"Pyramides"} ]
-      }
-    }
-  };
-  elIn.value = pretty(sample);
-  parseInput();
-  log("Mini-exemple chargé.");
-}
-
-/* ===================== INIT ===================== */
-renderRules();
-parseInput();
-elBeautify.addEventListener("click", doBeautify);
-elAdapt.addEventListener("click", doAdapt);
-elDownload.addEventListener("click", doDownload);
-elLoadSample.addEventListener("click", loadSample);
-elResetRules.addEventListener("click", () => {
-  Object.keys(rulesState).forEach(k => delete rulesState[k]);
-  Object.assign(rulesState, DEFAULT_OFFSETS);
-  renderRules();
-  log("Règles par défaut restaurées.");
-});
-
-// feedback validité à la volée
-elIn.addEventListener("input", parseInput);
-</script>
-</body>
-</html>
