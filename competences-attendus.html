@@ -1,156 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Compétences & Attendus — P4</title>
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programmes P4 — Compétences & Attendus</title>
+<link rel="stylesheet" href="./styles.css">
+<meta name="theme-color" content="#2563eb">
 </head>
 <body>
-  <header>
-    <h1>Compétences & Attendus — P4</h1>
-    <p class="subtitle">Vue transversale : Math · Français · Histoire · Géographie</p>
-  </header>
+  <div class="container">
+    <header>
+      <h1>📚 Compétences & Attendus — P4</h1>
+      <div class="searchbar">
+        <input id="q" type="search" placeholder="Rechercher (domaine, matière, compétence, attendu)…">
+        <select id="week" aria-label="Filtrer par semaine">
+          <option value="all">Toutes</option>
+        </select>
+        <button id="export" title="Exporter la vue actuelle en CSV">Exporter CSV</button>
+      </div>
+      <button type="button"
+        onclick="location.href='index.html'"
+        aria-label="Revenir à l’accueil">
+        ← Retour au programme
+      </button>
+    </header>
 
-  <div class="searchbar">
-    <input id="q" type="search" placeholder="Rechercher (domaine, matière, compétence, attendu…)" />
-    <button id="export">Exporter CSV</button>
-    <button id="reset">Réinitialiser</button>
-    <a href="index.html" class="button-link">← Retour au programme</a>
+    <!-- (pas d’onglets ici, mais même card/table que l’accueil) -->
+    <div class="card">
+      <table class="table">
+        <thead id="headers"></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <p class="footer">Astuce : ajoute cette page à l’écran d’accueil pour l’avoir hors-ligne. Imprime proprement via Ctrl/Cmd+P.</p>
   </div>
-
-  <!-- Filtres (mêmes styles que l'accueil) -->
-  <div class="filters">
-    <label>
-      Semaine
-      <select id="f-week">
-        <option value="">Toutes</option>
-      </select>
-    </label>
-    <label>
-      Domaine
-      <select id="f-domain">
-        <option value="">Tous</option>
-      </select>
-    </label>
-  </div>
-
-  <!-- Tableau -->
-  <section class="table-wrap">
-    <table id="grid">
-      <thead>
-        <tr>
-          <th style="width:80px">Semaine</th>
-          <th style="width:200px">Domaine</th>
-          <th style="width:220px">Matière / Thème</th>
-          <th>Objectif</th>
-          <th>Compétence</th>
-          <th>Attendu</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <div id="empty" class="empty" style="display:none">Aucun résultat avec ces filtres.</div>
-  </section>
-
-  <footer>
-    <small>© Programme P4 — Compétences & Attendus</small>
-  </footer>
 
   <script>
+    // --- Configuration ---
     const DATA_URL = './data/competences_attendus.json';
+    // colonnes rendues à l’écran (ordre cohérent avec tes usages)
+    const DISPLAY_COLS = ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"];
+
+    // --- Éléments DOM ---
     const $q = document.getElementById('q');
-    const $week = document.getElementById('f-week');
-    const $domain = document.getElementById('f-domain');
-    const $tbody = document.querySelector('#grid tbody');
-    const $empty = document.getElementById('empty');
+    const $week = document.getElementById('week');
+    const $thead = document.getElementById('headers');
+    const $tbody = document.getElementById('rows');
     const $export = document.getElementById('export');
-    const $reset = document.getElementById('reset');
 
+    // --- État ---
+    let COLUMNS = [];
     let ROWS = [];
-    let COLUMNS = ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"];
+    let FILTERED = [];
 
-    async function load(){
-      const res = await fetch(DATA_URL);
-      const json = await res.json();
-      // format {columns, rows}
-      COLUMNS = json.columns || COLUMNS;
-      ROWS = json.rows || [];
-      hydrateFilters(ROWS);
-      render();
-      bind();
+    // --- Utilitaires ---
+    const esc = s => (s==null ? '' : String(s)).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+    const numWeek = w => parseInt(String(w||'').replace(/\D/g,'')) || 0;
+
+    function stripComments(txt){
+      // permet de lire un JSON qui contiendrait des commentaires /* ... */ ou // ...
+      return txt.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|\s)\/\/.*$/gm, '');
     }
 
-    function hydrateFilters(data){
-      // semaines
-      const weeks = Array.from(new Set(data.map(r => r.Semaine).filter(Boolean))).sort((a,b)=>{
-        const na = parseInt(String(a).replace(/\D/g,''))||0;
-        const nb = parseInt(String(b).replace(/\D/g,''))||0;
-        return na - nb;
-      });
-      weeks.forEach(w=>{
+    async function load(){
+      const res = await fetch(DATA_URL, {cache:'no-store'});
+      const raw = await res.text();
+      const json = JSON.parse(stripComments(raw));
+      COLUMNS = Array.isArray(json.columns) && json.columns.length ? json.columns : DISPLAY_COLS;
+      ROWS = Array.isArray(json.rows) ? json.rows : [];
+      hydrateHeader();
+      hydrateWeeks();
+      bind();
+      render();
+    }
+
+    function hydrateHeader(){
+      // entêtes visuelles = DISPLAY_COLS pour cohérence
+      $thead.innerHTML = `<tr>${DISPLAY_COLS.map(c=>`<th>${esc(c)}</th>`).join('')}</tr>`;
+    }
+
+    function hydrateWeeks(){
+      // remplir la liste des semaines présentes (S1…S34)
+      const set = new Set(ROWS.map(r => r.Semaine).filter(Boolean));
+      const list = Array.from(set).sort((a,b)=>numWeek(a)-numWeek(b));
+      for(const w of list){
         const opt = document.createElement('option');
         opt.value = w; opt.textContent = w;
         $week.appendChild(opt);
-      });
-      // domaines
-      const domains = Array.from(new Set(data.map(r => r.Domaine).filter(Boolean))).sort();
-      domains.forEach(d=>{
-        const opt = document.createElement('option');
-        opt.value = d; opt.textContent = d;
-        $domain.appendChild(opt);
-      });
-    }
-
-    function bind(){
-      [$q, $week, $domain].forEach(el => el.addEventListener('input', render));
-      $reset.addEventListener('click', ()=>{
-        $q.value = ''; $week.value = ''; $domain.value = '';
-        render();
-      });
-      $export.addEventListener('click', exportCSV);
+      }
     }
 
     function filterRows(){
       const q = $q.value.trim().toLowerCase();
-      const wf = $week.value;
-      const df = $domain.value;
-      return ROWS.filter(r=>{
-        if(wf && String(r.Semaine) !== String(wf)) return false;
-        if(df && r.Domaine !== df) return false;
-        if(!q) return true;
-        const hay = [
-          r.Semaine||'', r.Domaine||'', r.Matiere||r.Theme||'',
-          r.Objectifs||'', r.Competence||'', r.Attendu||''
-        ].join(' ').toLowerCase();
-        return hay.includes(q);
-      });
+      const w = $week.value;
+      const term = (r) => [
+        r.Semaine||'',
+        r.Domaine||'',
+        r.Matiere || r.Theme || '',
+        r.Objectifs||'',
+        r.Competence||'',
+        r.Attendu||''
+      ].join(' ').toLowerCase();
+
+      return ROWS
+        .filter(r => w==='all' || String(r.Semaine)===String(w))
+        .filter(r => !q || term(r).includes(q));
     }
 
     function render(){
-      const rows = filterRows();
-      $tbody.innerHTML = '';
-      rows.forEach(r=>{
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
+      FILTERED = filterRows();
+      $tbody.innerHTML = FILTERED.map(r => `
+        <tr>
           <td>${esc(r.Semaine)}</td>
           <td>${esc(r.Domaine)}</td>
           <td>${esc(r.Matiere || r.Theme)}</td>
           <td>${esc(r.Objectifs)}</td>
           <td>${esc(r.Competence)}</td>
           <td>${esc(r.Attendu)}</td>
-        `;
-        $tbody.appendChild(tr);
-      });
-      $empty.style.display = rows.length ? 'none' : 'block';
+        </tr>
+      `).join('') || `
+        <tr><td colspan="${DISPLAY_COLS.length}" style="opacity:.7">Aucun résultat avec ces critères.</td></tr>
+      `;
     }
 
     function exportCSV(){
-      const rows = filterRows();
-      const cols = COLUMNS;
+      const cols = DISPLAY_COLS;
       let csv = cols.join(';') + '\n';
-      rows.forEach(r=>{
-        csv += cols.map(k => String((r[k] ?? '')).replaceAll(';', ',').replaceAll('\n',' ')).join(';') + '\n';
+      FILTERED.forEach(r=>{
+        csv += cols.map(k => String((r[k] ?? (k==='Matiere' ? r['Theme'] ?? '' : ''))).replaceAll(';', ',').replaceAll('\n',' ')).join(';') + '\n';
       });
       const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
       const url = URL.createObjectURL(blob);
@@ -160,7 +138,10 @@
       URL.revokeObjectURL(url);
     }
 
-    function esc(v){ return (v==null?'':String(v)).replace(/[&<>"']/g,s=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
+    function bind(){
+      [$q, $week].forEach(el => el.addEventListener('input', render));
+      $export.addEventListener('click', exportCSV);
+    }
 
     document.addEventListener('DOMContentLoaded', load);
   </script>
