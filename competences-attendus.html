@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Programmes P4 — Compétences & Attendus</title>
-<link rel="stylesheet" href="./styles.css">
-<meta name="theme-color" content="#2563eb">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Programmes P4 — Compétences & Attendus</title>
+  <link rel="stylesheet" href="./styles.css">
+  <meta name="theme-color" content="#2563eb">
 </head>
 <body>
   <div class="container">
@@ -18,10 +18,10 @@
         </select>
         <button id="export" title="Exporter la vue actuelle en CSV">Exporter CSV</button>
       </div>
-      <button type="button"
-        onclick="location.href='index.html'"
-        aria-label="Revenir à l’accueil">← Retour au programme</button>
+      <button type="button" onclick="location.href='index.html'" aria-label="Revenir à l’accueil">← Retour au programme</button>
     </header>
+
+    <div id="tabs" class="tabs"></div>
 
     <div class="card">
       <table class="table">
@@ -33,160 +33,12 @@
     <p class="footer">Astuce : ajoute cette page à l’écran d’accueil pour l’avoir hors-ligne. Imprime proprement via Ctrl/Cmd+P.</p>
   </div>
 
+  <!-- IMPORTANT : on indique à app.js quelle source JSON charger -->
   <script>
-    // ---- CONFIG ----
-    // Ton endpoint Cloudflare ou fichier local :
-    const DATA_URL = './data/competences_attendus.json';
-
-    // Colonnes affichées à l'écran
-    const DISPLAY_COLS = ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"];
-
-    // ---- DOM ----
-    const $q = document.getElementById('q');
-    const $week = document.getElementById('week');
-    const $thead = document.getElementById('headers');
-    const $tbody = document.getElementById('rows');
-    const $export = document.getElementById('export');
-
-    // ---- État ----
-    let ROWS = [];      // lignes aplaties et normalisées
-    let FILTERED = [];  // lignes après filtres
-
-    // ---- Utils ----
-    const esc = s => (s==null ? '' : String(s)).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
-    const toStr = v => v==null ? '' : String(v);
-    const stripComments = txt => txt.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|\s)\/\/.*$/gm, '');
-
-    function normWeek(w){
-      // accepte "S12", "12", 12, "s12"
-      const n = parseInt(String(w||'').replace(/\D/g,'')) || 0;
-      return n ? `S${n}` : '';
-    }
-
-    function getVal(obj, keys){
-      for(const k of keys){
-        if (obj[k] != null) return obj[k];
-      }
-      return '';
-    }
-
-    function normalizeRow(raw, domaine){
-      // Harmonise les clés hétérogènes
-      const semaine = normWeek(getVal(raw, ["Semaine","semaine","Week","week"]));
-      const matiere = getVal(raw, ["Matiere","Matière","Theme","Thème"]);
-      const objectifs = getVal(raw, ["Objectifs","Objectif"]);
-      const competence = getVal(raw, ["Competence","Compétence","Compétence du référentiel","Compétence du référentiel "]);
-      const attendu = getVal(raw, ["Attendu","Attendu associé","Attendu associé "]);
-
-      return {
-        Semaine: semaine,
-        Domaine: domaine || '',
-        Matiere: toStr(matiere),
-        Objectifs: toStr(objectifs),
-        Competence: toStr(competence),
-        Attendu: toStr(attendu)
-      };
-    }
-
-    function flattenJSON(data){
-      // Cas 1 : JSON multi-feuilles { sheets:[], programmes:{Sheet:{columns,rows} } }
-      if (data && data.programmes && typeof data.programmes === 'object') {
-        const out = [];
-        const order = Array.isArray(data.sheets) ? data.sheets : Object.keys(data.programmes);
-        for(const sheet of order){
-          const bloc = data.programmes[sheet];
-          if (!bloc || !Array.isArray(bloc.rows)) continue;
-          for(const r of bloc.rows){
-            out.push(normalizeRow(r, sheet));
-          }
-        }
-        return out;
-      }
-      // Cas 2 : JSON plat { columns, rows }
-      if (Array.isArray(data?.rows)) {
-        return data.rows.map(r => normalizeRow(r, r.Domaine || ''));
-      }
-      return [];
-    }
-
-    // ---- Rendu ----
-    function hydrateHeader(){
-      $thead.innerHTML = `<tr>${DISPLAY_COLS.map(c=>`<th>${esc(c)}</th>`).join('')}</tr>`;
-    }
-
-    function hydrateWeeks(){
-      const set = new Set(ROWS.map(r => r.Semaine).filter(Boolean));
-      const list = Array.from(set).sort((a,b) => {
-        const na = parseInt(a.replace(/\D/g,''))||0;
-        const nb = parseInt(b.replace(/\D/g,''))||0;
-        return na - nb;
-      });
-      for(const w of list){
-        const opt = document.createElement('option');
-        opt.value = w; opt.textContent = w;
-        $week.appendChild(opt);
-      }
-    }
-
-    function filterRows(){
-      const q = $q.value.trim().toLowerCase();
-      const w = $week.value;
-      return ROWS
-        .filter(r => w === 'all' || String(r.Semaine) === String(w))
-        .filter(r => {
-          if (!q) return true;
-          const hay = (r.Semaine+' '+r.Domaine+' '+r.Matiere+' '+r.Objectifs+' '+r.Competence+' '+r.Attendu).toLowerCase();
-          return hay.includes(q);
-        });
-    }
-
-    function render(){
-      FILTERED = filterRows();
-      $tbody.innerHTML = FILTERED.map(r => `
-        <tr>
-          <td>${esc(r.Semaine)}</td>
-          <td>${esc(r.Domaine)}</td>
-          <td>${esc(r.Matiere)}</td>
-          <td>${esc(r.Objectifs)}</td>
-          <td>${esc(r.Competence)}</td>
-          <td>${esc(r.Attendu)}</td>
-        </tr>
-      `).join('') || `<tr><td colspan="${DISPLAY_COLS.length}" style="opacity:.7">Aucun résultat avec ces critères.</td></tr>`;
-    }
-
-    function exportCSV(){
-      const cols = DISPLAY_COLS;
-      let csv = cols.join(';') + '\n';
-      FILTERED.forEach(r=>{
-        csv += cols.map(k => String(r[k] ?? '').replaceAll(';', ',').replaceAll('\n',' ')).join(';') + '\n';
-      });
-      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'competences_attendus.csv';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    // ---- Data load ----
-    async function load(){
-      const res = await fetch(DATA_URL, {cache:'no-store'});
-      const raw = await res.text();
-      const json = JSON.parse(stripComments(raw));
-      ROWS = flattenJSON(json);
-      hydrateHeader();
-      hydrateWeeks();
-      bind();
-      render();
-    }
-
-    function bind(){
-      $q.addEventListener('input', render);
-      $week.addEventListener('input', render);
-      $export.addEventListener('click', exportCSV);
-    }
-
-    document.addEventListener('DOMContentLoaded', load);
+    // app.js doit utiliser window.APP_DATA_URL si présent,
+    // sinon retomber sur './data/programmes.json'
+    window.APP_DATA_URL = './data/competences_attendus.json';
   </script>
+  <script src="./app.js"></script>
 </body>
 </html>
