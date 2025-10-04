@@ -1,99 +1,452 @@
 {
-  "columns": ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"],
-  "rows": [
-    {"Semaine":"S1","Domaine":"Math — Algèbre (Calcul mental)","Matiere":"Additions ≤ 100","Objectifs":"20 additions/1 min, ≥80%","Competence":"Opérer sur des nombres","Attendu":"Effectuer des additions mentales simples et estimer un résultat."},
-    {"Semaine":"S2","Domaine":"Math — Algèbre (Calcul mental)","Matiere":"Soustractions ≤ 100","Objectifs":"20 soustractions/1 min, ≥80%","Competence":"Opérer sur des nombres","Attendu":"Effectuer des soustractions simples et vérifier le résultat."},
-    {"Semaine":"S3","Domaine":"Math — Algèbre (Calcul mental)","Matiere":"Doubles & moitiés ≤ 100","Objectifs":"Répondre <3s","Competence":"Opérer sur des nombres","Attendu":"Automatiser doubles et moitiés (jusqu’à 100)."},
-    {"Semaine":"S4","Domaine":"Math — Algèbre (Multiplication)","Matiere":"Tables ×2,×3,×4,×5","Objectifs":"20 réponses/1 min, ≥80%","Competence":"Opérer sur des nombres","Attendu":"Appliquer les produits des tables et trouver le facteur manquant."},
-    {"Semaine":"S5","Domaine":"Math — Algèbre (Multiplication)","Matiere":"Tables ×6,×7,×8,×9","Objectifs":"20 réponses/1–2 min, ≥80%","Competence":"Créer des familles numériques","Attendu":"Identifier des régularités entre tables (liens 3–6–9 ; 2–4–8)."},
-    {"Semaine":"S6","Domaine":"Math — Algèbre (Division)","Matiere":"Divisions liées aux tables","Objectifs":"20 divisions/2 min, ≥80%","Competence":"Opérer sur des nombres","Attendu":"Mobiliser la relation ×/÷ pour vérifier un calcul."},
-    {"Semaine":"S7","Domaine":"Math — Algèbre","Matiere":"Mélange add/sous/mult ≤100","Objectifs":"Reconnaître l’opération","Competence":"Résoudre des problèmes","Attendu":"Choisir l’opération adéquate selon le contexte."},
-    {"Semaine":"S8","Domaine":"Math — Nombres","Matiere":"Centaines simples","Objectifs":"+ et − sur centaines","Competence":"Appréhender le nombre","Attendu":"Utiliser la valeur positionnelle (unités, dizaines, centaines)."},
-    {"Semaine":"S9","Domaine":"Math — Nombres","Matiere":"×10/×100 et ÷10/÷100","Objectifs":"Décalages de rang","Competence":"Appréhender le nombre","Attendu":"Comprendre les décalages dans la numération décimale."},
-    {"Semaine":"S10","Domaine":"Math — Problèmes","Matiere":"Problèmes flash (1 étape)","Objectifs":"Lire, choisir, calculer","Competence":"Résoudre des problèmes","Attendu":"Traduire une situation par une opération simple."},
-    {"Semaine":"S11","Domaine":"Math — Estimation","Matiere":"Estimation & arrondis","Objectifs":"≈ dizaine/centaine","Competence":"Opérer sur des nombres","Attendu":"Estimer l’ordre de grandeur d’un résultat et le comparer à l’exact."},
-    {"Semaine":"S12","Domaine":"Math — Synthèse","Matiere":"Mélange général 1","Objectifs":"Consolider","Competence":"Résoudre des problèmes","Attendu":"Réinvestir procédures et vérification de plausibilité."},
-    {"Semaine":"S13","Domaine":"Math — Grandeurs (Mesures)","Matiere":"Conversions","Objectifs":"cm↔m, g↔kg, min↔h","Competence":"Système d’unités","Attendu":"Réaliser des conversions usuelles avec sens."},
-    {"Semaine":"S14","Domaine":"Math — Grandeurs (Mesures)","Matiere":"Add/Sous de mesures","Objectifs":"Format mixte","Competence":"Agir sur des grandeurs","Attendu":"Additionner/soustraire longueurs, masses, durées."},
-    {"Semaine":"S15","Domaine":"Math — Grandeurs (Monnaie)","Matiere":"Rendre la monnaie","Objectifs":"Compléments jusqu’à 10€","Competence":"Problèmes contextualisés","Attendu":"Résoudre achats/rendu de monnaie."},
-    {"Semaine":"S16","Domaine":"Math — Grandeurs (Fractions)","Matiere":"½ ¼ ⅓","Objectifs":"Lien part ↔ nombre","Competence":"Agir sur des grandeurs","Attendu":"Reconnaitre et représenter des fractions simples."},
-    {"Semaine":"S17","Domaine":"Math — Problèmes","Matiere":"2 étapes","Objectifs":"Enchaîner opérations","Competence":"Résoudre des problèmes","Attendu":"Planifier 2 opérations cohérentes."},
-    {"Semaine":"S18","Domaine":"Math — Synthèse (Grandeurs)","Matiere":"Mix mesures/monnaie/fractions","Objectifs":"Réinvestir","Competence":"Problèmes contextualisés","Attendu":"Choisir la démarche selon la grandeur."},
-    {"Semaine":"S19","Domaine":"Math — Algèbre (Multiplication posée)","Matiere":"a×b (b à 1 chiffre)","Objectifs":"34×2, 56×3…","Competence":"Opérer sur des nombres","Attendu":"Appliquer l’algorithme de multiplication simple."},
-    {"Semaine":"S20","Domaine":"Math — Algèbre (Division posée)","Matiere":"Divisions exactes","Objectifs":"84÷7…","Competence":"Opérer sur des nombres","Attendu":"Effectuer la division exacte et contrôler."},
-    {"Semaine":"S21","Domaine":"Math — Automatisation","Matiere":"Battles de tables","Objectifs":"Fluidité maximale","Competence":"Familles numériques","Attendu":"Mémoriser les produits 0–10."},
-    {"Semaine":"S22","Domaine":"Math — Comparaison","Matiere":">, <, =","Objectifs":"Comparer nombres/fractions","Competence":"Appréhender le nombre","Attendu":"Comparer et ordonner correctement."},
-    {"Semaine":"S23","Domaine":"Math — Grandeurs (Temps)","Matiere":"Temps & durées","Objectifs":"Calcul h/min","Competence":"Agir sur des durées","Attendu":"Déterminer une durée/instant."},
-    {"Semaine":"S24","Domaine":"Math — Synthèse","Matiere":"Mélange général 3","Objectifs":"Consolider","Competence":"Résoudre des problèmes","Attendu":"Réinvestir les savoir-faire opératoires."},
-    {"Semaine":"S25","Domaine":"Math — Algèbre","Matiere":"×/÷ avec dizaines","Objectifs":"120÷6, 14×30","Competence":"Opérer sur des nombres","Attendu":"Utiliser zéros/décomposition (distributivité)."},
-    {"Semaine":"S26","Domaine":"Math — Grandeurs (Fractions)","Matiere":"Fraction d’un nombre","Objectifs":"½ de 18…","Competence":"Agir sur des grandeurs","Attendu":"Trouver la fraction d’un tout."},
-    {"Semaine":"S27","Domaine":"Math — Problèmes complexes","Matiere":"Mixtes 2 domaines","Objectifs":"Mesures + ×…","Competence":"Résoudre des problèmes","Attendu":"Combiner plusieurs domaines."},
-    {"Semaine":"S28","Domaine":"Math — Entrainement","Matiere":"Puzzle chrono","Objectifs":"20 calc/2 min","Competence":"Opérer sur des nombres","Attendu":"Calculs rapides et justes sous contrainte."},
-    {"Semaine":"S29","Domaine":"Math — Évaluation","Matiere":"Grand défi","Objectifs":"50 calc/3 min","Competence":"Calcul mental et écrit","Attendu":"Endurance + précision."},
-    {"Semaine":"S30","Domaine":"Math — Synthèse générale","Matiere":"Bilan & tournoi","Objectifs":"Célébrer/évaluer","Competence":"Synthèse transversale","Attendu":"Réinvestir arithmétique, mesures, problèmes."},
-
-
-    {"Semaine":"S5","Domaine":"Français — Écrire","Matiere":"Ponctuation de base","Objectifs":"Majuscules / . ? !","Competence":"Conventions de l’écrit","Attendu":"Employer correctement majuscule et ponctuation de fin."},
-    {"Semaine":"S6","Domaine":"Français — Écrire","Matiere":"Virgule et énumérations","Objectifs":"Virgule simple / listes","Competence":"Conventions de l’écrit","Attendu":"Séparer les éléments d’une liste par la virgule."},
-    {"Semaine":"S7","Domaine":"Français — Écrire","Matiere":"Phrase simple","Objectifs":"S-V-C","Competence":"Syntaxe de la phrase","Attendu":"Produire des phrases SVC correctes."},
-    {"Semaine":"S8","Domaine":"Français — Écrire","Matiere":"Familles de mots","Objectifs":"Racine & dérivation","Competence":"Lexique","Attendu":"Identifier base et dérivés pour varier le vocabulaire."},
-    {"Semaine":"S9","Domaine":"Français — Écrire","Matiere":"Homophones a/à ; et/est","Objectifs":"Usage correct","Competence":"Orthographe grammaticale","Attendu":"Employer les homophones fréquents sans erreur."},
-    {"Semaine":"S10","Domaine":"Français — Écrire","Matiere":"Petite production","Objectifs":"3–4 phrases","Competence":"Produire un texte court","Attendu":"Écrire un texte cohérent respectant la consigne."},
-    {"Semaine":"S11","Domaine":"Français — Écrire","Matiere":"Déterminants","Objectifs":"Possessifs/démonstratifs","Competence":"Accords GN","Attendu":"Employer le déterminant adapté (genre/nombre)."},
-    {"Semaine":"S12","Domaine":"Français — Écrire","Matiere":"Accords GN","Objectifs":"Genre & nombre","Competence":"Accords GN","Attendu":"Accorder déterminant/nom/adjectif."},
-    {"Semaine":"S13","Domaine":"Français — Écrire","Matiere":"Adjectifs","Objectifs":"Position/accord","Competence":"Accords GN","Attendu":"Placer et accorder l’adjectif correctement."},
-    {"Semaine":"S14","Domaine":"Français — Écrire","Matiere":"Pluriel des noms","Objectifs":"Réguliers/irréguliers","Competence":"Orthographe lexicale","Attendu":"Utiliser les terminaisons du pluriel."},
-    {"Semaine":"S15","Domaine":"Français — Écrire","Matiere":"Compléments circonstanciels","Objectifs":"Temps/lieu","Competence":"Cohérence textuelle","Attendu":"Préciser quand/où se passe l’action."},
-    {"Semaine":"S16","Domaine":"Français — Écrire","Matiere":"Récit court","Objectifs":"5–6 phrases","Competence":"Texte narratif","Attendu":"Respecter chronologie et cohérence."},
-    {"Semaine":"S17","Domaine":"Français — Écrire","Matiere":"Connecteurs","Objectifs":"Temps/lieu/addition","Competence":"Cohésion textuelle","Attendu":"Employer puis, ensuite, enfin…"},
-    {"Semaine":"S18","Domaine":"Français — Écrire","Matiere":"Anaphores","Objectifs":"Pronoms personnels","Competence":"Cohésion textuelle","Attendu":"Éviter répétitions par reprises pronominales."},
-    {"Semaine":"S19","Domaine":"Français — Écrire","Matiere":"Schéma narratif","Objectifs":"Situation/événement/fin","Competence":"Texte narratif","Attendu":"Identifier et utiliser les étapes du récit."},
-    {"Semaine":"S20","Domaine":"Français — Écrire","Matiere":"Description","Objectifs":"Portrait/lieu","Competence":"Texte descriptif","Attendu":"Employer adjectifs et compléments pour détailler."},
-    {"Semaine":"S21","Domaine":"Français — Écrire","Matiere":"Révision/correction","Objectifs":"Grille de relecture","Competence":"Révision de texte","Attendu":"Corriger sens/accords/ponctuation."},
-    {"Semaine":"S22","Domaine":"Français — Écrire","Matiere":"Évaluation narrative","Objectifs":"Récit cohérent","Competence":"Texte narratif","Attendu":"Introduction, développement, fin structurés."},
-    {"Semaine":"S23","Domaine":"Français — Écrire","Matiere":"Présent","Objectifs":"1er gr., être/avoir/aller","Competence":"Conjugaison","Attendu":"Conjuguer au présent en respectant le sujet."},
-    {"Semaine":"S24","Domaine":"Français — Écrire","Matiere":"Imparfait/Passé composé","Objectifs":"Contraste","Competence":"Conjugaison","Attendu":"Employer passé composé vs imparfait à bon escient."},
-    {"Semaine":"S25","Domaine":"Français — Écrire","Matiere":"Futur simple","Objectifs":"Terminaisons","Competence":"Conjugaison","Attendu":"Conjuguer les verbes réguliers au futur."},
-    {"Semaine":"S26","Domaine":"Français — Écrire","Matiere":"Accord verbe/sujet","Objectifs":"Repérer sujet","Competence":"Accords","Attendu":"Accorder le verbe avec le sujet."},
-    {"Semaine":"S27","Domaine":"Français — Écrire","Matiere":"Accords GN (suite)","Objectifs":"Pratique guidée","Competence":"Accords GN","Attendu":"Réinvestir accords dans phrases complexes."},
-    {"Semaine":"S28","Domaine":"Français — Écrire","Matiere":"BD & dialogues","Objectifs":"Tirets/guillemets","Competence":"Conventions du dialogue","Attendu":"Employer correctement la typographie du dialogue."},
-    {"Semaine":"S29","Domaine":"Français — Écrire","Matiere":"Texte explicatif","Objectifs":"Notice/recette","Competence":"Texte explicatif","Attendu":"Expliquer une procédure clairement."},
-    {"Semaine":"S30","Domaine":"Français — Écrire","Matiere":"Description enrichie","Objectifs":"Vocabulaire précis","Competence":"Lexique","Attendu":"Varier adjectifs/synonymes pour nuancer."},
-    {"Semaine":"S31","Domaine":"Français — Écrire","Matiere":"Avis argumenté","Objectifs":"Parce que… donc…","Competence":"Texte d’opinion","Attendu":"Justifier une opinion avec connecteurs logiques."},
-    {"Semaine":"S32","Domaine":"Français — Écrire","Matiere":"Jeu poétique","Objectifs":"Images/rythmes","Competence":"Langage poétique","Attendu":"Jouer avec sons/images/rythmes."},
-    {"Semaine":"S33","Domaine":"Français — Écrire","Matiere":"Révision globale","Objectifs":"Ortho & accords","Competence":"Révision de texte","Attendu":"Corriger un texte complet (toutes conventions)."},
-    {"Semaine":"S34","Domaine":"Français — Écrire","Matiere":"Projet final","Objectifs":"Planif.→brouillon→final","Competence":"Démarche d’écriture","Attendu":"Mener un projet d’écriture abouti."},
-
-   
-    {"Semaine":"","Domaine":"Français — Fluence","Matiere":"Lecture à voix haute","Objectifs":"Vitesse/justesse/expressivité","Competence":"Lire avec fluidité","Attendu":"~110 mots/min en fin de P4, ≥95% justesse, intonation adaptée."},
-    {"Semaine":"","Domaine":"Français — Fluence","Matiere":"Ponctuation & groupes de souffle","Objectifs":"Prosodie","Competence":"Respect de la ponctuation","Attendu":"Marquer pauses/rythme, varier le ton selon le texte."},
-
-
-    {"Semaine":"S5","Domaine":"Histoire","Matiere":"Siècle vs millénaire","Objectifs":"Différencier durées","Competence":"Repères temporels","Attendu":"Différencier siècle/millénaire."},
-    {"Semaine":"S6","Domaine":"Histoire","Matiere":"Associer date à un siècle/millénaire","Objectifs":"Exercices pratiques","Competence":"Repères temporels","Attendu":"Associer une date au siècle/millénaire correspondant."},
-    {"Semaine":"S7","Domaine":"Histoire","Matiere":"Périodes conventionnelles","Objectifs":"Découvrir la frise","Competence":"Repères temporels","Attendu":"Nommer les 5 périodes (Préhistoire→contemporaine)."},
-    {"Semaine":"S8","Domaine":"Histoire","Matiere":"Situer périodes (avant/après)","Objectifs":"Chronologie","Competence":"Se situer dans le temps","Attendu":"Situer des périodes entre elles."},
-    {"Semaine":"S10","Domaine":"Histoire","Matiere":"Moment clé 1 : Gallo-romains","Objectifs":"Contexte","Competence":"Associer moment/période","Attendu":"Situer 50 av. J.-C. → Ve s."},
-    {"Semaine":"S11","Domaine":"Histoire","Matiere":"Accès aux savoirs (gallo-romain)","Objectifs":"Oral → écrit","Competence":"Identifier formes d’accès","Attendu":"Expliquer passage au latin/écriture."},
-    {"Semaine":"S12","Domaine":"Histoire","Matiere":"Moment clé 2 : Seigneuries & villes","Objectifs":"Contexte médiéval","Competence":"Associer moment/période","Attendu":"Situer XIe → XIVe s. ; écoles de l’Église."},
-    {"Semaine":"S14","Domaine":"Histoire","Matiere":"Accès au savoir au Moyen Âge","Objectifs":"Monastères/universités","Competence":"Identifier acteurs/lieux","Attendu":"Rôle du clergé ; premières universités."},
-    {"Semaine":"S16","Domaine":"Histoire","Matiere":"Moment clé 3 : Dév. scientifiques","Objectifs":"XVe→XVIIIe","Competence":"Associer moment/période","Attendu":"Conséquences de l’imprimerie ; langues vernaculaires."},
-    {"Semaine":"S19","Domaine":"Histoire","Matiere":"Moment clé 4 : Industriel","Objectifs":"XIXe→début XXe","Competence":"Associer moment/période","Attendu":"Instruction non obligatoire ; travail des enfants ; loi 1914."},
-    {"Semaine":"S24","Domaine":"Histoire","Matiere":"Moment clé 5 : Après 1945","Objectifs":"Contexte moderne","Competence":"Associer moment/période","Attendu":"Obligation scolaire 18 ans ; mixité ; médias ; inégalités d’accès."},
-    {"Semaine":"S30","Domaine":"Histoire","Matiere":"Frise chronologique","Objectifs":"Compléter/annoter","Competence":"Utiliser la frise","Attendu":"Placer repères significatifs et annoter."},
-
-
-    {"Semaine":"S5","Domaine":"Géographie","Matiere":"Directions cardinales","Objectifs":"Rose des vents/boussole","Competence":"Repères spatiaux","Attendu":"Indiquer N-E-S-O en classe ou sur le terrain."},
-    {"Semaine":"S7","Domaine":"Géographie","Matiere":"Villes de Belgique","Objectifs":"Localiser","Competence":"Repères spatiaux","Attendu":"Nommer/localiser Bruxelles, Anvers, Liège, Namur, Charleroi, Gand, Bruges, Louvain."},
-    {"Semaine":"S8","Domaine":"Géographie","Matiere":"Cours d’eau","Objectifs":"Localiser","Competence":"Repères spatiaux","Attendu":"Situer Meuse, Escaut, Sambre, Yser et cours d’eau local."},
-    {"Semaine":"S9","Domaine":"Géographie","Matiere":"Ensembles morphologiques","Objectifs":"Identifier","Competence":"Caractériser un paysage","Attendu":"Littoral, Basse, Moyenne, Haute Belgique (au moins 2 caractéristiques)."},
-    {"Semaine":"S16","Domaine":"Géographie","Matiere":"Agglomération urbaine","Objectifs":"Caractériser","Competence":"Caractériser un paysage","Attendu":"Citer habitat dense, transports, activités non agricoles."},
-    {"Semaine":"S18","Domaine":"Géographie","Matiere":"Lire une carte simple","Objectifs":"Relief/hydro/ légende","Competence":"Lire une carte","Attendu":"Interpréter symboles/relief/hydrographie à partir de la légende."},
-    {"Semaine":"S19","Domaine":"Géographie","Matiere":"Croquis cartographique","Objectifs":"Schématiser","Competence":"Représenter l’espace","Attendu":"Réaliser un croquis simple avec éléments clés."},
-    {"Semaine":"S21","Domaine":"Géographie","Matiere":"Relief : versant/vallée","Objectifs":"Nommer/distinguer","Competence":"Identifier relief","Attendu":"Reconnaître versant et vallée."},
-    {"Semaine":"S22","Domaine":"Géographie","Matiere":"Hydro : rives/lit","Objectifs":"Identifier","Competence":"Identifier hydrographie","Attendu":"Repérer rive gauche/droite, lit du cours d’eau."},
-    {"Semaine":"S23","Domaine":"Géographie","Matiere":"Hydro : amont/aval","Objectifs":"Situer","Competence":"Identifier hydrographie","Attendu":"Situer amont et aval sur une carte."},
-    {"Semaine":"S25","Domaine":"Géographie","Matiere":"Interpréter une carte","Objectifs":"Relier relief/hydro/sol","Competence":"Relier composantes spatiales","Attendu":"Expliquer relations naturelles et activités humaines."},
-    {"Semaine":"S31","Domaine":"Géographie","Matiere":"Atelier terrain","Objectifs":"Lire paysage, carte, boussole","Competence":"Lire un paysage / s’orienter","Attendu":"Observer, annoter et s’orienter localement."}
-  ]
+  "sheets": [
+    "Math — Compétences & Attendus",
+    "Géométrie — Compétences & Attendus",
+    "Algèbre — Compétences & Attendus",
+    "Grandeurs — Compétences & Attendus"
+  ],
+  "programmes": {
+    "Math — Compétences & Attendus": {
+      "columns": [
+        "Semaine",
+        "Matière",
+        "Objectifs",
+        "Notions travaillées",
+        "Compétence du référentiel",
+        "Attendu associé"
+      ],
+      "rows": [
+        {
+          "Semaine": "S1",
+          "Matière": "Additions ≤ 100",
+          "Objectifs": "Réaliser 20 additions simples en 1 minute avec ≥ 80% de réussite.",
+          "Notions travaillées": "+9, +11, Passage par la dizaine",
+          "Compétence du référentiel": "Opérer sur des nombres et expressions algébriques",
+          "Attendu associé": "Effectuer des additions mentales simples et estimer un résultat."
+        },
+        {
+          "Semaine": "S2",
+          "Matière": "Soustractions ≤ 100",
+          "Objectifs": "Réaliser 20 soustractions simples en 1 minute avec ≥ 80% de réussite.",
+          "Notions travaillées": "-9, -11, Passage par la dizaine",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Effectuer des soustractions simples et vérifier le résultat."
+        },
+        {
+          "Semaine": "S3",
+          "Matière": "Doubles & moitiés ≤ 100",
+          "Objectifs": "Automatiser les doubles/moitiés pour répondre en < 3s.",
+          "Notions travaillées": "Doubles 1–50, Moitiés paires ≤ 100",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Utiliser la commutativité et la décomposition pour le calcul mental."
+        },
+        {
+          "Semaine": "S4",
+          "Matière": "Tables ×2, ×3, ×4, ×5",
+          "Objectifs": "20 réponses en 1 minute, ≥ 80% exact.",
+          "Notions travaillées": "Produits, Facteurs manquants",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Appliquer les tables de multiplication simples."
+        },
+        {
+          "Semaine": "S5",
+          "Matière": "Tables ×6, ×7, ×8, ×9",
+          "Objectifs": "20 réponses en 1–2 minutes, ≥ 80% exact.",
+          "Notions travaillées": "Produits, Facteurs manquants",
+          "Compétence du référentiel": "Créer des familles numériques et relever des régularités",
+          "Attendu associé": "Identifier les régularités et liens entre tables."
+        },
+        {
+          "Semaine": "S6",
+          "Matière": "Divisions liées aux tables",
+          "Objectifs": "20 divisions en 2 minutes, ≥ 80% exact.",
+          "Notions travaillées": "÷2 à ÷9, Sans reste",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Utiliser la relation entre multiplication et division pour vérifier un calcul."
+        },
+        {
+          "Semaine": "S7",
+          "Matière": "Mélange add/sous/mult ≤ 100",
+          "Objectifs": "Répondre vite et juste sur des calculs variés.",
+          "Notions travaillées": "+ − ×, Reconnaitre l’opération",
+          "Compétence du référentiel": "Résoudre des problèmes en mobilisant des nombres",
+          "Attendu associé": "Identifier l’opération adéquate selon le contexte."
+        },
+        {
+          "Semaine": "S8",
+          "Matière": "Centaines simples",
+          "Objectifs": "Calculer mentalement avec centaines.",
+          "Notions travaillées": "+ et − sur centaines",
+          "Compétence du référentiel": "Appréhender le nombre",
+          "Attendu associé": "Utiliser la valeur positionnelle des chiffres dans un nombre."
+        },
+        {
+          "Semaine": "S9",
+          "Matière": "×10 / ×100 et ÷10 / ÷100",
+          "Objectifs": "Automatiser les décalages de chiffres.",
+          "Notions travaillées": "Unités, dizaines, centaines",
+          "Compétence du référentiel": "Appréhender le nombre",
+          "Attendu associé": "Comprendre le système décimal et les décalages de rangs."
+        },
+        {
+          "Semaine": "S10",
+          "Matière": "Problèmes flash (1 étape)",
+          "Objectifs": "Lire vite, identifier l’opération, calculer.",
+          "Notions travaillées": "Paquets, partages, achats",
+          "Compétence du référentiel": "Résoudre des problèmes en mobilisant des nombres",
+          "Attendu associé": "Traduire une situation en opération simple."
+        },
+        {
+          "Semaine": "S11",
+          "Matière": "Estimation & arrondis",
+          "Objectifs": "Arrondir à la dizaine/centaine.",
+          "Notions travaillées": "≈, Estimation",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Estimer l’ordre de grandeur d’un résultat avant calcul."
+        },
+        {
+          "Semaine": "S12",
+          "Matière": "Mélange général 1",
+          "Objectifs": "Consolider les acquis du bloc 1–2.",
+          "Notions travaillées": "Mix calculs & mini-problèmes",
+          "Compétence du référentiel": "Résoudre des problèmes en mobilisant des nombres",
+          "Attendu associé": "Réinvestir les procédures de calcul et vérifier la plausibilité des résultats."
+        },
+        {
+          "Semaine": "S13",
+          "Matière": "Conversions de mesures",
+          "Objectifs": "Convertir cm↔m, g↔kg, min↔h.",
+          "Notions travaillées": "Unités usuelles",
+          "Compétence du référentiel": "Construire le système des unités conventionnelles",
+          "Attendu associé": "Réaliser des conversions significatives entre unités usuelles."
+        },
+        {
+          "Semaine": "S14",
+          "Matière": "Add/Sous de mesures",
+          "Objectifs": "Additionner/soustraire des mesures.",
+          "Notions travaillées": "m & cm, kg & g, h & min",
+          "Compétence du référentiel": "Agir sur des grandeurs",
+          "Attendu associé": "Mesurer, additionner et soustraire des longueurs, masses et durées."
+        },
+        {
+          "Semaine": "S15",
+          "Matière": "Monnaie : rendre la monnaie",
+          "Objectifs": "Faire des compléments jusqu’à 10€.",
+          "Notions travaillées": "Prix & rendu",
+          "Compétence du référentiel": "Résoudre des problèmes contextualisés",
+          "Attendu associé": "Résoudre des problèmes d’achats et de rendu de monnaie."
+        },
+        {
+          "Semaine": "S16",
+          "Matière": "Fractions simples ½ ¼ ⅓",
+          "Objectifs": "Associer fraction ↔ quantité ↔ calcul.",
+          "Notions travaillées": "Part d’un nombre",
+          "Compétence du référentiel": "Agir sur des grandeurs – fractions",
+          "Attendu associé": "Reconnaitre et représenter des fractions simples."
+        },
+        {
+          "Semaine": "S17",
+          "Matière": "Problèmes flash (2 étapes)",
+          "Objectifs": "Enchaîner 2 opérations cohérentes.",
+          "Notions travaillées": "Achats, trajets",
+          "Compétence du référentiel": "Résoudre des problèmes",
+          "Attendu associé": "Résoudre un problème à deux étapes en identifiant les opérations nécessaires."
+        },
+        {
+          "Semaine": "S18",
+          "Matière": "Mélange général 2",
+          "Objectifs": "Consolider mesures, monnaie, fractions.",
+          "Notions travaillées": "Mix varié",
+          "Compétence du référentiel": "Résoudre des problèmes contextualisés",
+          "Attendu associé": "Choisir la démarche adaptée selon la grandeur ou l’opération."
+        },
+        {
+          "Semaine": "S19",
+          "Matière": "× à 2 chiffres × 1 chiffre",
+          "Objectifs": "Produits du type 34×2, 56×3.",
+          "Notions travaillées": "Décomposition ×",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Appliquer un algorithme de multiplication simple."
+        },
+        {
+          "Semaine": "S20",
+          "Matière": "Divisions sans reste",
+          "Objectifs": "Divisions exactes (84÷7).",
+          "Notions travaillées": "Liées aux tables",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Effectuer des divisions exactes et vérifier le résultat."
+        },
+        {
+          "Semaine": "S21",
+          "Matière": "Tables vitesse (battles)",
+          "Objectifs": "Fluidité maximale sur toutes les tables.",
+          "Notions travaillées": "Battles chrono",
+          "Compétence du référentiel": "Créer des familles de nombres",
+          "Attendu associé": "Mémoriser les produits des tables jusqu’à 10×10."
+        },
+        {
+          "Semaine": "S22",
+          "Matière": "Comparaisons rapides",
+          "Objectifs": "Comparer nombres & fractions.",
+          "Notions travaillées": ">, <, =",
+          "Compétence du référentiel": "Appréhender le nombre",
+          "Attendu associé": "Comparer et ordonner des nombres naturels et décimaux."
+        },
+        {
+          "Semaine": "S23",
+          "Matière": "Temps & durées",
+          "Objectifs": "Calculer durées, lire l’horloge.",
+          "Notions travaillées": "Ajouter/retirer des durées",
+          "Compétence du référentiel": "Agir sur des grandeurs (durée)",
+          "Attendu associé": "Déterminer un instant ou une durée à partir d’une donnée."
+        },
+        {
+          "Semaine": "S24",
+          "Matière": "Mélange général 3",
+          "Objectifs": "Consolider (19–23).",
+          "Notions travaillées": "Mix varié",
+          "Compétence du référentiel": "Résoudre des problèmes en mobilisant des nombres",
+          "Attendu associé": "Réinvestir les savoir-faire opératoires."
+        },
+        {
+          "Semaine": "S25",
+          "Matière": "×/÷ avec dizaines",
+          "Objectifs": "Ex. 120÷6, 14×30.",
+          "Notions travaillées": "Zéros et décalages",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Utiliser la distributivité et la position du zéro dans les produits."
+        },
+        {
+          "Semaine": "S26",
+          "Matière": "Fraction d’un nombre",
+          "Objectifs": "½ de 18, ¼ de 32, ⅓ de 27.",
+          "Notions travaillées": "Proportion simple",
+          "Compétence du référentiel": "Agir sur des grandeurs – fractions",
+          "Attendu associé": "Trouver la fraction d’un tout donné."
+        },
+        {
+          "Semaine": "S27",
+          "Matière": "Problèmes mixtes 2 domaines",
+          "Objectifs": "Mesures + multiplications, etc.",
+          "Notions travaillées": "Stratégies rapides",
+          "Compétence du référentiel": "Résoudre des problèmes",
+          "Attendu associé": "Combiner plusieurs domaines dans une même situation."
+        },
+        {
+          "Semaine": "S28",
+          "Matière": "Puzzle chrono (20 calc/2min)",
+          "Objectifs": "Maintenir justesse sous pression.",
+          "Notions travaillées": "Mix intense",
+          "Compétence du référentiel": "Opérer sur des nombres",
+          "Attendu associé": "Effectuer des calculs rapides et exacts dans un temps limité."
+        },
+        {
+          "Semaine": "S29",
+          "Matière": "Grand défi (50 calc/3min)",
+          "Objectifs": "Endurance + précision.",
+          "Notions travaillées": "Mix global",
+          "Compétence du référentiel": "Résoudre des problèmes et calculs mentaux",
+          "Attendu associé": "Réinvestir toutes les opérations de manière fluide et efficace."
+        },
+        {
+          "Semaine": "S30",
+          "Matière": "Bilan & tournoi",
+          "Objectifs": "Évaluer les progrès, célébrer.",
+          "Notions travaillées": "Ceintures de rapidité",
+          "Compétence du référentiel": "Synthèse transversale",
+          "Attendu associé": "Réinvestir les compétences arithmétiques, géométriques et de mesure dans un défi global."
+        }
+      ]
+    },
+    "Géométrie — Compétences & Attendus": {
+      "columns": [
+        "Semaine",
+        "Objectif",
+        "Compétence du référentiel",
+        "Attendu associé"
+      ],
+      "rows": [
+        {
+          "Semaine": "S2",
+          "Objectif": "Revoir le vocabulaire géométrique",
+          "Compétence du référentiel": "Appréhender et représenter des objets de l’espace",
+          "Attendu associé": "Identifier points, segments, droites, demi-droites, angles droits ; utiliser le vocabulaire spécifique."
+        },
+        {
+          "Semaine": "S3",
+          "Objectif": "Tracer des segments",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Utiliser la latte pour tracer et comparer des segments ; exprimer la longueur et le nom du segment."
+        },
+        {
+          "Semaine": "S4",
+          "Objectif": "Tracer des droites perpendiculaires",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Utiliser l’équerre pour tracer des droites perpendiculaires sur papier vierge."
+        },
+        {
+          "Semaine": "S5",
+          "Objectif": "Réactivation segments + perpendiculaires",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Réinvestir les tracés de segments et droites perpendiculaires dans des figures simples."
+        },
+        {
+          "Semaine": "S6",
+          "Objectif": "Tracer des droites parallèles",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Utiliser la latte sur papier quadrillé pour tracer des droites parallèles ; reconnaitre le symbole //."
+        },
+        {
+          "Semaine": "S7",
+          "Objectif": "Tracer un rectangle",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer un rectangle sur papier quadrillé à l’aide de la latte et de l’équerre ; identifier les côtés parallèles et perpendiculaires."
+        },
+        {
+          "Semaine": "S8",
+          "Objectif": "Tracer un carré",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer un carré à partir d’un côté donné ; reconnaitre les propriétés d’égalité des côtés et d’angles droits."
+        },
+        {
+          "Semaine": "S9",
+          "Objectif": "Tracer un parallélogramme",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer un parallélogramme en utilisant la notion de parallélisme ; identifier les côtés opposés."
+        },
+        {
+          "Semaine": "S10",
+          "Objectif": "Réactivation quadrilatères",
+          "Compétence du référentiel": "Articuler les propriétés des figures",
+          "Attendu associé": "Reconnaitre et tracer plusieurs types de quadrilatères en mobilisant parallélisme et perpendicularité."
+        },
+        {
+          "Semaine": "S11",
+          "Objectif": "Tracer un triangle rectangle",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Identifier l’angle droit et tracer un triangle rectangle."
+        },
+        {
+          "Semaine": "S12",
+          "Objectif": "Tracer un triangle isocèle",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Construire un triangle possédant deux côtés isométriques."
+        },
+        {
+          "Semaine": "S13",
+          "Objectif": "Tracer un triangle équilatéral",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Construire un triangle dont les trois côtés sont égaux ; reconnaitre la régularité."
+        },
+        {
+          "Semaine": "S14",
+          "Objectif": "Tracer triangles dans d’autres figures",
+          "Compétence du référentiel": "Articuler les caractéristiques des figures",
+          "Attendu associé": "Construire un triangle à l’intérieur d’un carré ou rectangle."
+        },
+        {
+          "Semaine": "S15",
+          "Objectif": "Réactivation : triangles",
+          "Compétence du référentiel": "Comparer des figures",
+          "Attendu associé": "Distinguer les différents types de triangles et leurs caractéristiques (angles, côtés)."
+        },
+        {
+          "Semaine": "S16",
+          "Objectif": "Tracer une diagonale",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer une diagonale dans un rectangle ou un carré et reconnaitre ses propriétés."
+        },
+        {
+          "Semaine": "S17",
+          "Objectif": "Tracer deux diagonales",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer les diagonales d’un carré ou d’un rectangle et observer qu’elles se coupent en leur milieu."
+        },
+        {
+          "Semaine": "S18",
+          "Objectif": "Tracer une médiane",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer une médiane dans un triangle et reconnaitre le point de contact avec le côté opposé."
+        },
+        {
+          "Semaine": "S19",
+          "Objectif": "Tracer une hauteur",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Tracer une hauteur d’un triangle perpendiculaire à un côté."
+        },
+        {
+          "Semaine": "S20",
+          "Objectif": "Tracer des axes de symétrie",
+          "Compétence du référentiel": "Dégager des régularités géométriques",
+          "Attendu associé": "Tracer les axes de symétrie d’un carré et d’un rectangle."
+        },
+        {
+          "Semaine": "S21",
+          "Objectif": "Réactivation diagonales, médianes, hauteurs, axes",
+          "Compétence du référentiel": "Articuler les propriétés des figures",
+          "Attendu associé": "Combiner plusieurs tracés (diagonales, médianes, hauteurs, axes) dans des figures simples."
+        },
+        {
+          "Semaine": "S22",
+          "Objectif": "Tracer un losange",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Construire un losange à partir des côtés isométriques ; observer les diagonales perpendiculaires."
+        },
+        {
+          "Semaine": "S23",
+          "Objectif": "Tracer un parallélogramme à partir d’un triangle",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Compléter un triangle pour construire un parallélogramme."
+        },
+        {
+          "Semaine": "S24",
+          "Objectif": "Tracer un triangle inscrit dans un quadrilatère",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Construire un triangle à l’intérieur d’un quadrilatère."
+        },
+        {
+          "Semaine": "S25",
+          "Objectif": "Combiner figures",
+          "Compétence du référentiel": "Tracer des figures composées",
+          "Attendu associé": "Tracer une figure combinant carré, diagonales, médianes."
+        },
+        {
+          "Semaine": "S26",
+          "Objectif": "Réactivation : figures composées",
+          "Compétence du référentiel": "Articuler les propriétés et procédés de tracé",
+          "Attendu associé": "Réaliser une figure complexe à partir de consignes intégrant plusieurs éléments géométriques."
+        },
+        {
+          "Semaine": "S27",
+          "Objectif": "Tracer un cercle",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Utiliser le compas pour tracer un cercle à partir du centre et du rayon."
+        },
+        {
+          "Semaine": "S28",
+          "Objectif": "Tracer un cercle inscrit dans un carré",
+          "Compétence du référentiel": "Tracer des figures",
+          "Attendu associé": "Utiliser les diagonales du carré pour déterminer le centre du cercle inscrit."
+        },
+        {
+          "Semaine": "S29",
+          "Objectif": "Tracer un axe de symétrie",
+          "Compétence du référentiel": "Dégager des régularités géométriques",
+          "Attendu associé": "Tracer l’axe de symétrie d’une figure donnée."
+        },
+        {
+          "Semaine": "S30",
+          "Objectif": "Construire une figure symétrique",
+          "Compétence du référentiel": "Dégager et respecter des régularités",
+          "Attendu associé": "Réaliser une figure symétrique par pliage ou en utilisant l’axe de symétrie."
+        },
+        {
+          "Semaine": "S31",
+          "Objectif": "Synthèse finale",
+          "Compétence du référentiel": "Articuler les caractéristiques et propriétés des figures",
+          "Attendu associé": "Réinvestir toutes les compétences de tracé (quadrilatères, triangles, cercles, symétries) dans une production complète."
+        }
+      ]
+    }
+  }
 }
