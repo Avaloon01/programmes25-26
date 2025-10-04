@@ -1,7 +1,6 @@
 {
   "columns": ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"],
   "rows": [
-    /* ========= MATH – plan général ========= */
     {"Semaine":"S1","Domaine":"Math — Algèbre (Calcul mental)","Matiere":"Additions ≤ 100","Objectifs":"20 additions/1 min, ≥80%","Competence":"Opérer sur des nombres","Attendu":"Effectuer des additions mentales simples et estimer un résultat."},
     {"Semaine":"S2","Domaine":"Math — Algèbre (Calcul mental)","Matiere":"Soustractions ≤ 100","Objectifs":"20 soustractions/1 min, ≥80%","Competence":"Opérer sur des nombres","Attendu":"Effectuer des soustractions simples et vérifier le résultat."},
     {"Semaine":"S3","Domaine":"Math — Algèbre (Calcul mental)","Matiere":"Doubles & moitiés ≤ 100","Objectifs":"Répondre <3s","Competence":"Opérer sur des nombres","Attendu":"Automatiser doubles et moitiés (jusqu’à 100)."},
@@ -33,7 +32,7 @@
     {"Semaine":"S29","Domaine":"Math — Évaluation","Matiere":"Grand défi","Objectifs":"50 calc/3 min","Competence":"Calcul mental et écrit","Attendu":"Endurance + précision."},
     {"Semaine":"S30","Domaine":"Math — Synthèse générale","Matiere":"Bilan & tournoi","Objectifs":"Célébrer/évaluer","Competence":"Synthèse transversale","Attendu":"Réinvestir arithmétique, mesures, problèmes."},
 
-    /* ========= FRANÇAIS — ÉCRIRE ========= */
+
     {"Semaine":"S5","Domaine":"Français — Écrire","Matiere":"Ponctuation de base","Objectifs":"Majuscules / . ? !","Competence":"Conventions de l’écrit","Attendu":"Employer correctement majuscule et ponctuation de fin."},
     {"Semaine":"S6","Domaine":"Français — Écrire","Matiere":"Virgule et énumérations","Objectifs":"Virgule simple / listes","Competence":"Conventions de l’écrit","Attendu":"Séparer les éléments d’une liste par la virgule."},
     {"Semaine":"S7","Domaine":"Français — Écrire","Matiere":"Phrase simple","Objectifs":"S-V-C","Competence":"Syntaxe de la phrase","Attendu":"Produire des phrases SVC correctes."},
@@ -65,11 +64,11 @@
     {"Semaine":"S33","Domaine":"Français — Écrire","Matiere":"Révision globale","Objectifs":"Ortho & accords","Competence":"Révision de texte","Attendu":"Corriger un texte complet (toutes conventions)."},
     {"Semaine":"S34","Domaine":"Français — Écrire","Matiere":"Projet final","Objectifs":"Planif.→brouillon→final","Competence":"Démarche d’écriture","Attendu":"Mener un projet d’écriture abouti."},
 
-    /* ========= FRANÇAIS — FLUENCE (axes généraux, sans semaine) ========= */
+   
     {"Semaine":"","Domaine":"Français — Fluence","Matiere":"Lecture à voix haute","Objectifs":"Vitesse/justesse/expressivité","Competence":"Lire avec fluidité","Attendu":"~110 mots/min en fin de P4, ≥95% justesse, intonation adaptée."},
     {"Semaine":"","Domaine":"Français — Fluence","Matiere":"Ponctuation & groupes de souffle","Objectifs":"Prosodie","Competence":"Respect de la ponctuation","Attendu":"Marquer pauses/rythme, varier le ton selon le texte."},
 
-    /* ========= HISTOIRE ========= */
+
     {"Semaine":"S5","Domaine":"Histoire","Matiere":"Siècle vs millénaire","Objectifs":"Différencier durées","Competence":"Repères temporels","Attendu":"Différencier siècle/millénaire."},
     {"Semaine":"S6","Domaine":"Histoire","Matiere":"Associer date à un siècle/millénaire","Objectifs":"Exercices pratiques","Competence":"Repères temporels","Attendu":"Associer une date au siècle/millénaire correspondant."},
     {"Semaine":"S7","Domaine":"Histoire","Matiere":"Périodes conventionnelles","Objectifs":"Découvrir la frise","Competence":"Repères temporels","Attendu":"Nommer les 5 périodes (Préhistoire→contemporaine)."},
@@ -83,7 +82,7 @@
     {"Semaine":"S24","Domaine":"Histoire","Matiere":"Moment clé 5 : Après 1945","Objectifs":"Contexte moderne","Competence":"Associer moment/période","Attendu":"Obligation scolaire 18 ans ; mixité ; médias ; inégalités d’accès."},
     {"Semaine":"S30","Domaine":"Histoire","Matiere":"Frise chronologique","Objectifs":"Compléter/annoter","Competence":"Utiliser la frise","Attendu":"Placer repères significatifs et annoter."},
 
-    /* ========= GÉOGRAPHIE ========= */
+
     {"Semaine":"S5","Domaine":"Géographie","Matiere":"Directions cardinales","Objectifs":"Rose des vents/boussole","Competence":"Repères spatiaux","Attendu":"Indiquer N-E-S-O en classe ou sur le terrain."},
     {"Semaine":"S7","Domaine":"Géographie","Matiere":"Villes de Belgique","Objectifs":"Localiser","Competence":"Repères spatiaux","Attendu":"Nommer/localiser Bruxelles, Anvers, Liège, Namur, Charleroi, Gand, Bruges, Louvain."},
     {"Semaine":"S8","Domaine":"Géographie","Matiere":"Cours d’eau","Objectifs":"Localiser","Competence":"Repères spatiaux","Attendu":"Situer Meuse, Escaut, Sambre, Yser et cours d’eau local."},
