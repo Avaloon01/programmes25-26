@@ -1,17 +1,17 @@
 {
   "sheets": [
-    "Math — Compétences & Attendus",
-    "Géométrie — Compétences & Attendus",
-    "Algèbre — Compétences & Attendus",
-    "Grandeurs — Compétences & Attendus",
-    "Traitement de données — Compétences & Attendus",
+    "Math  ",
+    "Géométrie  ",
+    "Algèbre  ",
+    "Grandeurs  ",
+    "Traitement de données  ",
     "Fluences — Référentiel & Indicateurs",
-    "Écriture — Compétences & Attendus",
-    "Histoire — Compétences & Attendus",
-    "Géographie — Compétences & Attendus"
+    "Écriture  ",
+    "Histoire  ",
+    "Géographie  "
   ],
   "programmes": {
-    "Math — Compétences & Attendus": {
+    "Math  ": {
       "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
       "rows": [
         {"Semaine":"S1","Objectif":"Additions ≤ 100 — Réaliser 20 additions simples en 1 minute avec ≥ 80% de réussite.","Compétence du référentiel":"Opérer sur des nombres et expressions algébriques","Attendu associé":"Effectuer des additions mentales simples et estimer un résultat."},
@@ -46,7 +46,7 @@
         {"Semaine":"S30","Objectif":"Bilan & tournoi — Évaluer les progrès, célébrer.","Compétence du référentiel":"Synthèse transversale","Attendu associé":"Réinvestir les compétences arithmétiques, géométriques et de mesure dans un défi global."}
       ]
     },
-    "Géométrie — Compétences & Attendus": {
+    "Géométrie  ": {
       "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
       "rows": [
         {"Semaine":"S2","Objectif":"Revoir le vocabulaire géométrique","Compétence du référentiel":"Appréhender et représenter des objets de l’espace","Attendu associé":"Identifier points, segments, droites, demi-droites, angles droits ; utiliser le vocabulaire spécifique."},
@@ -81,7 +81,7 @@
         {"Semaine":"S31","Objectif":"Synthèse finale","Compétence du référentiel":"Articuler les caractéristiques et propriétés des figures","Attendu associé":"Réinvestir toutes les compétences de tracé (quadrilatères, triangles, cercles, symétries) dans une production complète."}
       ]
     },
-    "Algèbre — Compétences & Attendus": {
+    "Algèbre  ": {
       "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
       "rows": [
         {"Semaine":"S3","Objectif":"Vocabulaire numération","Compétence du référentiel":"Appréhender le nombre dans tous ses aspects","Attendu associé":"Dire, lire, écrire et représenter les nombres jusqu’à 100 000 ; utiliser les termes unité, dizaine, centaine, millier."},
@@ -116,7 +116,7 @@
         {"Semaine":"S32","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences du champ « De l’arithmétique à l’algèbre » à travers un rallye calcul."}
       ]
     },
-    "Grandeurs — Compétences & Attendus": {
+    "Grandeurs  ": {
       "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
       "rows": [
         {"Semaine":"S5","Objectif":"Vocabulaire des longueurs","Compétence du référentiel":"Concevoir des grandeurs","Attendu associé":"Utiliser correctement les termes longueur, mètre, centimètre, kilomètre ; comparer et classer des objets selon leur longueur."},
@@ -151,7 +151,7 @@
         {"Semaine":"S34","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences dans un rallye de mesure ou une activité pratique."}
       ]
     },
-    "Traitement de données — Compétences & Attendus": {
+    "Traitement de données  ": {
       "columns": ["Semaine", "Objectif", "Compétence du référentiel", "Attendu associé"],
       "rows": [
         {"Semaine":"S5","Objectif":"Lire un tableau simple","Compétence du référentiel":"Collecter, organiser et interpréter des données","Attendu associé":"Lire un tableau à une entrée et prélever les informations demandées."},
@@ -215,7 +215,7 @@
         {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Participer à une lecture collective ou en duo en maintenant la synchronisation.","Attendus observables et indicateurs de progression":""}
       ]
     },
-    "Écriture — Compétences & Attendus": {
+    "Écriture  ": {
       "columns": ["Semaine", "Matière", "Focalisation", "Compétence du référentiel", "Attendu"],
       "rows": [
         {"Semaine":"S5","Matière":"Ponctuation de base","Focalisation":"Majuscules et point / ? / !","Compétence du référentiel":"Maîtriser les conventions de l’écrit.","Attendu":"Utiliser correctement la majuscule en début de phrase et le point, le point d’interrogation, le point d’exclamation en fin."},
@@ -250,7 +250,7 @@
         {"Semaine":"S34","Matière":"Projet final","Focalisation":"Planification → brouillon → version finale","Compétence du référentiel":"Mener un projet d’écriture complet.","Attendu":"Planifier, rédiger, réviser et présenter une production finale aboutie."}
       ]
     },
-    "Histoire — Compétences & Attendus": {
+    "Histoire  ": {
       "columns": ["Semaine", "Thème", "Activité / Objectif", "Compétence du référentiel", "Attendu"],
       "rows": [
         {"Semaine":"S5","Thème":"Millénaire et siècle","Activité / Objectif":"Comprendre la différence entre les deux","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Différencier la durée d’un siècle et d’un millénaire."},
@@ -285,7 +285,7 @@
         {"Semaine":"S34","Thème":"Évaluation finale ludique","Activité / Objectif":"Quizz, escape game","Compétence du référentiel":"Réinvestir les apprentissages","Attendu":"Situer dans le temps, comparer et justifier les changements dans l’accès aux savoirs."}
       ]
     },
-    "Géographie — Compétences & Attendus": {
+    "Géographie  ": {
       "columns": ["Semaine","Thème","Activité / Objectif","Compétence du référentiel","Attendu"],
       "rows": [
         {"Semaine":"S5","Thème":"Les quatre directions cardinales","Activité / Objectif":"Rose des vents, boussole","Compétence du référentiel":"Utiliser des repères spatiaux pour s’orienter","Attendu":"Indiquer les quatre directions cardinales sur une rose des vents ou sur le terrain à l’aide d’une boussole."},
