@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Builder JSON — Compétences & Attendus</title>
+<link rel="stylesheet" href="./styles.css">
+<style>
+  .wrap{max-width:1100px;margin:auto;padding:16px;display:grid;gap:16px}
+  .grid{display:grid;gap:12px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .row > *{flex:1 1 220px}
+  textarea{width:100%;min-height:140px}
+  .drop{border:2px dashed #cdd6f4;border-radius:10px;padding:14px;text-align:center}
+  .drop.drag{background:#f8faff}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:.6rem;border-bottom:1px solid #eef1f7;text-align:left;vertical-align:top}
+  th{font-weight:600;background:#fafbff}
+  .pill{display:inline-block;padding:.2rem .6rem;border-radius:999px;background:#f2f5ff}
+  .muted{opacity:.75}
+  .mini{font-size:.9em}
+  .btn{display:inline-block;padding:.6rem .9rem;border-radius:10px;background:#4f46e5;color:#fff;text-decoration:none;border:0;cursor:pointer}
+  .btn.secondary{background:#e5e7eb;color:#111}
+  .btn.warn{background:#ef4444}
+  .right{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:900px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Builder JSON — Compétences & Attendus</h1>
+      <p class="subtitle">Génère <code>data/competences_attendus.json</code> au format attendu par ta page.</p>
+    </header>
+
+    <!-- 1) Sources d’entrée -->
+    <section class="grid">
+      <h2>1) Importer des données</h2>
+      <div class="two">
+        <div>
+          <div class="row">
+            <input type="file" id="fileCSV" accept=".csv,.txt" />
+            <input type="file" id="fileJSON" accept=".json" />
+          </div>
+          <div id="drop" class="drop mini">
+            Glisse ici un <b>CSV</b> (export Excel/Sheets) ou un <b>JSON existant</b> pour fusionner<br>
+            <span class="muted">Le CSV doit contenir des colonnes, l’ordre n’a pas d’importance.</span>
+          </div>
+        </div>
+        <div>
+          <label for="paste" class="mini muted">Coller depuis Excel/Sheets (colonnes séparées par tabulation)</label>
+          <textarea id="paste" placeholder="Semaine [TAB] Domaine [TAB] Matiere [TAB] Objectifs [TAB] Competence [TAB] Attendu"></textarea>
+          <div class="right">
+            <button class="btn secondary" id="btnParsePaste">Ajouter depuis le collage</button>
+          </div>
+        </div>
+      </div>
+      <div class="mini muted">
+        Astuce : dans Excel/Sheets, sélectionne tes cellules → Ctrl/Cmd+C → colle ici → “Ajouter depuis le collage”.
+      </div>
+    </section>
+
+    <!-- 2) Mapping des colonnes -->
+    <section class="grid">
+      <h2>2) Mapper les colonnes</h2>
+      <div class="row">
+        <select id="mapSemaine"><option value="">⟵ colonne “Semaine”</option></select>
+        <select id="mapDomaine"><option value="">⟵ colonne “Domaine”</option></select>
+        <select id="mapMatiere"><option value="">⟵ colonne “Matiere/Thème”</option></select>
+        <select id="mapObjectifs"><option value="">⟵ colonne “Objectifs”</option></select>
+        <select id="mapCompetence"><option value="">⟵ colonne “Competence”</option></select>
+        <select id="mapAttendu"><option value="">⟵ colonne “Attendu”</option></select>
+      </div>
+      <div class="row">
+        <button class="btn" id="btnApplyMap">Appliquer le mapping aux données chargées</button>
+        <button class="btn secondary" id="btnClear">Effacer tout</button>
+      </div>
+      <div class="mini muted">Le mapping remplit les champs standard requis par la page (Semaine, Domaine, Matiere, Objectifs, Competence, Attendu).</div>
+    </section>
+
+    <!-- 3) Ajout manuel -->
+    <section class="grid">
+      <h2>3) Ajouter une ligne manuellement</h2>
+      <div class="two">
+        <div class="row">
+          <input id="mSemaine" placeholder="Semaine (ex. S12)">
+          <input id="mDomaine" placeholder="Domaine (ex. Math — Algèbre)">
+          <input id="mMatiere" placeholder="Matiere / Thème">
+        </div>
+        <div class="row">
+          <input id="mObjectifs" placeholder="Objectifs">
+          <input id="mCompetence" placeholder="Competence">
+          <input id="mAttendu" placeholder="Attendu">
+        </div>
+      </div>
+      <div class="right">
+        <button class="btn" id="btnAdd">Ajouter la ligne</button>
+      </div>
+    </section>
+
+    <!-- 4) Aperçu / édition simple -->
+    <section class="grid">
+      <h2>4) Aperçu (filtrable) & édition rapide</h2>
+      <div class="row">
+        <input id="search" type="search" placeholder="Filtrer (semaine, domaine, matière, compétence…)" />
+        <span id="badge" class="pill">0 lignes</span>
+      </div>
+      <div class="table-wrap">
+        <table id="grid">
+          <thead>
+            <tr>
+              <th>Semaine</th>
+              <th>Domaine</th>
+              <th>Matiere</th>
+              <th>Objectifs</th>
+              <th>Competence</th>
+              <th>Attendu</th>
+              <th style="width:80px">Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="empty" class="muted" style="display:none;padding:10px;border:1px dashed #e5e7eb;border-radius:8px">Aucune ligne pour ce filtre.</div>
+      </div>
+    </section>
+
+    <!-- 5) Export -->
+    <section class="grid">
+      <h2>5) Exporter le JSON final</h2>
+      <div class="row">
+        <button class="btn" id="btnExport">Télécharger competences_attendus.json</button>
+        <button class="btn secondary" id="btnExportCSV">Exporter aussi en CSV</button>
+        <span class="muted mini">Format : { "columns": ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"], "rows": [...] }</span>
+      </div>
+    </section>
+
+    <footer>
+      <small class="muted">Cet outil reste 100% local dans ton navigateur (aucun upload serveur).</small>
+    </footer>
+  </div>
+
+<script>
+  // ====== État ======
+  const REQUIRED_COLS = ["Semaine","Domaine","Matiere","Objectifs","Competence","Attendu"];
+  let columns = [];           // colonnes vues dans la dernière importation brute
+  let rawRows = [];           // lignes brutes importées (objets par nom de colonne)
+  let rows = [];              // lignes normalisées {Semaine, Domaine, Matiere, Objectifs, Competence, Attendu}
+
+  // ====== Utilitaires ======
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  function esc(s){return (s==null?'':String(s)).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));}
+  function download(name, content, type='application/json'){
+    const blob = new Blob([content], {type});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name; a.click();
+    URL.revokeObjectURL(url);
+  }
+  function csvParse(text){
+    // Simple CSV (séparateur ; ou , ou TAB), support guillemets
+    const sep = text.includes('\t') ? '\t' : (text.includes(';') ? ';' : ',');
+    const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(l=>l.trim().length);
+    const out = [];
+    let headers = [];
+    lines.forEach((line,i)=>{
+      const cells = []; let cur = ''; let inQ = false;
+      for(let j=0;j<line.length;j++){
+        const ch=line[j], nx=line[j+1];
+        if(ch === '"'){ if(inQ && nx === '"'){ cur+='"'; j++; } else { inQ = !inQ; } }
+        else if(ch === sep && !inQ){ cells.push(cur); cur=''; }
+        else cur += ch;
+      }
+      cells.push(cur);
+      if(i===0){ headers = cells.map(h=>h.trim()); out.push(headers); }
+      else out.push(cells.map(c=>c.trim()));
+    });
+    return out;
+  }
+  function from2DToObjects(arr){
+    const hdr = arr[0]; const data = arr.slice(1);
+    return data.map(row=>{
+      const o={};
+      hdr.forEach((h,idx)=>{ o[h||`col${idx}`] = row[idx] ?? ''; });
+      return o;
+    });
+  }
+  function uniqBy(arr, keyFn){
+    const seen = new Set(); const out=[];
+    for(const r of arr){
+      const k = keyFn(r);
+      if(!seen.has(k)){ seen.add(k); out.push(r); }
+    }
+    return out;
+  }
+
+  // ====== UI : population des listes de mapping ======
+  function hydrateMappingSelectors(cols){
+    columns = cols;
+    const selects = ['#mapSemaine','#mapDomaine','#mapMatiere','#mapObjectifs','#mapCompetence','#mapAttendu'].map($);
+    selects.forEach(sel=>{
+      sel.innerHTML = `<option value="">⟵ choisir une colonne</option>`;
+      cols.forEach(c=>{
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c;
+        sel.appendChild(opt);
+      });
+    });
+    // auto-suggestion par heuristique
+    const hint = (name) => cols.find(c => new RegExp(name,'i').test(c)) || '';
+    $('#mapSemaine').value = hint('Semaine|Sem\\b|S\\d');
+    $('#mapDomaine').value = hint('Domaine');
+    $('#mapMatiere').value = hint('Mati[eè]re|Th[eè]me');
+    $('#mapObjectifs').value = hint('Objectif|Objectifs');
+    $('#mapCompetence').value = hint('Comp[eé]tence');
+    $('#mapAttendu').value = hint('Attendu|Indicateur|R[eé]sultat');
+  }
+
+  // ====== Rendu tableau ======
+  function render(){
+    const q = $('#search').value.trim().toLowerCase();
+    const tb = $('#grid tbody'); tb.innerHTML = '';
+    const filtered = rows.filter(r=>{
+      if(!q) return true;
+      return [r.Semaine,r.Domaine,r.Matiere,r.Objectifs,r.Competence,r.Attendu]
+        .join(' ').toLowerCase().includes(q);
+    });
+    filtered.forEach((r,idx)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td contenteditable="true" data-k="Semaine">${esc(r.Semaine||'')}</td>
+        <td contenteditable="true" data-k="Domaine">${esc(r.Domaine||'')}</td>
+        <td contenteditable="true" data-k="Matiere">${esc(r.Matiere||'')}</td>
+        <td contenteditable="true" data-k="Objectifs">${esc(r.Objectifs||'')}</td>
+        <td contenteditable="true" data-k="Competence">${esc(r.Competence||'')}</td>
+        <td contenteditable="true" data-k="Attendu">${esc(r.Attendu||'')}</td>
+        <td><button class="btn warn mini-btn" data-i="${idx}">Suppr.</button></td>
+      `;
+      tb.appendChild(tr);
+    });
+    $('#badge').textContent = `${filtered.length} ligne${filtered.length>1?'s':''}`;
+    $('#empty').style.display = filtered.length ? 'none':'block';
+
+    // Edition inline
+    $$('#grid tbody td[contenteditable]').forEach(td=>{
+      td.addEventListener('blur', e=>{
+        const k = td.dataset.k;
+        const i = Array.from(td.parentElement.parentElement.children).indexOf(td.parentElement);
+        const r = filtered[i]; // référence filtrée
+        const idxGlobal = rows.indexOf(r);
+        rows[idxGlobal][k] = td.textContent.trim();
+      });
+    });
+    // Suppression
+    $$('#grid tbody .mini-btn').forEach((btn, i)=>{
+      btn.addEventListener('click', ()=>{
+        const r = filtered[i];
+        const idxGlobal = rows.indexOf(r);
+        if(idxGlobal>-1){ rows.splice(idxGlobal,1); render(); }
+      });
+    });
+  }
+
+  // ====== Actions ======
+  $('#btnAdd').addEventListener('click', ()=>{
+    const r = {
+      Semaine: $('#mSemaine').value.trim(),
+      Domaine: $('#mDomaine').value.trim(),
+      Matiere: $('#mMatiere').value.trim(),
+      Objectifs: $('#mObjectifs').value.trim(),
+      Competence: $('#mCompetence').value.trim(),
+      Attendu: $('#mAttendu').value.trim()
+    };
+    rows.push(r); render();
+    ['#mSemaine','#mDomaine','#mMatiere','#mObjectifs','#mCompetence','#mAttendu'].forEach(sel=>$(sel).value='');
+  });
+
+  $('#btnClear').addEventListener('click', ()=>{
+    if(confirm('Effacer toutes les lignes courantes ?')){ rows = []; render(); }
+  });
+
+  $('#btnExport').addEventListener('click', ()=>{
+    const payload = {
+      columns: REQUIRED_COLS,
+      rows: rows.map(r=>({
+        Semaine: r.Semaine||'',
+        Domaine: r.Domaine||'',
+        Matiere: r.Matiere||'',
+        Objectifs: r.Objectifs||'',
+        Competence: r.Competence||'',
+        Attendu: r.Attendu||''
+      }))
+    };
+    download('competences_attendus.json', JSON.stringify(payload, null, 2));
+  });
+
+  $('#btnExportCSV').addEventListener('click', ()=>{
+    const cols = REQUIRED_COLS;
+    let csv = cols.join(';')+'\n';
+    rows.forEach(r=>{
+      csv += cols.map(k => String(r[k] ?? '').replaceAll(';', ',').replaceAll('\n',' ')).join(';')+'\n';
+    });
+    download('competences_attendus.csv', csv, 'text/csv;charset=utf-8;');
+  });
+
+  $('#btnParsePaste').addEventListener('click', ()=>{
+    const txt = $('#paste').value.trim();
+    if(!txt) return;
+    // parse tab-separated
+    const lines = txt.split(/\r?\n/).filter(Boolean);
+    // déduit en-têtes si la ligne 1 contient des mots
+    const firstCells = lines[0].split('\t');
+    let hdr = firstCells.length>=4 && firstCells.some(c=>/\w/.test(c)) ? null : null;
+    // On n’impose pas d’en-têtes : on mettra col0..colN et mapping manuel
+    const arr = [firstCells].concat(lines.slice(1).map(l=>l.split('\t')));
+    const objs = from2DToObjects(arr);
+    rawRows = rawRows.concat(objs);
+    const cols = Array.from(new Set([...(columns||[]), ...Object.keys(objs[0]||{})]));
+    hydrateMappingSelectors(cols);
+    alert(`${objs.length} ligne(s) ajoutée(s) depuis le collage. Pense à faire "Appliquer le mapping".`);
+    $('#paste').value = '';
+  });
+
+  // Mapping : applique les sélections aux rawRows pour alimenter rows
+  $('#btnApplyMap').addEventListener('click', ()=>{
+    const m = {
+      Semaine: $('#mapSemaine').value,
+      Domaine: $('#mapDomaine').value,
+      Matiere: $('#mapMatiere').value,
+      Objectifs: $('#mapObjectifs').value,
+      Competence: $('#mapCompetence').value,
+      Attendu: $('#mapAttendu').value
+    };
+    if(!Object.values(m).some(Boolean)){
+      alert('Choisis d’abord les colonnes à utiliser dans les listes de mapping.'); return;
+    }
+    const mapped = rawRows.map(o=>({
+      Semaine: o[m.Semaine] ?? '',
+      Domaine: o[m.Domaine] ?? '',
+      Matiere: o[m.Matiere] ?? o['Thème'] ?? o['Theme'] ?? '',
+      Objectifs: o[m.Objectifs] ?? '',
+      Competence: o[m.Competence] ?? '',
+      Attendu: o[m.Attendu] ?? ''
+    }));
+    // fusion + dédoublonnage par clé (Semaine+Domaine+Matiere+Objectifs)
+    const merged = rows.concat(mapped);
+    rows = uniqBy(merged, r => [r.Semaine,r.Domaine,r.Matiere,r.Objectifs].join('||'));
+    render();
+  });
+
+  // Drag & drop
+  const drop = $('#drop');
+  ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev, e=>{e.preventDefault();drop.classList.add('drag');}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev, e=>{e.preventDefault();drop.classList.remove('drag');}));
+  drop.addEventListener('drop', onDrop);
+
+  async function onDrop(e){
+    const f = e.dataTransfer.files[0]; if(!f) return;
+    await handleFile(f);
+  }
+  $('#fileCSV').addEventListener('change', e=>{
+    const f = e.target.files[0]; if(f) handleFile(f);
+  });
+  $('#fileJSON').addEventListener('change', e=>{
+    const f = e.target.files[0]; if(f) handleFile(f);
+  });
+
+  async function handleFile(file){
+    const text = await file.text();
+    if(file.name.endsWith('.json')){
+      // fusionner JSON existant
+      try{
+        const json = JSON.parse(text);
+        if(Array.isArray(json.rows)){
+          rows = rows.concat(json.rows.map(r=>({
+            Semaine: r.Semaine||'',
+            Domaine: r.Domaine||'',
+            Matiere: r.Matiere||'',
+            Objectifs: r.Objectifs||'',
+            Competence: r.Competence||'',
+            Attendu: r.Attendu||''
+          })));
+          rows = uniqBy(rows, r => [r.Semaine,r.Domaine,r.Matiere,r.Objectifs].join('||'));
+          render();
+          alert(`Fusionné : ${json.rows.length} ligne(s) ajoutée(s).`);
+        }else{
+          alert('JSON inattendu : il doit contenir { columns, rows }.');
+        }
+      }catch(err){
+        alert('JSON invalide : '+err.message);
+      }
+      return;
+    }
+    // CSV / TXT
+    const arr = csvParse(text);
+    if(arr.length<2){ alert('CSV vide.'); return; }
+    const objs = from2DToObjects(arr);
+    rawRows = rawRows.concat(objs);
+    const cols = Array.from(new Set([...(columns||[]), ...Object.keys(objs[0]||{})]));
+    hydrateMappingSelectors(cols);
+    alert(`${objs.length} ligne(s) importée(s). Choisis les colonnes (mapping) puis clique "Appliquer le mapping".`);
+  }
+
+  // init
+  render();
+</script>
+</body>
+</html>
