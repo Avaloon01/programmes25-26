@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compétences & Attendus — P4</title>
+  <link rel="icon" href="assets/images/logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .app{width:min(1100px,100%);margin:auto;display:grid;gap:16px;padding:16px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+    .toolbar input,.toolbar select{padding:.6rem .8rem;border:1px solid #e3e6ee;border-radius:10px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:.65rem;border-bottom:1px solid #eef1f7;text-align:left;vertical-align:top}
+    th{font-weight:600}
+    .pill{display:inline-block;padding:.15rem .5rem;border-radius:999px;background:#f2f5ff}
+    .muted{opacity:.75}
+    .empty{padding:24px;border:1px dashed #e5e7ef;border-radius:12px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1 style="margin:0">Compétences & Attendus — P4</h1>
+        <div class="muted">Vue récapitulative transversale (Math, Français, Histoire, Géographie)</div>
+      </div>
+      <nav>
+        <a href="index.html">Accueil</a> ·
+        <a href="theorie.html">Théorie</a> ·
+        <a href="exercices.html">Exercices</a> ·
+        <span class="pill">Compétences</span>
+      </nav>
+    </header>
+
+    <section class="toolbar">
+      <select id="domainFilter" aria-label="Filtrer par domaine">
+        <option value="">Tous les domaines</option>
+      </select>
+      <select id="weekFilter" aria-label="Filtrer par semaine">
+        <option value="">Toutes les semaines</option>
+      </select>
+      <input id="searchInput" type="search" placeholder="Recherche (matière, compétence, attendu…)" />
+      <span id="countBadge" class="pill">0 éléments</span>
+    </section>
+
+    <section>
+      <table id="grid">
+        <thead>
+          <tr>
+            <th style="width:80px">Semaine</th>
+            <th style="width:160px">Domaine</th>
+            <th style="width:200px">Matière / Thème</th>
+            <th>Objectif</th>
+            <th>Compétence</th>
+            <th>Attendu</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="empty" class="empty" style="display:none">Aucun résultat avec ces filtres.</div>
+    </section>
+  </div>
+
+  <script>
+    // Chargement du JSON (même logique que tes autres pages : fetch + rendu)
+    const DATA_URL = 'data/competences_attendus.json';
+
+    const $domain = document.getElementById('domainFilter');
+    const $week = document.getElementById('weekFilter');
+    const $search = document.getElementById('searchInput');
+    const $tbody = document.querySelector('#grid tbody');
+    const $empty = document.getElementById('empty');
+    const $count = document.getElementById('countBadge');
+
+    let rows = [];
+
+    fetch(DATA_URL).then(r=>r.json()).then(json=>{
+      rows = json.rows || [];
+      hydrateFilters(rows);
+      render();
+    }).catch(err=>{
+      console.error('Erreur chargement JSON compétences:', err);
+      $tbody.innerHTML = '';
+      $empty.style.display = 'block';
+      $empty.textContent = 'Impossible de charger le fichier de données.';
+    });
+
+    function hydrateFilters(data){
+      // domaines
+      const domains = Array.from(new Set(data.map(r=>r.Domaine))).filter(Boolean).sort();
+      for(const d of domains){
+        const opt = document.createElement('option');
+        opt.value = d; opt.textContent = d;
+        $domain.appendChild(opt);
+      }
+      // semaines
+      const weeks = Array.from(new Set(data.map(r=>r.Semaine))).filter(Boolean).sort((a,b)=>{
+        // S1, S2, S10 => tri numérique
+        const na = parseInt(String(a).replace(/\D/g,'')) || 0;
+        const nb = parseInt(String(b).replace(/\D/g,'')) || 0;
+        return na - nb;
+      });
+      for(const w of weeks){
+        const opt = document.createElement('option');
+        opt.value = w; opt.textContent = w;
+        $week.appendChild(opt);
+      }
+      [$domain,$week,$search].forEach(el=>el.addEventListener('input', render));
+    }
+
+    function render(){
+      const q = $search.value.trim().toLowerCase();
+      const dsel = $domain.value;
+      const wsel = $week.value;
+
+      const filtered = rows.filter(r=>{
+        if(dsel && r.Domaine !== dsel) return false;
+        if(wsel && String(r.Semaine) !== String(wsel)) return false;
+        if(!q) return true;
+        const hay = [r.Matiere||'', r.Theme||'', r.Objectifs||'', r.Competence||'', r.Attendu||''].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+
+      $tbody.innerHTML = '';
+      for(const r of filtered){
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.Semaine || ''}</td>
+          <td>${r.Domaine || ''}</td>
+          <td>${r.Matiere || r.Theme || ''}</td>
+          <td>${r.Objectifs || ''}</td>
+          <td>${r.Competence || ''}</td>
+          <td>${r.Attendu || ''}</td>
+        `;
+        $tbody.appendChild(tr);
+      }
+      $empty.style.display = filtered.length ? 'none' : 'block';
+      $count.textContent = `${filtered.length} élément${filtered.length>1?'s':''}`;
+    }
+  </script>
+</body>
+</html>
