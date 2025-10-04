@@ -5,7 +5,9 @@
     "Algèbre — Compétences & Attendus",
     "Grandeurs — Compétences & Attendus",
     "Traitement de données — Compétences & Attendus",
-    "Fluences — Référentiel & Indicateurs"
+    "Fluences — Référentiel & Indicateurs",
+    "Écriture — Compétences & Attendus",
+    "Histoire — Compétences & Attendus"
   ],
   "programmes": {
     "Math — Compétences & Attendus": {
@@ -210,6 +212,76 @@
         {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Évaluer et réguler sa propre lecture (auto-évaluation).","Attendus observables et indicateurs de progression":"Lire devant un groupe en gérant le stress."},
         {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"S’impliquer dans une activité de lecture à voix haute pour communiquer un message.","Attendus observables et indicateurs de progression":"Prendre plaisir à lire à voix haute des textes variés."},
         {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Participer à une lecture collective ou en duo en maintenant la synchronisation.","Attendus observables et indicateurs de progression":""}
+      ]
+    },
+    "Écriture — Compétences & Attendus": {
+      "columns": ["Semaine", "Matière", "Focalisation", "Compétence du référentiel", "Attendu"],
+      "rows": [
+        {"Semaine":"S5","Matière":"Ponctuation de base","Focalisation":"Majuscules et point / ? / !","Compétence du référentiel":"Maîtriser les conventions de l’écrit.","Attendu":"Utiliser correctement la majuscule en début de phrase et le point, le point d’interrogation, le point d’exclamation en fin."},
+        {"Semaine":"S6","Matière":"Virgule et énumérations","Focalisation":"Virgule simple / listes","Compétence du référentiel":"Maîtriser les conventions de l’écrit.","Attendu":"Employer la virgule pour séparer des éléments d’une liste ou des groupes de mots."},
+        {"Semaine":"S7","Matière":"Phrase simple","Focalisation":"Sujet – Verbe – Complément","Compétence du référentiel":"Construire des phrases syntaxiquement correctes.","Attendu":"Identifier et produire des phrases simples respectant la structure SVC."},
+        {"Semaine":"S8","Matière":"Familles de mots","Focalisation":"Racine & dérivation","Compétence du référentiel":"Enrichir et organiser le lexique.","Attendu":"Identifier le mot de base et ses dérivés pour varier le vocabulaire en production."},
+        {"Semaine":"S9","Matière":"Homophones","Focalisation":"a/à ; et/est","Compétence du référentiel":"Maîtriser les homophones grammaticaux.","Attendu":"Employer correctement les homophones grammaticaux les plus fréquents dans ses écrits."},
+        {"Semaine":"S10","Matière":"Petite production","Focalisation":"3–4 phrases cohérentes","Compétence du référentiel":"Produire un texte court respectant une consigne.","Attendu":"Écrire un texte cohérent de quelques phrases en respectant la ponctuation et la syntaxe."},
+        {"Semaine":"S11","Matière":"Déterminants","Focalisation":"Possessifs, démonstratifs","Compétence du référentiel":"Maîtriser l’accord dans le groupe nominal.","Attendu":"Employer correctement les déterminants en lien avec le nom (genre, nombre)."},
+        {"Semaine":"S12","Matière":"Accords GN","Focalisation":"Genre & nombre","Compétence du référentiel":"Maîtriser les accords dans le groupe nominal.","Attendu":"Accorder le déterminant, le nom et l’adjectif en genre et en nombre."},
+        {"Semaine":"S13","Matière":"Adjectifs","Focalisation":"Position, accord","Compétence du référentiel":"Maîtriser les accords dans le groupe nominal.","Attendu":"Employer l’adjectif qualificatif en position correcte et avec l’accord approprié."},
+        {"Semaine":"S14","Matière":"Pluriel des noms","Focalisation":"Régulier / irrégulier","Compétence du référentiel":"Maîtriser les marques du pluriel.","Attendu":"Utiliser correctement les terminaisons du pluriel des noms (réguliers et irréguliers)."},
+        {"Semaine":"S15","Matière":"Compléments circonstanciels","Focalisation":"Temps, lieu","Compétence du référentiel":"Enrichir la phrase et le texte.","Attendu":"Employer des compléments circonstanciels simples pour préciser quand et où se passe l’action."},
+        {"Semaine":"S16","Matière":"Récit court","Focalisation":"5–6 phrases cohérentes","Compétence du référentiel":"Produire un texte narratif simple.","Attendu":"Rédiger un court texte en respectant la chronologie et la cohérence du récit."},
+        {"Semaine":"S17","Matière":"Connecteurs","Focalisation":"Temps, lieu, addition","Compétence du référentiel":"Organiser un texte cohérent.","Attendu":"Employer des connecteurs pour assurer la continuité du texte (puis, ensuite, enfin…)."},
+        {"Semaine":"S18","Matière":"Anaphores","Focalisation":"Pronoms personnels","Compétence du référentiel":"Assurer la cohérence textuelle.","Attendu":"Éviter les répétitions en utilisant les pronoms personnels de reprise."},
+        {"Semaine":"S19","Matière":"Schéma narratif","Focalisation":"Situation, événement, fin","Compétence du référentiel":"Produire un texte narratif structuré.","Attendu":"Identifier et utiliser les éléments du schéma narratif dans sa production."},
+        {"Semaine":"S20","Matière":"Description","Focalisation":"Portrait / lieu","Compétence du référentiel":"Produire un texte descriptif.","Attendu":"Employer des adjectifs et des compléments pour décrire une personne ou un lieu."},
+        {"Semaine":"S21","Matière":"Révision / correction","Focalisation":"Grille de relecture","Compétence du référentiel":"Réviser et améliorer un texte.","Attendu":"Relire un texte pour corriger les erreurs de sens, d’accords et de ponctuation."},
+        {"Semaine":"S22","Matière":"Évaluation narrative","Focalisation":"Récit cohérent","Compétence du référentiel":"Produire un texte narratif complet.","Attendu":"Rédiger un texte structuré avec introduction, développement et fin."},
+        {"Semaine":"S23","Matière":"Présent","Focalisation":"1er groupe, être, avoir, aller","Compétence du référentiel":"Maîtriser la conjugaison du présent.","Attendu":"Conjuguer correctement les verbes au présent en respectant le sujet."},
+        {"Semaine":"S24","Matière":"Imparfait / Passé composé","Focalisation":"Contraste","Compétence du référentiel":"Maîtriser les temps du passé.","Attendu":"Employer le passé composé et l’imparfait en respectant leur valeur temporelle."},
+        {"Semaine":"S25","Matière":"Futur simple","Focalisation":"Terminaisons","Compétence du référentiel":"Maîtriser les temps du futur.","Attendu":"Conjuguer correctement les verbes réguliers au futur simple."},
+        {"Semaine":"S26","Matière":"Accord verbe/sujet","Focalisation":"Repérage du sujet","Compétence du référentiel":"Maîtriser les accords sujet-verbe.","Attendu":"Identifier le sujet et accorder le verbe correctement selon son nombre et sa personne."},
+        {"Semaine":"S27","Matière":"Accords GN (suite)","Focalisation":"Pratique guidée","Compétence du référentiel":"Consolider les accords dans le GN.","Attendu":"Réinvestir les règles d’accord dans des phrases plus complexes."},
+        {"Semaine":"S28","Matière":"BD & dialogues","Focalisation":"Tirets, guillemets","Compétence du référentiel":"Maîtriser les conventions d’écriture du dialogue.","Attendu":"Employer les signes typographiques du dialogue dans un texte narratif."},
+        {"Semaine":"S29","Matière":"Texte explicatif","Focalisation":"Notice, recette","Compétence du référentiel":"Produire un texte explicatif.","Attendu":"Rédiger un texte pour expliquer une procédure ou un fonctionnement."},
+        {"Semaine":"S30","Matière":"Description enrichie","Focalisation":"Vocabulaire précis","Compétence du référentiel":"Enrichir son vocabulaire.","Attendu":"Utiliser des adjectifs variés et précis pour donner de la couleur au texte."},
+        {"Semaine":"S31","Matière":"Avis argumenté","Focalisation":"Parce que… donc…","Compétence du référentiel":"Produire un texte d’opinion.","Attendu":"Exprimer et justifier une opinion simple en reliant les arguments par des connecteurs."},
+        {"Semaine":"S32","Matière":"Jeu poétique","Focalisation":"Images, rythmes","Compétence du référentiel":"Explorer le langage poétique.","Attendu":"Jouer avec les sons, les images et les rythmes dans une courte production."},
+        {"Semaine":"S33","Matière":"Révision globale","Focalisation":"Orthographe & accords","Compétence du référentiel":"Réviser et consolider les acquis.","Attendu":"Relire et corriger un texte complet en appliquant toutes les conventions vues."},
+        {"Semaine":"S34","Matière":"Projet final","Focalisation":"Planification → brouillon → version finale","Compétence du référentiel":"Mener un projet d’écriture complet.","Attendu":"Planifier, rédiger, réviser et présenter une production finale aboutie."}
+      ]
+    },
+    "Histoire — Compétences & Attendus": {
+      "columns": ["Semaine", "Thème", "Activité / Objectif", "Compétence du référentiel", "Attendu"],
+      "rows": [
+        {"Semaine":"S5","Thème":"Millénaire et siècle","Activité / Objectif":"Comprendre la différence entre les deux","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Différencier la durée d’un siècle et d’un millénaire."},
+        {"Semaine":"S6","Thème":"Associer une date à un siècle/millénaire","Activité / Objectif":"Exercices pratiques","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Associer une date donnée au siècle et au millénaire correspondants."},
+        {"Semaine":"S7","Thème":"Les 5 grandes périodes conventionnelles","Activité / Objectif":"Découverte de la frise globale","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Identifier et nommer les cinq grandes périodes conventionnelles de l’histoire."},
+        {"Semaine":"S8","Thème":"Situer les périodes les unes par rapport aux autres","Activité / Objectif":"Avant / après","Compétence du référentiel":"Situer dans le temps","Attendu":"Situer les périodes conventionnelles les unes par rapport aux autres (avant / après)."},
+        {"Semaine":"S9","Thème":"Réalités d’aujourd’hui : école obligatoire","Activité / Objectif":"Comparer avec le passé","Compétence du référentiel":"Inscrire une réalité d’aujourd’hui dans une perspective historique","Attendu":"Expliquer le sens et la portée de l’obligation scolaire actuelle."},
+        {"Semaine":"S10","Thème":"Moment clé 1 : Période gallo-romaine","Activité / Objectif":"Contexte historique","Compétence du référentiel":"Associer un moment clé à sa période","Attendu":"Situer la période gallo-romaine dans nos régions (50 av. J.-C. → Ve siècle)."},
+        {"Semaine":"S11","Thème":"Accès au savoir à l’époque gallo-romaine","Activité / Objectif":"Tradition orale / écrite","Compétence du référentiel":"Identifier les formes d’accès au savoir","Attendu":"Décrire la transition de la tradition orale à la tradition écrite (latin, alphabet)."},
+        {"Semaine":"S12","Thème":"Moment clé 2 : Seigneuries et villes","Activité / Objectif":"Contexte médiéval","Compétence du référentiel":"Associer un moment clé à sa période","Attendu":"Situer le développement des seigneuries et des villes (XIe → XIVe siècle)."},
+        {"Semaine":"S13","Thème":"Organisation de la société médiévale","Activité / Objectif":"Noblesse, clergé, paysans, artisans","Compétence du référentiel":"Identifier des réalités sociales","Attendu":"Décrire l’organisation sociale de la société médiévale (noblesse, clergé, peuple)."},
+        {"Semaine":"S14","Thème":"Accès au savoir au Moyen Âge","Activité / Objectif":"Monastères, universités","Compétence du référentiel":"Identifier les formes d’accès au savoir","Attendu":"Décrire les lieux et acteurs de la transmission du savoir (clergé, monastères, universités)."},
+        {"Semaine":"S15","Thème":"Comparer Gallo-romains / Moyen Âge","Activité / Objectif":"Changements et continuités","Compétence du référentiel":"Identifier changements et continuités","Attendu":"Énoncer une évolution et une continuité entre les périodes gallo-romaine et médiévale."},
+        {"Semaine":"S16","Thème":"Moment clé 3 : Développements scientifiques","Activité / Objectif":"Contexte XVe → XVIIIe","Compétence du référentiel":"Associer un moment clé à sa période","Attendu":"Situer la période des grands développements scientifiques (XVe–XVIIIe s.)."},
+        {"Semaine":"S17","Thème":"L’imprimerie et la diffusion du savoir","Activité / Objectif":"Gutenberg","Compétence du référentiel":"Identifier une innovation majeure","Attendu":"Expliquer les conséquences de l’invention de l’imprimerie sur la diffusion du savoir."},
+        {"Semaine":"S18","Thème":"Langues vernaculaires vs latin","Activité / Objectif":"Évolution linguistique","Compétence du référentiel":"Identifier un changement culturel","Attendu":"Expliquer la perte d’influence du latin et l’émergence des langues vernaculaires."},
+        {"Semaine":"S19","Thème":"Moment clé 4 : Patronat et monde ouvrier","Activité / Objectif":"XIXe → début XXe","Compétence du référentiel":"Associer un moment clé à sa période","Attendu":"Situer la période industrielle dans nos régions et ses transformations sociales."},
+        {"Semaine":"S20","Thème":"Révolution belge (1830)","Activité / Objectif":"Causes et conséquences","Compétence du référentiel":"Identifier un fait marquant","Attendu":"Dater et expliquer brièvement la Révolution belge et ses effets sur l’éducation."},
+        {"Semaine":"S21","Thème":"Travail des enfants et lois de 1914","Activité / Objectif":"Instruction obligatoire","Compétence du référentiel":"Identifier une mesure sociale importante","Attendu":"Expliquer la loi de 1914 sur l’instruction obligatoire et la fin du travail des enfants."},
+        {"Semaine":"S22","Thème":"Comparer Moyen Âge / Développements scientifiques","Activité / Objectif":"Changements / continuités","Compétence du référentiel":"Identifier changements et continuités","Attendu":"Énoncer une évolution et une permanence entre les époques médiévale et moderne."},
+        {"Semaine":"S23","Thème":"Comparer XIXe siècle / après 1945","Activité / Objectif":"Changements / continuités","Compétence du référentiel":"Identifier changements et continuités","Attendu":"Comparer les conditions d’accès au savoir avant et après la Seconde Guerre mondiale."},
+        {"Semaine":"S24","Thème":"Moment clé 5 : Après 1945","Activité / Objectif":"Contexte moderne","Compétence du référentiel":"Associer un moment clé à sa période","Attendu":"Décrire les principales évolutions de l’enseignement après 1945 (mixité, médias)."},
+        {"Semaine":"S25","Thème":"École obligatoire jusqu’à 18 ans","Activité / Objectif":"Mixité scolaire","Compétence du référentiel":"Identifier des réalités actuelles","Attendu":"Expliquer l’extension de l’obligation scolaire et la mixité filles/garçons."},
+        {"Semaine":"S26","Thème":"Inégalités d’accès aux savoirs aujourd’hui","Activité / Objectif":"Technologies et internet","Compétence du référentiel":"Inscrire une réalité d’aujourd’hui dans une perspective historique","Attendu":"Identifier de nouvelles formes d’inégalités d’accès à l’information."},
+        {"Semaine":"S27","Thème":"Faits marquants : conquête romaine, an 1, imprimerie","Activité / Objectif":"Repères historiques","Compétence du référentiel":"Dater les faits marquants","Attendu":"Associer les faits marquants à la période correspondante et les situer dans le temps."},
+        {"Semaine":"S28","Thème":"Faits marquants : 1830, 1914, après 1945","Activité / Objectif":"Repères historiques","Compétence du référentiel":"Dater les faits marquants","Attendu":"Situer dans le temps les événements marquants de l’histoire récente."},
+        {"Semaine":"S29","Thème":"Traces du passé vs travail postérieur","Activité / Objectif":"Méthodologie de l’historien","Compétence du référentiel":"Différencier trace et travail postérieur","Attendu":"Distinguer une trace du passé d’un document reconstitué ou d’un travail d’historien."},
+        {"Semaine":"S30","Thème":"Lire une frise chronologique","Activité / Objectif":"Compléter et annoter","Compétence du référentiel":"Utiliser une représentation du temps","Attendu":"Compléter une frise graduée en siècles et y placer des repères temporels significatifs."},
+        {"Semaine":"S31","Thème":"Lire et exploiter un document","Activité / Objectif":"Photo, texte, manuscrit","Compétence du référentiel":"Lire et exploiter des documents","Attendu":"Prélever une information explicite dans une trace du passé ou un document simple."},
+        {"Semaine":"S32","Thème":"Patrimoine local","Activité / Objectif":"Château, manuscrit, école ancienne","Compétence du référentiel":"Relier savoirs culturels et périodes","Attendu":"Identifier un élément du patrimoine local et le relier à un moment clé."},
+        {"Semaine":"S33","Thème":"Révisions générales","Activité / Objectif":"Frise, moments clés, faits marquants","Compétence du référentiel":"Consolider les savoirs historiques","Attendu":"Mobiliser les repères temporels et culturels vus durant l’année."},
+        {"Semaine":"S34","Thème":"Évaluation finale ludique","Activité / Objectif":"Quizz, escape game","Compétence du référentiel":"Réinvestir les apprentissages","Attendu":"Situer dans le temps, comparer et justifier les changements dans l’accès aux savoirs."}
       ]
     }
   }
