@@ -447,6 +447,76 @@
           "Attendu associé": "Réinvestir toutes les compétences de tracé (quadrilatères, triangles, cercles, symétries) dans une production complète."
         }
       ]
+    },
+    "Algèbre — Compétences & Attendus": {
+      "columns": ["Semaine", "Objectif", "Compétence du référentiel", "Attendu associé"],
+      "rows": [
+        {"Semaine":"S3","Objectif":"Vocabulaire numération","Compétence du référentiel":"Appréhender le nombre dans tous ses aspects","Attendu associé":"Dire, lire, écrire et représenter les nombres jusqu’à 100 000 ; utiliser les termes unité, dizaine, centaine, millier."},
+        {"Semaine":"S4","Objectif":"Lire/écrire nombres jusqu’à 100 000","Compétence du référentiel":"Appréhender le nombre dans tous ses aspects","Attendu associé":"Lire, écrire et représenter des nombres dans la numération décimale ; utiliser les abacs et la décomposition en classes."},
+        {"Semaine":"S5","Objectif":"Décomposer/recomposer","Compétence du référentiel":"Appréhender le nombre puis la lettre","Attendu associé":"Décomposer et recomposer les nombres de trois à six chiffres en lien avec la numération décimale."},
+        {"Semaine":"S6","Objectif":"Comparer/ordonner","Compétence du référentiel":"Appréhender le nombre puis la lettre","Attendu associé":"Comparer, ordonner, situer des nombres à l’aide des signes <, >, =."},
+        {"Semaine":"S7","Objectif":"Compter par pas (100, 200, 500)","Compétence du référentiel":"Créer des familles de nombres, relever des régularités","Attendu associé":"Compter par 100, 200, 500, 1 000 ; déterminer la régularité d’une suite numérique."},
+        {"Semaine":"S8","Objectif":"Suites croissantes/décroissantes","Compétence du référentiel":"Créer des familles de nombres, relever des régularités","Attendu associé":"Compléter ou prolonger des suites en respectant une régularité donnée."},
+        {"Semaine":"S9","Objectif":"Régularité tables 2-4-8","Compétence du référentiel":"Créer des familles de nombres","Attendu associé":"Identifier les régularités et liens entre tables (T2, T4, T8)."},
+        {"Semaine":"S10","Objectif":"Régularité tables 3-6-9","Compétence du référentiel":"Créer des familles de nombres","Attendu associé":"Identifier les régularités et liens entre tables (T3, T6, T9)."},
+        {"Semaine":"S11","Objectif":"Additionner grands nombres","Compétence du référentiel":"Opérer sur des nombres et sur des expressions algébriques","Attendu associé":"Appliquer un algorithme de calcul écrit pour l’addition de plusieurs termes ; vérifier le résultat."},
+        {"Semaine":"S12","Objectif":"Soustraire grands nombres","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Effectuer des soustractions (technique de l’emprunt et de la compensation) ; estimer le résultat."},
+        {"Semaine":"S13","Objectif":"Multiplier par 1 chiffre","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Effectuer des multiplications de nombres naturels dont le multiplicateur est à un chiffre."},
+        {"Semaine":"S14","Objectif":"Multiplier par 10, 100, 50","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser les propriétés des opérations (distributivité, commutativité) pour simplifier un calcul."},
+        {"Semaine":"S15","Objectif":"Diviser par 2, 5, 10","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Effectuer des divisions spécifiques par 2, 5, 10, 100."},
+        {"Semaine":"S16","Objectif":"Estimer un résultat","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Estimer l’ordre de grandeur d’un résultat avant de calculer et vérifier la plausibilité."},
+        {"Semaine":"S17","Objectif":"Commutativité","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser la commutativité de l’addition et de la multiplication."},
+        {"Semaine":"S18","Objectif":"Associativité","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser l’associativité de l’addition et de la multiplication."},
+        {"Semaine":"S19","Objectif":"Distributivité","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser la distributivité pour transformer un calcul en un autre plus simple."},
+        {"Semaine":"S20","Objectif":"Compensation","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser la compensation pour faciliter le calcul mental."},
+        {"Semaine":"S21","Objectif":"Vérifier un calcul","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser les opérations réciproques (+, –, ×, :) pour vérifier un résultat."},
+        {"Semaine":"S22","Objectif":"Parenthèses","Compétence du référentiel":"Opérer sur des expressions algébriques","Attendu associé":"Reconnaitre et utiliser les parenthèses dans les enchainements opératoires."},
+        {"Semaine":"S23","Objectif":"Compléter une égalité","Compétence du référentiel":"Appréhender et utiliser l’égalité","Attendu associé":"Utiliser l’égalité en termes d’équivalence pour compléter une égalité à trous."},
+        {"Semaine":"S24","Objectif":"Repérer fausse égalité","Compétence du référentiel":"Appréhender et utiliser l’égalité","Attendu associé":"Ajuster les fausses égalités pour qu’elles deviennent vraies."},
+        {"Semaine":"S25","Objectif":"Écriture simplifiée","Compétence du référentiel":"Opérer sur des expressions","Attendu associé":"Employer les symboles = et ≠ correctement dans les écritures mathématiques."},
+        {"Semaine":"S26","Objectif":"Problèmes équivalences (double, tiers…)","Compétence du référentiel":"Résoudre des problèmes en mobilisant des nombres","Attendu associé":"Utiliser la proportionnalité simple et les multiples/diviseurs pour résoudre des problèmes additifs ou multiplicatifs."},
+        {"Semaine":"S27","Objectif":"Égalité à trous (inconnue)","Compétence du référentiel":"Vers l’algèbre","Attendu associé":"Découvrir l’inconnue à travers des égalités à compléter ; utiliser la logique de l’équivalence."},
+        {"Semaine":"S28","Objectif":"Problème additif","Compétence du référentiel":"Résoudre des problèmes en mobilisant des nombres","Attendu associé":"Traduire une situation par une addition ou soustraction, estimer, calculer et vérifier."},
+        {"Semaine":"S29","Objectif":"Problème multiplicatif","Compétence du référentiel":"Résoudre des problèmes en mobilisant des nombres","Attendu associé":"Traduire une situation par une multiplication ou division, estimer, calculer et vérifier."},
+        {"Semaine":"S30","Objectif":"Vérifier calculatrice","Compétence du référentiel":"Opérer sur des nombres","Attendu associé":"Utiliser la calculatrice pour contrôler ou confirmer un résultat ; justifier la démarche."},
+        {"Semaine":"S31","Objectif":"Synthèse générale","Compétence du référentiel":"Bilan du champ 3","Attendu associé":"Mobiliser les savoirs et savoir-faire arithmétiques pour résoudre des situations variées."},
+        {"Semaine":"S32","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences du champ « De l’arithmétique à l’algèbre » à travers un rallye calcul."}
+      ]
+    },
+    "Grandeurs — Compétences & Attendus": {
+      "columns": ["Semaine", "Objectif", "Compétence du référentiel", "Attendu associé"],
+      "rows": [
+        {"Semaine":"S5","Objectif":"Vocabulaire des longueurs","Compétence du référentiel":"Concevoir des grandeurs","Attendu associé":"Utiliser correctement les termes longueur, mètre, centimètre, kilomètre ; comparer et classer des objets selon leur longueur."},
+        {"Semaine":"S6","Objectif":"Mesurer avec la règle","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Mesurer des longueurs à l’aide de la règle graduée en cm et mm ; exprimer le résultat avec l’unité adéquate."},
+        {"Semaine":"S7","Objectif":"Estimer et mesurer","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Choisir une unité pertinente pour estimer puis mesurer des objets réels."},
+        {"Semaine":"S8","Objectif":"Conversions cm↔m↔km","Compétence du référentiel":"Construire le système des unités","Attendu associé":"Réaliser des conversions entre unités de longueur (mm, cm, m, km) en utilisant les préfixes et la logique décimale."},
+        {"Semaine":"S9","Objectif":"Périmètre polygone","Compétence du référentiel":"Opérer sur des grandeurs (périmètres, aires)","Attendu associé":"Calculer le périmètre de figures simples (rectangle, carré) à partir des mesures données."},
+        {"Semaine":"S10","Objectif":"Vocabulaire masses","Compétence du référentiel":"Concevoir des grandeurs","Attendu associé":"Utiliser les termes masse, gramme, kilogramme ; comparer et classer des objets selon leur masse."},
+        {"Semaine":"S11","Objectif":"Estimer une masse","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Estimer la masse d’objets familiers ; justifier son estimation."},
+        {"Semaine":"S12","Objectif":"Lire une balance","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Lire et comparer des mesures de masses sur une balance ; exprimer les résultats en g ou kg."},
+        {"Semaine":"S13","Objectif":"Conversions g↔kg","Compétence du référentiel":"Construire le système des unités","Attendu associé":"Réaliser des conversions de masses entre g et kg."},
+        {"Semaine":"S14","Objectif":"Vocabulaire capacités","Compétence du référentiel":"Concevoir des grandeurs","Attendu associé":"Utiliser les termes capacité, litre, millilitre ; comparer des contenances."},
+        {"Semaine":"S15","Objectif":"Lire un verre gradué","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Lire une mesure de contenance sur un récipient gradué et exprimer le résultat en L ou mL."},
+        {"Semaine":"S16","Objectif":"Estimer une contenance","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Estimer la capacité d’un récipient et vérifier par mesurage."},
+        {"Semaine":"S17","Objectif":"Conversions mL↔L","Compétence du référentiel":"Construire le système des unités","Attendu associé":"Réaliser des conversions de capacités entre mL et L."},
+        {"Semaine":"S18","Objectif":"Lire l’heure","Compétence du référentiel":"Agir sur des grandeurs (durée)","Attendu associé":"Lire l’heure sur une horloge analogique ou digitale, en heures et minutes."},
+        {"Semaine":"S19","Objectif":"Durée intervalle","Compétence du référentiel":"Agir sur des grandeurs (durée)","Attendu associé":"Calculer la durée écoulée entre deux instants d’une même heure."},
+        {"Semaine":"S20","Objectif":"Repères calendrier","Compétence du référentiel":"Concevoir des durées","Attendu associé":"Identifier et ordonner jours, mois, années ; utiliser le calendrier pour repérer une date."},
+        {"Semaine":"S21","Objectif":"Lire un horaire","Compétence du référentiel":"Agir sur des durées","Attendu associé":"Lire et interpréter des horaires (bus, train, cinéma)."},
+        {"Semaine":"S22","Objectif":"Problèmes de durée","Compétence du référentiel":"Résoudre des problèmes sur des durées","Attendu associé":"Additionner et soustraire des durées dans des situations contextualisées."},
+        {"Semaine":"S23","Objectif":"Lire un thermomètre","Compétence du référentiel":"Concevoir des grandeurs","Attendu associé":"Lire la température sur un thermomètre gradué en °C."},
+        {"Semaine":"S24","Objectif":"Comparer températures","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Comparer des températures positives et négatives."},
+        {"Semaine":"S25","Objectif":"Lire la monnaie","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Identifier les pièces et billets ; exprimer des montants en euros et centimes."},
+        {"Semaine":"S26","Objectif":"Problèmes d’achats","Compétence du référentiel":"Résoudre des problèmes contextualisés","Attendu associé":"Résoudre des problèmes d’achats, de rendu de monnaie, de bénéfice et perte."},
+        {"Semaine":"S27","Objectif":"Comparer grandeurs","Compétence du référentiel":"Concevoir des grandeurs","Attendu associé":"Comparer plusieurs grandeurs d’objets (longueur, masse, capacité) selon un ordre de grandeur."},
+        {"Semaine":"S28","Objectif":"Estimer avant mesurer","Compétence du référentiel":"Agir sur des grandeurs","Attendu associé":"Estimer la valeur d’une mesure avant de la vérifier avec un instrument."},
+        {"Semaine":"S29","Objectif":"Problèmes longueurs","Compétence du référentiel":"Résoudre des problèmes de mesure","Attendu associé":"Calculer des périmètres ou distances en situation réelle."},
+        {"Semaine":"S30","Objectif":"Problèmes masses/capacités","Compétence du référentiel":"Résoudre des problèmes contextualisés","Attendu associé":"Résoudre des problèmes impliquant masses et capacités dans des contextes quotidiens."},
+        {"Semaine":"S31","Objectif":"Problèmes temps","Compétence du référentiel":"Résoudre des problèmes de durée","Attendu associé":"Planifier ou organiser une activité en tenant compte du temps nécessaire."},
+        {"Semaine":"S32","Objectif":"Problèmes monnaie","Compétence du référentiel":"Résoudre des problèmes d’achat","Attendu associé":"Résoudre des problèmes avec des prix, des remises ou des achats multiples."},
+        {"Semaine":"S33","Objectif":"Révisions générales","Compétence du référentiel":"Synthèse du champ 2","Attendu associé":"Réinvestir les savoirs sur toutes les grandeurs (longueurs, masses, capacités, temps, monnaie, température)."},
+        {"Semaine":"S34","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences dans un rallye de mesure ou une activité pratique."}
+      ]
     }
   }
 }
