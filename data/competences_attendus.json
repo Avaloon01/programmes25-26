@@ -3,7 +3,9 @@
     "Math — Compétences & Attendus",
     "Géométrie — Compétences & Attendus",
     "Algèbre — Compétences & Attendus",
-    "Grandeurs — Compétences & Attendus"
+    "Grandeurs — Compétences & Attendus",
+    "Traitement de données — Compétences & Attendus",
+    "Fluences — Référentiel & Indicateurs"
   ],
   "programmes": {
     "Math — Compétences & Attendus": {
@@ -144,6 +146,70 @@
         {"Semaine":"S32","Objectif":"Problèmes monnaie","Compétence du référentiel":"Résoudre des problèmes d’achat","Attendu associé":"Résoudre des problèmes avec des prix, des remises ou des achats multiples."},
         {"Semaine":"S33","Objectif":"Révisions générales","Compétence du référentiel":"Synthèse du champ 2","Attendu associé":"Réinvestir les savoirs sur toutes les grandeurs (longueurs, masses, capacités, temps, monnaie, température)."},
         {"Semaine":"S34","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences dans un rallye de mesure ou une activité pratique."}
+      ]
+    },
+    "Traitement de données — Compétences & Attendus": {
+      "columns": ["Semaine", "Objectif", "Compétence du référentiel", "Attendu associé"],
+      "rows": [
+        {"Semaine":"S5","Objectif":"Lire un tableau simple","Compétence du référentiel":"Collecter, organiser et interpréter des données","Attendu associé":"Lire un tableau à une entrée et prélever les informations demandées."},
+        {"Semaine":"S6","Objectif":"Compléter un tableau","Compétence du référentiel":"Organiser des données","Attendu associé":"Compléter un tableau simple avec des données fournies."},
+        {"Semaine":"S7","Objectif":"Trouver total et comparer","Compétence du référentiel":"Interpréter des données","Attendu associé":"Calculer un total ou comparer des valeurs dans un tableau."},
+        {"Semaine":"S8","Objectif":"Lire tableau double entrée","Compétence du référentiel":"Lire et interpréter des données","Attendu associé":"Lire et comprendre un tableau à double entrée."},
+        {"Semaine":"S9","Objectif":"Construire tableau fréquence","Compétence du référentiel":"Collecter et organiser des données","Attendu associé":"Réaliser un tableau de fréquences à partir d’une enquête."},
+        {"Semaine":"S10","Objectif":"Lire graphique barres","Compétence du référentiel":"Lire et interpréter des données","Attendu associé":"Identifier les informations représentées dans un diagramme à barres."},
+        {"Semaine":"S11","Objectif":"Lire pictogramme","Compétence du référentiel":"Lire et interpréter des données","Attendu associé":"Lire un pictogramme et interpréter les quantités représentées."},
+        {"Semaine":"S12","Objectif":"Construire graphique barres","Compétence du référentiel":"Présenter des données","Attendu associé":"Tracer un diagramme à barres à partir d’un tableau de données."},
+        {"Semaine":"S13","Objectif":"Construire pictogramme","Compétence du référentiel":"Présenter des données","Attendu associé":"Créer un pictogramme en choisissant une légende et une échelle adaptées."},
+        {"Semaine":"S14","Objectif":"Lire graphique ligne","Compétence du référentiel":"Lire et interpréter des données","Attendu associé":"Lire un graphique linéaire (évolution de température, vitesse, etc.)."},
+        {"Semaine":"S15","Objectif":"Comparer 2 graphiques","Compétence du référentiel":"Interpréter des données","Attendu associé":"Comparer les informations de deux graphiques différents (barres/pictogramme)."},
+        {"Semaine":"S16","Objectif":"Réactivation","Compétence du référentiel":"Consolider les savoir-faire","Attendu associé":"Réinvestir la lecture et la construction de tableaux et graphiques simples."},
+        {"Semaine":"S17","Objectif":"Identifier max/min","Compétence du référentiel":"Lire et interpréter des données","Attendu associé":"Identifier les valeurs maximales et minimales dans un graphique."},
+        {"Semaine":"S18","Objectif":"Calculer total/moyenne","Compétence du référentiel":"Interpréter et traiter des données","Attendu associé":"Calculer le total et la moyenne d’une série de données représentées."},
+        {"Semaine":"S19","Objectif":"Comparer catégories","Compétence du référentiel":"Interpréter des données","Attendu associé":"Comparer les résultats de deux catégories (ex. filles/garçons)."},
+        {"Semaine":"S20","Objectif":"Lire données réelles (météo)","Compétence du référentiel":"Lire et interpréter des données réelles","Attendu associé":"Prélever des informations d’un document de la vie quotidienne (météo)."},
+        {"Semaine":"S21","Objectif":"Lire données réelles (sport)","Compétence du référentiel":"Lire et interpréter des données réelles","Attendu associé":"Lire et interpréter des résultats sportifs dans un tableau ou graphique."},
+        {"Semaine":"S22","Objectif":"Lire graphique temps","Compétence du référentiel":"Lire et interpréter des données réelles","Attendu associé":"Lire un graphique temporel (horaires de bus, train)."},
+        {"Semaine":"S23","Objectif":"Enquête en classe","Compétence du référentiel":"Collecter et organiser des données","Attendu associé":"Réaliser une enquête simple et classer les résultats dans un tableau."},
+        {"Semaine":"S24","Objectif":"Construire tableau/graphique","Compétence du référentiel":"Organiser et présenter des données","Attendu associé":"Transformer les résultats d’une enquête en graphique."},
+        {"Semaine":"S25","Objectif":"Présenter résultats","Compétence du référentiel":"Communiquer les résultats","Attendu associé":"Présenter oralement et par écrit les résultats d’un recueil de données."},
+        {"Semaine":"S26","Objectif":"Problème comparaison","Compétence du référentiel":"Réaliser des problèmes à partir de données","Attendu associé":"Résoudre un problème nécessitant la comparaison de valeurs issues d’un graphique."},
+        {"Semaine":"S27","Objectif":"Problème addition/soustraction","Compétence du référentiel":"Réaliser des problèmes à partir de données","Attendu associé":"Utiliser les données d’un graphique pour effectuer des calculs simples (addition/soustraction)."},
+        {"Semaine":"S28","Objectif":"Lire graphique cumulatif","Compétence du référentiel":"Lire et interpréter des données complexes","Attendu associé":"Lire un graphique présentant des totaux progressifs (cumulatifs)."},
+        {"Semaine":"S29","Objectif":"Réactivation générale","Compétence du référentiel":"Consolider les compétences","Attendu associé":"Revoir toutes les formes de représentations de données."},
+        {"Semaine":"S30","Objectif":"Mini-projet météo","Compétence du référentiel":"Collecter et organiser des données","Attendu associé":"Créer un tableau et un graphique à partir d’observations météorologiques."},
+        {"Semaine":"S31","Objectif":"Mini-projet sport","Compétence du référentiel":"Collecter et présenter des données","Attendu associé":"Concevoir un graphique présentant des scores ou résultats de matchs."},
+        {"Semaine":"S32","Objectif":"Mini-projet famille","Compétence du référentiel":"Collecter et interpréter des données","Attendu associé":"Construire un graphique sur un thème personnel (activités, trajets)."},
+        {"Semaine":"S33","Objectif":"Révisions générales","Compétence du référentiel":"Synthèse du champ 4","Attendu associé":"Réinvestir la lecture, la construction et l’interprétation de tableaux et graphiques variés."},
+        {"Semaine":"S34","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences à travers un rallye statistique (lecture, calcul, interprétation)."}
+      ]
+    },
+    "Fluences — Référentiel & Indicateurs": {
+      "columns": ["Catégorie", "Compétence formulée dans le référentiel", "Attendus observables et indicateurs de progression"],
+      "rows": [
+        {"Catégorie":"Exactitude","Compétence formulée dans le référentiel":"Lire correctement les mots d’un texte en respectant leur orthographe et leur segmentation.","Attendus observables et indicateurs de progression":"Lire sans erreurs de décodage (≥ 95 % de mots corrects)."},
+        {"Catégorie":"Exactitude","Compétence formulée dans le référentiel":"Identifier rapidement les mots connus (mots outils, mots fréquents).","Attendus observables et indicateurs de progression":"Reconnaitre les mots usuels sans hésitation."},
+        {"Catégorie":"Exactitude","Compétence formulée dans le référentiel":"Décoder les mots nouveaux en appliquant les correspondances graphophonémiques.","Attendus observables et indicateurs de progression":"Reprendre immédiatement après une erreur."},
+        {"Catégorie":"Exactitude","Compétence formulée dans le référentiel":"S’autocorriger en cas d’erreur de lecture ou de perte du sens.","Attendus observables et indicateurs de progression":""},
+
+        {"Catégorie":"Fluidité","Compétence formulée dans le référentiel":"Lire de manière continue, régulière et rythmée.","Attendus observables et indicateurs de progression":"Lire à un rythme régulier (≈ 100–120 mots/min en fin de P4)."},
+        {"Catégorie":"Fluidité","Compétence formulée dans le référentiel":"Lire sans hachures ni retours intempestifs.","Attendus observables et indicateurs de progression":"Enchaîner les groupes de mots avec une respiration adaptée."},
+        {"Catégorie":"Fluidité","Compétence formulée dans le référentiel":"Adapter le débit de lecture à la longueur du texte et à son niveau de difficulté.","Attendus observables et indicateurs de progression":"Ne pas couper les phrases à contre-sens."},
+        {"Catégorie":"Fluidité","Compétence formulée dans le référentiel":"Lire silencieusement en respectant les signes de ponctuation implicites.","Attendus observables et indicateurs de progression":""},
+
+        {"Catégorie":"Expressivité","Compétence formulée dans le référentiel":"Lire en respectant la ponctuation, les groupes de souffle et les intonations.","Attendus observables et indicateurs de progression":"Respecter la ponctuation (pauses, ton, intonation)."},
+        {"Catégorie":"Expressivité","Compétence formulée dans le référentiel":"Lire un texte en variant le ton, le volume et le rythme selon la situation de communication.","Attendus observables et indicateurs de progression":"Varier la voix selon le type de texte (dialogue, narration, poésie)."},
+        {"Catégorie":"Expressivité","Compétence formulée dans le référentiel":"Donner du sens à la lecture par la modulation de la voix et de l’intonation.","Attendus observables et indicateurs de progression":"Mettre en valeur les émotions du texte."},
+        {"Catégorie":"Expressivité","Compétence formulée dans le référentiel":"Lire à voix haute de manière expressive pour un auditoire.","Attendus observables et indicateurs de progression":""},
+
+        {"Catégorie":"Compréhension intégrée","Compétence formulée dans le référentiel":"Lire pour comprendre le sens global d’un texte.","Attendus observables et indicateurs de progression":"Montrer par la lecture orale qu’on comprend ce qu’on lit."},
+        {"Catégorie":"Compréhension intégrée","Compétence formulée dans le référentiel":"Repérer les mots ou phrases clés qui guident le sens.","Attendus observables et indicateurs de progression":"Anticiper les mots à venir (lecture prédictive)."},
+        {"Catégorie":"Compréhension intégrée","Compétence formulée dans le référentiel":"Reformuler une partie du texte pour vérifier la compréhension.","Attendus observables et indicateurs de progression":"Réagir à la lecture d’autrui en manifestant compréhension et écoute."},
+        {"Catégorie":"Compréhension intégrée","Compétence formulée dans le référentiel":"Anticiper la suite d’un texte en s’appuyant sur les indices du récit.","Attendus observables et indicateurs de progression":""},
+
+        {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Lire de manière autonome et silencieuse pour s’entraîner.","Attendus observables et indicateurs de progression":"Lire seul pour s’exercer et s’auto-corriger."},
+        {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Évaluer et réguler sa propre lecture (auto-évaluation).","Attendus observables et indicateurs de progression":"Lire devant un groupe en gérant le stress."},
+        {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"S’impliquer dans une activité de lecture à voix haute pour communiquer un message.","Attendus observables et indicateurs de progression":"Prendre plaisir à lire à voix haute des textes variés."},
+        {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Participer à une lecture collective ou en duo en maintenant la synchronisation.","Attendus observables et indicateurs de progression":""}
       ]
     }
   }
