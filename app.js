@@ -1,7 +1,8 @@
 // app.js — version semaines "S1…S34" + JSON colonnes uniformes
 
 async function loadData(){
-  const res = await fetch('./data/programmes.json', {cache:'no-store'});
+  const DATA_URL = window.APP_DATA_URL || './data/programmes.json';
+  const res = await fetch(DATA_URL, { cache: 'no-store' });
   const all = await res.json();
   window.ALL = all;
 
