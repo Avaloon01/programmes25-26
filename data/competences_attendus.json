@@ -5,7 +5,7 @@
     "Algèbre  ",
     "Grandeurs  ",
     "Traitement de données  ",
-    "Fluences — Référentiel & Indicateurs",
+    "Fluences",
     "Écriture  ",
     "Lire",
     "Parler",
@@ -193,7 +193,7 @@
         {"Semaine":"S34","Objectif":"Évaluation ludique","Compétence du référentiel":"Évaluation de fin de séquence","Attendu associé":"Réinvestir les compétences à travers un rallye statistique (lecture, calcul, interprétation)."}
       ]
     },
-    "Fluences — Référentiel & Indicateurs": {
+    "Fluences": {
       "columns": ["Catégorie", "Compétence formulée dans le référentiel", "Attendus observables et indicateurs de progression"],
       "rows": [
         {"Catégorie":"Exactitude","Compétence formulée dans le référentiel":"Lire correctement les mots d’un texte en respectant leur orthographe et leur segmentation.","Attendus observables et indicateurs de progression":"Lire sans erreurs de décodage (≥ 95 % de mots corrects)."},
