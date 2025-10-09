@@ -1,146 +1,238 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
 <title>Bulletin d’octobre — Attendus S1 à S7</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-  /* -------- Impression A4 recto-verso -------- */
+  /* --- Mise en page A4 pour impression --- */
   @page { size: A4; margin: 12mm; }
-  @media print {
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
-
   :root{
-    --c1:#2f7dbe;   /* titres */
-    --c2:#ffd166;   /* pastille */
-    --c3:#06d6a0;   /* encarts */
-    --text:#222;
+    --c-math:#0b74b6; --c-geom:#6a4c93; --c-alg:#ef476f; --c-grad:#118ab2;
+    --c-data:#06d6a0; --c-sci:#2b9348; --c-hist:#fb8500; --c-geo:#1d3557;
+    --c-eco:#8d6e63; --c-eca:#b5179e; --c-fm:#7a6ff0;
   }
-
-  *{box-sizing:border-box}
+  html,body{ height:100%; }
   body{
-    font: 11pt/1.35 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color:var(--text);
-    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: 10.5pt; line-height: 1.25; color:#222; -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
-
   header{
-    display:flex; align-items:center; justify-content:space-between;
-    border-bottom: 3px solid var(--c1);
-    padding: 6px 0 8px;
-    margin-bottom: 8px;
+    text-align:center; margin:0 0 6mm;
   }
-  .brand{
-    font-weight:800; font-size: 16pt; color:var(--c1);
-    letter-spacing:.3px;
-  }
-  .meta{
-    font-size:9pt; opacity:.8;
+  header h1{ margin:0; font-size:18pt; color:#0d47a1; letter-spacing: .2px; }
+  header p{ margin:.5mm 0 0; color:#555; }
+
+  /* Deux colonnes fluides pour tenir en 2 pages A4 */
+  .main{
+    column-count: 2; column-gap: 10mm;
   }
 
-  /* colonnes pour tenir sur 2 pages */
-  .columns{
-    column-count: 2;
-    column-gap: 14mm;
+  /* Sections par domaine */
+  .section{
+    break-inside: avoid; margin:0 0 6mm; border-left: 3.5mm solid #ddd; padding-left: 4mm;
   }
+  .section h2{
+    margin:0 0 2mm; font-size: 12pt; font-weight: 800; color: inherit;
+  }
+  .section .sous{ margin:0 0 1mm; color:#666; font-size:9.5pt; }
 
-  section{
-    break-inside: avoid;
-    margin: 0 0 10px;
-    padding: 8px 10px;
-    border: 1px solid #e9eef4;
-    border-left: 6px solid var(--c1);
-    border-radius: 8px;
-    background: linear-gradient(145deg, #f7fbff 0%, #ffffff 60%);
+  /* Listes d’attendus compactes */
+  ul.attendus{ list-style:none; margin:0; padding:0; }
+  ul.attendus li{
+    display:grid; grid-template-columns: 6mm 1fr; gap: 2mm; align-items: center;
+    margin: 1mm 0;
   }
+  .week{ font-weight:700; color:#444; margin-right:2mm; }
+  .txt{ color:#222; }
 
-  h2{
-    font-size: 12.5pt; margin:0 0 6px 0; line-height:1.2;
-    display:flex; align-items:center; gap:8px;
-  }
-  h2 .dot{
-    width: 9pt; height: 9pt; border-radius:50%;
-    background: var(--c2); border:1px solid rgba(0,0,0,.08);
-  }
-  h3{
-    font-size:10pt; margin: 6px 0 4px; color:#3a3a3a; font-weight:700;
-  }
+  /* Doodle à colorier (très petit) */
+  .icon{ width: 6mm; height: 6mm; }
+  .icon svg{ width:100%; height:100%; stroke:#000; fill:none; stroke-width:1.2; }
 
-  ul.attendus{
-    list-style:none; padding:0; margin:0;
-    display:grid; grid-template-columns: 1fr; gap: 4px;
-  }
-  .attendu{
-    display:flex; align-items:flex-start; gap:6px;
-    background:#fff; border:1px solid #eef3f8; border-radius:8px; padding:6px 8px;
-    break-inside: avoid;
-  }
-  .badge{
-    font: 700 8.5pt/1 monospace; color:#1f3b52; background:#e7f0fa; border:1px solid #d6e6f7;
-    padding: 2px 6px; border-radius: 999px; margin-right: 4px; white-space:nowrap;
-  }
-  .txt{ font-size:9.8pt; }
-  .tiny{
-    width: 14px; height: 14px; flex: 0 0 14px; margin-top: 1px;
-  }
+  /* Couleurs par domaine */
+  .math{       border-color:var(--c-math);       color:var(--c-math); }
+  .geom{       border-color:var(--c-geom);       color:var(--c-geom); }
+  .algebre{    border-color:var(--c-alg);        color:var(--c-alg); }
+  .grandeurs{  border-color:var(--c-grad);       color:var(--c-grad); }
+  .data{       border-color:var(--c-data);       color:var(--c-data); }
+  .sciences{   border-color:var(--c-sci);        color:var(--c-sci); }
+  .histoire{   border-color:var(--c-hist);       color:var(--c-hist); }
+  .geographie{ border-color:var(--c-geo);        color:var(--c-geo); }
+  .eco{        border-color:var(--c-eco);        color:var(--c-eco); }
+  .eca{        border-color:var(--c-eca);        color:var(--c-eca); }
+  .fmttn{      border-color:var(--c-fm);         color:var(--c-fm); }
 
-  footer{
-    margin-top:6px; padding-top:6px; border-top:1px dashed #d9e2ec;
-    font-size:8.8pt; color:#666;
-  }
-  .legend{
-    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-  }
-  .tag{
-    background: #ecfff7; border:1px solid #c9f3e2; color:#116149;
-    padding:2px 6px; border-radius:999px; font-size:8.8pt;
-  }
+  /* Pied de page discret (facultatif) */
+  footer{ text-align:center; color:#666; font-size:8.5pt; margin-top:4mm; }
 </style>
 </head>
 <body>
+
+<!-- Définition d’un petit dessin à colorier réutilisable -->
+<svg width="0" height="0" style="position:absolute; left:-9999px; top:-9999px;">
+  <defs>
+    <!-- Étoile simple au trait (coloriable) -->
+    <symbol id="doodle-star" viewBox="0 0 24 24">
+      <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.9 6.2 20.4l1.1-6.5-4.7-4.6 6.5-.9L12 2.5z"/>
+    </symbol>
+  </defs>
+</svg>
+
 <header>
-  <div class="brand">Bulletin d’octobre — Attendus S1 à S7</div>
-  <div class="meta">Cycle P4 • Synthèse par domaine • Recto-verso A4</div>
+  <h1>Bulletin d’octobre — Attendus (Semaines S1 à S7)</h1>
+  <p>Liste synthétique par domaine • A4 recto-verso • chaque attendu est précédé d’un petit dessin à colorier</p>
 </header>
 
-<div class="columns">
+<div class="main">
 
-  <!-- ========= MATH ========= -->
-  <section>
-    <h2><span class="dot"></span> Math</h2>
+  <!-- MATH -->
+  <section class="section math">
+    <h2>Math</h2>
     <ul class="attendus">
-      <li class="attendu">
-        <!-- mini dessin à colorier (étoile) -->
-        <svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg>
-        <div class="txt"><span class="badge">S1</span>Effectuer des additions mentales simples et estimer un résultat.</div>
-      </li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S2</span>Effectuer des soustractions simples et vérifier le résultat.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S3</span>Utiliser la commutativité et la décomposition pour le calcul mental.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S4</span>Appliquer les tables de multiplication simples.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S5</span>Identifier les régularités et liens entre tables.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S6</span>Utiliser la relation entre multiplication et division pour vérifier un calcul.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S7</span>Identifier l’opération adéquate selon le contexte.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S1.</span> Effectuer des additions mentales simples et estimer un résultat.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S2.</span> Effectuer des soustractions simples et vérifier le résultat.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> Utiliser la commutativité et la décomposition pour le calcul mental.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Appliquer les tables de multiplication simples.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Identifier les régularités et les liens entre tables.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Utiliser le lien multiplication ⇄ division pour vérifier un calcul.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Identifier l’opération adéquate selon le contexte.</div></li>
     </ul>
   </section>
 
-  <!-- ========= GÉOMÉTRIE ========= -->
-  <section>
-    <h2><span class="dot"></span> Géométrie</h2>
+  <!-- GEOMETRIE -->
+  <section class="section geom">
+    <h2>Géométrie</h2>
     <ul class="attendus">
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S2</span>Identifier points, segments, droites, demi-droites, angles droits ; utiliser le vocabulaire spécifique.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S3</span>Tracer et comparer des segments à la latte ; exprimer la longueur.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S4</span>Tracer des droites perpendiculaires à l’équerre sur papier vierge.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S5</span>Réinvestir segments et perpendiculaires dans des figures simples.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S6</span>Tracer des parallèles à la latte sur quadrillage ; reconnaître le symbole //.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S7</span>Tracer un rectangle au quadrillage ; identifier côtés parallèles et perpendiculaires.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S2.</span> Vocabulaire : points, segments, droites, demi-droites, angle droit.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> Tracer/comparer des segments à la latte ; nommer et mesurer.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Tracer des perpendiculaires à l’équerre.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Réinvestir segments + perpendiculaires dans des figures simples.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Tracer des parallèles (lattes) et reconnaitre le symbole //.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Tracer un rectangle ; identifier côtés // et ⟂.</div></li>
     </ul>
   </section>
 
-  <!-- ========= ALGÈBRE ========= -->
-  <section>
-    <h2><span class="dot"></span> Algèbre</h2>
+  <!-- ALGÈBRE -->
+  <section class="section algebre">
+    <h2>Algèbre / Nombres</h2>
     <ul class="attendus">
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S3</span>Dire, lire, écrire et représenter les nombres jusqu’à 100 000.</div></li>
-      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S4</span>Lire/écrire des nombres en numération décimale (abacs, classes).</div></li>
-      <li class="
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> Dire, lire, écrire les nombres ≤ 100 000 (unités, dizaines, centaines, milliers).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Représenter/écrire en numération décimale (abacs, classes).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Décomposer et recomposer des nombres (3 à 6 chiffres).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Comparer/ordonner des nombres (signes &lt;, &gt;, =).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Compter par 100, 200, 500, 1 000 ; repérer une régularité.</div></li>
+    </ul>
+  </section>
+
+  <!-- GRANDEURS -->
+  <section class="section grandeurs">
+    <h2>Grandeurs & Mesures</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Vocabulaire des longueurs (mm, cm, m, km) ; comparer/classer.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Mesurer à la règle graduée (cm, mm) et indiquer l’unité.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Choisir une unité pertinente pour estimer puis mesurer.</div></li>
+    </ul>
+  </section>
+
+  <!-- TRAITEMENT DE DONNÉES -->
+  <section class="section data">
+    <h2>Traitement de données</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Lire un tableau à une entrée et prélever les infos.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Compléter un tableau simple avec des données.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Calculer un total et comparer des valeurs dans un tableau.</div></li>
+    </ul>
+  </section>
+
+  <!-- ÉCRITURE -->
+  <section class="section algebre" style="border-color:#ff8fab; color:#ff5a87;">
+    <h2>Écriture (français)</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Majuscule en début de phrase ; ., ? , ! en fin.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Virgule pour énumérations et groupes de mots.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Produire des phrases S-V-C correctes.</div></li>
+    </ul>
+  </section>
+
+  <!-- SCIENCES -->
+  <section class="section sciences">
+    <h2>Sciences</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S1.</span> Étapes d’une démarche scientifique (question → conclusion).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S2.</span> Distinguer vivant / non-vivant et justifier.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> La matière du corps provient de l’alimentation.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Trajet et transformation des aliments (digestion).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Le sang transporte les nutriments dans l’organisme.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Règles d’hygiène : alimentation, eau, activité, sommeil.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Schéma légendé du tube digestif et des nutriments.</div></li>
+    </ul>
+  </section>
+
+  <!-- HISTOIRE -->
+  <section class="section histoire">
+    <h2>Histoire</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Différencier la durée d’un siècle et d’un millénaire.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Associer une date à son siècle et son millénaire.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Nommer les cinq grandes périodes de l’histoire.</div></li>
+    </ul>
+  </section>
+
+  <!-- GÉOGRAPHIE -->
+  <section class="section geographie">
+    <h2>Géographie</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Indiquer N-E-S-O sur une rose des vents / à la boussole.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Lire un plan simple pour se situer et se déplacer.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Localiser les principales villes de Belgique.</div></li>
+    </ul>
+  </section>
+
+  <!-- ÉCONOMIE & SOCIAL -->
+  <section class="section eco">
+    <h2>Économie & Sociale</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S1.</span> Nommer les membres d’une famille et divers types de familles.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S2.</span> Décrire la répartition des tâches et responsabilités familiales.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> Expliquer la transmission de goûts, coutumes ou métiers.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Identifier et questionner les stéréotypes de genre.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Classer besoins vitaux et envies de consommation.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Citer des sources de revenus (salaire, pension, allocations).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Distinguer dépenses fixes, variables et occasionnelles.</div></li>
+    </ul>
+  </section>
+
+  <!-- ECA -->
+  <section class="section eca">
+    <h2>ECA — Éducation culturelle & artistique</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S1.</span> Décrire une œuvre d’art et exprimer ses impressions.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S2.</span> Expliquer ce qu’est un musée et décrire une œuvre observée.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> Identifier une tradition ou fête locale (ducasse, procession...).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Identifier camaïeu, dégradé et harmonie de couleurs.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Créer une production plastique (dégradé + textures).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Distinguer pulsation et rythme à l’écoute.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Frapper pulsation et rythme sur une chanson.</div></li>
+    </ul>
+  </section>
+
+  <!-- FMTTN -->
+  <section class="section fmttn">
+    <h2>FMTTN — Manuel, technique, techno & numérique</h2>
+    <ul class="attendus">
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S1.</span> Identifier les risques, adopter une posture sûre, trier les déchets.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S2.</span> Classer les aliments par famille ; repérer le circuit court.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S3.</span> Identifier ingrédients, ustensiles, étapes et mesures d’une recette.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S4.</span> Appliquer des gestes culinaires précis et les règles d’hygiène.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S5.</span> Nommer/classer matériaux (rigide, souple, isolant...).</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S6.</span> Identifier l’usage des outils : scie, marteau, tournevis, colle, pinceau.</div></li>
+      <li><span class="icon"><svg><use href="#doodle-star"/></svg></span><div class="txt"><span class="week">S7.</span> Mesurer, tracer, couper, assembler et décorer un objet simple.</div></li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>Bulletin d’octobre • Attendus S1 à S7 • Imprimez en A4 (recto-verso) — © Classe P4</footer>
+</body>
+</html>
