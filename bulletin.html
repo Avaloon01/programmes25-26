@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Bulletin d’octobre — Attendus S1 à S7</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* -------- Impression A4 recto-verso -------- */
+  @page { size: A4; margin: 12mm; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  :root{
+    --c1:#2f7dbe;   /* titres */
+    --c2:#ffd166;   /* pastille */
+    --c3:#06d6a0;   /* encarts */
+    --text:#222;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    font: 11pt/1.35 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+    margin:0;
+  }
+
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom: 3px solid var(--c1);
+    padding: 6px 0 8px;
+    margin-bottom: 8px;
+  }
+  .brand{
+    font-weight:800; font-size: 16pt; color:var(--c1);
+    letter-spacing:.3px;
+  }
+  .meta{
+    font-size:9pt; opacity:.8;
+  }
+
+  /* colonnes pour tenir sur 2 pages */
+  .columns{
+    column-count: 2;
+    column-gap: 14mm;
+  }
+
+  section{
+    break-inside: avoid;
+    margin: 0 0 10px;
+    padding: 8px 10px;
+    border: 1px solid #e9eef4;
+    border-left: 6px solid var(--c1);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #f7fbff 0%, #ffffff 60%);
+  }
+
+  h2{
+    font-size: 12.5pt; margin:0 0 6px 0; line-height:1.2;
+    display:flex; align-items:center; gap:8px;
+  }
+  h2 .dot{
+    width: 9pt; height: 9pt; border-radius:50%;
+    background: var(--c2); border:1px solid rgba(0,0,0,.08);
+  }
+  h3{
+    font-size:10pt; margin: 6px 0 4px; color:#3a3a3a; font-weight:700;
+  }
+
+  ul.attendus{
+    list-style:none; padding:0; margin:0;
+    display:grid; grid-template-columns: 1fr; gap: 4px;
+  }
+  .attendu{
+    display:flex; align-items:flex-start; gap:6px;
+    background:#fff; border:1px solid #eef3f8; border-radius:8px; padding:6px 8px;
+    break-inside: avoid;
+  }
+  .badge{
+    font: 700 8.5pt/1 monospace; color:#1f3b52; background:#e7f0fa; border:1px solid #d6e6f7;
+    padding: 2px 6px; border-radius: 999px; margin-right: 4px; white-space:nowrap;
+  }
+  .txt{ font-size:9.8pt; }
+  .tiny{
+    width: 14px; height: 14px; flex: 0 0 14px; margin-top: 1px;
+  }
+
+  footer{
+    margin-top:6px; padding-top:6px; border-top:1px dashed #d9e2ec;
+    font-size:8.8pt; color:#666;
+  }
+  .legend{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  }
+  .tag{
+    background: #ecfff7; border:1px solid #c9f3e2; color:#116149;
+    padding:2px 6px; border-radius:999px; font-size:8.8pt;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Bulletin d’octobre — Attendus S1 à S7</div>
+  <div class="meta">Cycle P4 • Synthèse par domaine • Recto-verso A4</div>
+</header>
+
+<div class="columns">
+
+  <!-- ========= MATH ========= -->
+  <section>
+    <h2><span class="dot"></span> Math</h2>
+    <ul class="attendus">
+      <li class="attendu">
+        <!-- mini dessin à colorier (étoile) -->
+        <svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg>
+        <div class="txt"><span class="badge">S1</span>Effectuer des additions mentales simples et estimer un résultat.</div>
+      </li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S2</span>Effectuer des soustractions simples et vérifier le résultat.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S3</span>Utiliser la commutativité et la décomposition pour le calcul mental.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S4</span>Appliquer les tables de multiplication simples.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S5</span>Identifier les régularités et liens entre tables.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S6</span>Utiliser la relation entre multiplication et division pour vérifier un calcul.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S7</span>Identifier l’opération adéquate selon le contexte.</div></li>
+    </ul>
+  </section>
+
+  <!-- ========= GÉOMÉTRIE ========= -->
+  <section>
+    <h2><span class="dot"></span> Géométrie</h2>
+    <ul class="attendus">
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S2</span>Identifier points, segments, droites, demi-droites, angles droits ; utiliser le vocabulaire spécifique.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S3</span>Tracer et comparer des segments à la latte ; exprimer la longueur.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S4</span>Tracer des droites perpendiculaires à l’équerre sur papier vierge.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S5</span>Réinvestir segments et perpendiculaires dans des figures simples.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S6</span>Tracer des parallèles à la latte sur quadrillage ; reconnaître le symbole //.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S7</span>Tracer un rectangle au quadrillage ; identifier côtés parallèles et perpendiculaires.</div></li>
+    </ul>
+  </section>
+
+  <!-- ========= ALGÈBRE ========= -->
+  <section>
+    <h2><span class="dot"></span> Algèbre</h2>
+    <ul class="attendus">
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S3</span>Dire, lire, écrire et représenter les nombres jusqu’à 100 000.</div></li>
+      <li class="attendu"><svg class="tiny" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20l1.1-6.1L3 9.6l6.2-.9L12 3z"/></svg><div class="txt"><span class="badge">S4</span>Lire/écrire des nombres en numération décimale (abacs, classes).</div></li>
+      <li class="
