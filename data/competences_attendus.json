@@ -319,6 +319,89 @@
         {"Semaine":"S33","Thème":"Projet cartographique","Activité / Objectif":"Carte schématique de la Belgique","Compétence du référentiel":"Représenter l’espace","Attendu":"Construire une carte schématique de la Belgique en y plaçant les repères essentiels."},
         {"Semaine":"S34","Thème":"Évaluation finale ludique","Activité / Objectif":"Escape game / rallye carte / kahoot","Compétence du référentiel":"Réinvestir les apprentissages","Attendu":"Réutiliser les repères spatiaux, cartes et notions vues durant l’année."}
       ]
-    }
+    },
+    "Sciences": {
+  "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Objectif":"Découvrir la démarche scientifique — comprendre ce qu’est une expérience et formuler une hypothèse.","Compétence du référentiel":"Mettre en œuvre une démarche d’investigation scientifique","Attendu associé":"Identifier les étapes d’une démarche scientifique : question, hypothèse, expérience, conclusion."},
+    {"Semaine":"S2","Objectif":"Distinguer les vivants des non-vivants à partir d’observations concrètes.","Compétence du référentiel":"Observer, comparer et classer des éléments du monde vivant","Attendu associé":"Distinguer les êtres vivants des objets inertes et justifier sa classification."},
+    {"Semaine":"S3","Objectif":"Découvrir que les aliments apportent matière et énergie au corps humain.","Compétence du référentiel":"Décrire et expliquer la nutrition humaine","Attendu associé":"Préciser que les humains sont constitués de matière provenant de leur alimentation."},
+    {"Semaine":"S4","Objectif":"Étudier le trajet des aliments dans le tube digestif.","Compétence du référentiel":"Décrire et interpréter la digestion des aliments","Attendu associé":"Décrire le trajet et la transformation des aliments dans le corps humain."},
+    {"Semaine":"S5","Objectif":"Comprendre le rôle du sang dans le transport des nutriments.","Compétence du référentiel":"Relier les systèmes digestif et circulatoire","Attendu associé":"Identifier le sang comme moyen de transport des nutriments dans l’organisme."},
+    {"Semaine":"S6","Objectif":"Adopter une hygiène de vie saine : alimentation, eau, activité physique, sommeil.","Compétence du référentiel":"Mettre en relation hygiène de vie et bon fonctionnement du corps","Attendu associé":"Citer les principales règles d’hygiène et leur importance pour la santé."},
+    {"Semaine":"S7","Objectif":"Schématiser la digestion et le trajet des aliments.","Compétence du référentiel":"Utiliser une représentation simplifiée pour comprendre une réalité complexe","Attendu associé":"Réaliser un schéma légendé du tube digestif et du trajet des nutriments."},
+    {"Semaine":"S8","Objectif":"Identifier les régimes alimentaires des animaux (herbivore, carnivore, omnivore).","Compétence du référentiel":"Observer et comparer les modes d’alimentation des vivants","Attendu associé":"Définir et illustrer les régimes alimentaires à partir d’exemples d’animaux."},
+    {"Semaine":"S9","Objectif":"Construire une chaîne alimentaire simple.","Compétence du référentiel":"Représenter les relations alimentaires entre vivants","Attendu associé":"Représenter une chaîne alimentaire à l’aide de flèches et de maillons."},
+    {"Semaine":"S10","Objectif":"Comprendre les effets de la disparition d’un maillon sur une chaîne alimentaire.","Compétence du référentiel":"Expliquer les interactions entre vivants dans un milieu","Attendu associé":"Expliquer l’impact de la disparition d’un maillon sur l’équilibre d’un écosystème."},
+    {"Semaine":"S11","Objectif":"Découvrir les adaptations des animaux à leur environnement.","Compétence du référentiel":"Établir des liens entre adaptations et survie","Attendu associé":"Citer des exemples d’adaptations comme le camouflage, la migration ou l’hibernation."},
+    {"Semaine":"S12","Objectif":"Observer les vivants dans leur milieu de vie proche.","Compétence du référentiel":"Observer et décrire un milieu naturel","Attendu associé":"Identifier les relations entre les vivants et leur environnement."},
+    {"Semaine":"S13","Objectif":"Synthétiser les notions sur l’alimentation et les chaînes alimentaires.","Compétence du référentiel":"Structurer et communiquer des connaissances scientifiques","Attendu associé":"Réaliser une affiche ou carte mentale des relations alimentaires étudiées."},
+    {"Semaine":"S14","Objectif":"Identifier les différents états de l’eau (solide, liquide, gazeux).","Compétence du référentiel":"Observer et décrire les propriétés de la matière","Attendu associé":"Nommer et donner un exemple pour chaque état de l’eau."},
+    {"Semaine":"S15","Objectif":"Observer les changements d’état de l’eau : fusion, solidification, évaporation, condensation.","Compétence du référentiel":"Suivre un protocole expérimental pour observer des transformations","Attendu associé":"Identifier et nommer les changements d’état et leurs conditions."},
+    {"Semaine":"S16","Objectif":"Mettre en évidence la conservation de la matière lors des changements d’état.","Compétence du référentiel":"Expérimenter et mesurer pour établir une relation scientifique","Attendu associé":"Constater que la masse de l’eau reste la même lors d’un changement d’état."},
+    {"Semaine":"S17","Objectif":"Mesurer la température de fusion et d’ébullition de l’eau.","Compétence du référentiel":"Utiliser des instruments de mesure adaptés","Attendu associé":"Identifier les températures caractéristiques : 0°C pour la fusion, 100°C pour l’ébullition."},
+    {"Semaine":"S18","Objectif":"Représenter le cycle naturel de l’eau.","Compétence du référentiel":"Décrire et schématiser un phénomène naturel","Attendu associé":"Réaliser un schéma légendé du cycle naturel de l’eau."},
+    {"Semaine":"S19","Objectif":"Relier les changements d’état au cycle naturel de l’eau.","Compétence du référentiel":"Décrire les transformations de la matière dans la nature","Attendu associé":"Expliquer que le cycle de l’eau implique des changements d’état successifs."},
+    {"Semaine":"S20","Objectif":"Découvrir les gestes quotidiens pour préserver l’eau et l’environnement.","Compétence du référentiel":"Adopter une démarche écoresponsable","Attendu associé":"Citer des gestes concrets pour économiser et protéger l’eau."},
+    {"Semaine":"S21","Objectif":"Synthétiser les apprentissages sur la matière et l’eau.","Compétence du référentiel":"Structurer et communiquer des connaissances","Attendu associé":"Présenter le cycle de l’eau et ses transformations de manière organisée."},
+    {"Semaine":"S22","Objectif":"Identifier les parties du corps impliquées dans le mouvement.","Compétence du référentiel":"Observer et nommer les éléments de l’appareil locomoteur","Attendu associé":"Citer les principaux os et articulations du corps humain."},
+    {"Semaine":"S23","Objectif":"Découvrir le rôle du squelette dans le mouvement.","Compétence du référentiel":"Décrire les fonctions du squelette","Attendu associé":"Énoncer les trois fonctions du squelette : soutien, locomotion, protection."},
+    {"Semaine":"S24","Objectif":"Comprendre la relation entre muscles, os et tendons.","Compétence du référentiel":"Décrire les interactions dans le système locomoteur","Attendu associé":"Expliquer comment muscles et tendons permettent la flexion d’un membre."},
+    {"Semaine":"S25","Objectif":"Observer la structure musculaire et tendineuse sur une aile de poulet.","Compétence du référentiel":"Observer et comparer des structures anatomiques","Attendu associé":"Identifier les muscles, tendons et os responsables du mouvement."},
+    {"Semaine":"S26","Objectif":"Découvrir la commande nerveuse du mouvement.","Compétence du référentiel":"Relier les organes du mouvement et le système nerveux","Attendu associé":"Expliquer que le cerveau envoie des ordres via les nerfs pour activer les muscles."},
+    {"Semaine":"S27","Objectif":"Explorer la notion de force à travers le mouvement d’objets.","Compétence du référentiel":"Observer et interpréter un phénomène physique simple","Attendu associé":"Identifier qu’une force provoque un mouvement ou un changement de direction."},
+    {"Semaine":"S28","Objectif":"Construire un modèle de bras articulé pour comprendre le mouvement.","Compétence du référentiel":"Concevoir un modèle illustrant un phénomène scientifique","Attendu associé":"Réaliser un bras articulé simulant la flexion et l’extension."},
+    {"Semaine":"S29","Objectif":"Synthétiser les notions sur le corps et les forces.","Compétence du référentiel":"Structurer et communiquer les résultats d’observations","Attendu associé":"Présenter une affiche illustrant le fonctionnement du mouvement humain."},
+    {"Semaine":"S30","Objectif":"Grand quiz / exposition scientifique – réinvestir les apprentissages de l’année.","Compétence du référentiel":"Communiquer sur les résultats et les connaissances acquises","Attendu associé":"Présenter oralement ou par affichage les découvertes scientifiques réalisées durant l’année."}
+  ]
+},
+    "EconomieSociale": {
+  "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Objectif":"Identifier la diversité des formes de familles.","Compétence du référentiel":"Observer et décrire des réalités sociales","Attendu associé":"Nommer les personnes qui composent une famille et reconnaître différents types de familles."},
+    {"Semaine":"S2","Objectif":"Comprendre les rôles et fonctions des membres de la famille.","Compétence du référentiel":"Analyser les rôles sociaux au sein d’un groupe","Attendu associé":"Décrire la répartition des tâches et des responsabilités au sein d’une famille."},
+    {"Semaine":"S3","Objectif":"Découvrir la transmission intergénérationnelle des valeurs et traditions.","Compétence du référentiel":"Identifier des éléments de transmission entre générations","Attendu associé":"Expliquer comment des goûts, coutumes ou métiers se transmettent au sein d’une famille."},
+    {"Semaine":"S4","Objectif":"Sensibiliser aux stéréotypes de genre et à l’égalité.","Compétence du référentiel":"Analyser les représentations sociales du féminin et du masculin","Attendu associé":"Identifier et questionner les stéréotypes liés au genre dans la vie quotidienne."},
+    {"Semaine":"S5","Objectif":"Distinguer besoins vitaux et envies de consommation.","Compétence du référentiel":"Observer et distinguer les besoins des désirs","Attendu associé":"Classer des exemples de besoins et d’envies selon leur importance vitale."},
+    {"Semaine":"S6","Objectif":"Identifier les sources de revenus d’un ménage.","Compétence du référentiel":"Décrire les revenus et dépenses d’un ménage","Attendu associé":"Citer différents types de revenus : salaire, pension, allocations."},
+    {"Semaine":"S7","Objectif":"Classer les dépenses d’une famille selon leur type.","Compétence du référentiel":"Analyser la répartition budgétaire d’un ménage","Attendu associé":"Distinguer les dépenses fixes, variables et occasionnelles."},
+    {"Semaine":"S8","Objectif":"Construire un budget simple à partir de données chiffrées.","Compétence du référentiel":"Établir un budget de base","Attendu associé":"Équilibrer un budget en confrontant revenus et dépenses."},
+    {"Semaine":"S9","Objectif":"Comparer les prix d’un même bien selon les points de vente.","Compétence du référentiel":"Identifier la diversité des prix pour un même produit","Attendu associé":"Expliquer pourquoi le prix varie selon la qualité, la provenance ou le lieu d’achat."},
+    {"Semaine":"S10","Objectif":"Réaliser un mini-projet économique (budget d’une activité de classe).","Compétence du référentiel":"Réinvestir des notions économiques dans une situation concrète","Attendu associé":"Établir un budget réel ou simulé en justifiant les dépenses et les revenus."}
+  ]
+},
+    "ECA": {
+  "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Objectif":"Découvrir œuvres, objets culturels et patrimoine local.","Compétence du référentiel":"Fréquenter des lieux et des objets culturels variés","Attendu associé":"Décrire un musée, une œuvre ou une tradition locale."},
+    {"Semaine":"S2","Objectif":"Explorer les couleurs et les timbres sonores.","Compétence du référentiel":"Décoder les éléments fondamentaux des arts visuels et sonores","Attendu associé":"Reconnaître et nommer camaïeux, dégradés et familles d’instruments."},
+    {"Semaine":"S3","Objectif":"Découvrir la pulsation et le rythme en musique.","Compétence du référentiel":"Décoder les fondamentaux musicaux","Attendu associé":"Distinguer pulsation et rythme à l’écoute d’un extrait musical."},
+    {"Semaine":"S4","Objectif":"Explorer la forme et l’espace dans les arts de la scène.","Compétence du référentiel":"Identifier les repères scéniques et formes musicales","Attendu associé":"Nommer cour, jardin, avant-scène et reconnaître une forme ABA."},
+    {"Semaine":"S5","Objectif":"Découvrir les gestes et outils de création artistique.","Compétence du référentiel":"Utiliser des outils et gestes artistiques variés","Attendu associé":"Expérimenter des gestes plastiques ou vocaux : brosser, frotter, chanter, rythmer."},
+    {"Semaine":"S6","Objectif":"Créer une œuvre plastique symétrique ou asymétrique.","Compétence du référentiel":"Créer individuellement une production artistique","Attendu associé":"Réaliser une production 2D/3D avec symétrie et textures variées."},
+    {"Semaine":"S7","Objectif":"Interpréter le contexte et le sens d’une œuvre.","Compétence du référentiel":"Interpréter le sens d’éléments culturels","Attendu associé":"Situer une œuvre dans son contexte et formuler une interprétation personnelle."},
+    {"Semaine":"S8","Objectif":"Créer un environnement sonore pour une scène théâtrale.","Compétence du référentiel":"Combiner moyens verbaux, corporels et sonores","Attendu associé":"Créer collectivement une courte scène avec bande sonore."},
+    {"Semaine":"S9","Objectif":"Chanter un canon ou frapper un ostinato.","Compétence du référentiel":"Interpréter collectivement une production musicale","Attendu associé":"Réaliser un canon simple en respectant la pulsation."},
+    {"Semaine":"S10","Objectif":"Exposer ou présenter une production collective.","Compétence du référentiel":"Partager et valoriser une réalisation artistique","Attendu associé":"Présenter une œuvre ou un spectacle en respectant les codes de scène."}
+  ]
+},
+    "FMTTN": {
+  "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Objectif":"Préparer un poste de travail sécurisé et ergonomique.","Compétence du référentiel":"Exécuter une tâche en toute sécurité","Attendu associé":"Identifier les risques, adopter une posture adaptée et trier les déchets."},
+    {"Semaine":"S2","Objectif":"Découvrir les familles d’aliments et les circuits courts.","Compétence du référentiel":"Nommer et classer des aliments","Attendu associé":"Classer les aliments par famille et reconnaître ceux issus d’un circuit court."},
+    {"Semaine":"S3","Objectif":"Lire et suivre une recette simple.","Compétence du référentiel":"Lire un document technique en lien avec une tâche culinaire","Attendu associé":"Identifier ingrédients, ustensiles, étapes et mesures d’une recette."},
+    {"Semaine":"S4","Objectif":"Préparer un plat en respectant les règles d’hygiène.","Compétence du référentiel":"Réaliser un plat simple sous supervision","Attendu associé":"Appliquer des gestes culinaires précis et respecter les consignes de sécurité alimentaire."},
+    {"Semaine":"S5","Objectif":"Découvrir les matériaux et leurs usages.","Compétence du référentiel":"Identifier les matières et matériaux selon leur fonction","Attendu associé":"Nommer et classer les matériaux selon leurs caractéristiques (rigide, souple, isolant...)."},
+    {"Semaine":"S6","Objectif":"Apprendre à utiliser les outils du bricoleur.","Compétence du référentiel":"Utiliser les outils de mesure, d’assemblage et de finition","Attendu associé":"Identifier les outils et leur usage : scie, marteau, tournevis, colle, pinceau."},
+    {"Semaine":"S7","Objectif":"Réaliser un petit objet utile.","Compétence du référentiel":"Réaliser un ouvrage en suivant un mode opératoire","Attendu associé":"Mesurer, tracer, couper, assembler et décorer un objet simple."},
+    {"Semaine":"S8","Objectif":"Observer un objet technologique du quotidien.","Compétence du référentiel":"Analyser la fonction d’un objet technologique","Attendu associé":"Identifier les éléments, l’usage et le principe de fonctionnement d’un objet courant."},
+    {"Semaine":"S9","Objectif":"Concevoir un objet technologique simple.","Compétence du référentiel":"Concevoir et construire un objet technologique","Attendu associé":"Créer un modèle permettant de mesurer ou d’estimer une grandeur (ex. sablier)."},
+    {"Semaine":"S10","Objectif":"Utiliser les outils numériques pour créer un contenu simple.","Compétence du référentiel":"Produire un document numérique dans le respect de l’éthique","Attendu associé":"Mettre en forme un texte et une image en respectant le droit à l'image, Se protéger des fakes news. Créer un fichier, le déplacer, le renommer."}
+  ]
   }
+ }
 }
+
+
+
