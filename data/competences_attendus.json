@@ -7,10 +7,13 @@
     "Traitement de données  ",
     "Fluences — Référentiel & Indicateurs",
     "Écriture  ",
+    "Lire",
+    "Parler",
+    "Ecouter",
     "Sciences",
     "Histoire  ",
     "Géographie  ",
-    "EconomieSociale",
+    "Economie sociale",
     "ECA",
     "FMTTN"
   ],
@@ -359,7 +362,7 @@
     {"Semaine":"S30","Objectif":"Grand quiz / exposition scientifique – réinvestir les apprentissages de l’année.","Compétence du référentiel":"Communiquer sur les résultats et les connaissances acquises","Attendu associé":"Présenter oralement ou par affichage les découvertes scientifiques réalisées durant l’année."}
   ]
 },
-    "EconomieSociale": {
+    "Economie sociale": {
   "columns": ["Semaine","Objectif","Compétence du référentiel","Attendu associé"],
   "rows": [
     {"Semaine":"S1","Objectif":"Identifier la diversité des formes de familles.","Compétence du référentiel":"Observer et décrire des réalités sociales","Attendu associé":"Nommer les personnes qui composent une famille et reconnaître différents types de familles."},
@@ -423,9 +426,116 @@
     {"Semaine":"S9","Objectif":"Concevoir un objet technologique simple.","Compétence du référentiel":"Concevoir et construire un objet technologique","Attendu associé":"Créer un modèle permettant de mesurer ou d’estimer une grandeur (ex. sablier)."},
     {"Semaine":"S10","Objectif":"Utiliser les outils numériques pour créer un contenu simple.","Compétence du référentiel":"Produire un document numérique dans le respect de l’éthique","Attendu associé":"Mettre en forme un texte et une image en respectant le droit à l'image, Se protéger des fakes news. Créer un fichier, le déplacer, le renommer."}
   ]
-  }
- }
+  },
+ "Parler": {
+  "columns": ["Semaine", "Titre de l’activité", "Objectif", "Compétence du référentiel", "Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Titre de l’activité":"Je me présente à la classe","Objectif":"Se présenter oralement en respectant les formules de politesse.","Compétence du référentiel":"Prendre la parole de manière audible et claire.","Attendu associé":"Dire son prénom, quelques goûts, en regardant l’auditoire."},
+    {"Semaine":"S2","Titre de l’activité":"Présenter un camarade","Objectif":"Transmettre des informations à propos d’autrui.","Compétence du référentiel":"Réinvestir des informations entendues pour parler.","Attendu associé":"Présenter quelqu’un en phrases simples et complètes."},
+    {"Semaine":"S3","Titre de l’activité":"Parler pour informer","Objectif":"Raconter un fait vécu ou une activité récente.","Compétence du référentiel":"Produire un discours organisé.","Attendu associé":"Structurer son propos avec début, milieu et fin."},
+    {"Semaine":"S4","Titre de l’activité":"Le message clair","Objectif":"Adapter sa voix et son ton à la situation.","Compétence du référentiel":"Adapter son discours à la situation de communication.","Attendu associé":"Parler distinctement et à un volume adapté au lieu."},
+    {"Semaine":"S5","Titre de l’activité":"Le dialogue poli","Objectif":"Prendre la parole et répondre avec respect.","Compétence du référentiel":"Respecter les règles de l’échange oral.","Attendu associé":"Employer les formules de politesse et attendre son tour."},
+    {"Semaine":"S6","Titre de l’activité":"Décrire un objet","Objectif":"Nommer les parties, la forme et la fonction.","Compétence du référentiel":"Produire un discours descriptif.","Attendu associé":"Employer un vocabulaire précis pour décrire un objet."},
+    {"Semaine":"S7","Titre de l’activité":"Expliquer une action","Objectif":"Donner des instructions à quelqu’un d’autre.","Compétence du référentiel":"Produire un discours explicatif.","Attendu associé":"Utiliser les connecteurs “d’abord, ensuite, enfin”."},
+    {"Semaine":"S8","Titre de l’activité":"Reformuler pour aider","Objectif":"Répéter une idée pour qu’elle soit comprise.","Compétence du référentiel":"Reformuler un propos entendu.","Attendu associé":"Reprendre l’essentiel du message avec ses mots."},
+    {"Semaine":"S9","Titre de l’activité":"Raconter à partir d’une image","Objectif":"Décrire une scène puis imaginer un récit oral.","Compétence du référentiel":"Produire un récit oral.","Attendu associé":"Organiser un court récit autour d’une image."},
+    {"Semaine":"S10","Titre de l’activité":"Décrire une personne","Objectif":"Employer des adjectifs pour enrichir la description.","Compétence du référentiel":"Utiliser le vocabulaire de la description.","Attendu associé":"Parler d’une personne en mentionnant ses traits physiques et moraux."},
+    {"Semaine":"S11","Titre de l’activité":"La voix expressive","Objectif":"Varier ton, rythme et volume selon le message.","Compétence du référentiel":"Jouer sur les paramètres de la voix.","Attendu associé":"Lire ou réciter en modulant la voix pour transmettre l’émotion."},
+    {"Semaine":"S12","Titre de l’activité":"Jouer un court dialogue","Objectif":"Lire un dialogue à deux voix en respectant les répliques.","Compétence du référentiel":"Jouer un rôle dans une interaction orale.","Attendu associé":"Alterner les prises de parole sans se couper."},
+    {"Semaine":"S13","Titre de l’activité":"Convaincre et argumenter","Objectif":"Exprimer son opinion et la justifier.","Compétence du référentiel":"Argumenter à l’oral.","Attendu associé":"Donner son avis et une raison simple pour le soutenir."},
+    {"Semaine":"S14","Titre de l’activité":"Réagir à une lecture","Objectif":"Donner son avis sur un texte ou une histoire.","Compétence du référentiel":"Exprimer une réaction personnelle.","Attendu associé":"Dire ce qu’on a aimé et pourquoi."},
+    {"Semaine":"S15","Titre de l’activité":"Parler d’un personnage","Objectif":"Décrire un héros de lecture.","Compétence du référentiel":"Exprimer une opinion construite.","Attendu associé":"Décrire un personnage et expliquer ses choix ou émotions."},
+    {"Semaine":"S16","Titre de l’activité":"Expliquer une règle","Objectif":"Formuler une règle de vie ou de jeu.","Compétence du référentiel":"Produire un discours explicatif clair.","Attendu associé":"Énoncer une règle complète et compréhensible."},
+    {"Semaine":"S17","Titre de l’activité":"Raconter une expérience scientifique","Objectif":"Expliquer une observation ou une expérience simple.","Compétence du référentiel":"Produire un discours structuré et logique.","Attendu associé":"Employer un vocabulaire scientifique et chronologique."},
+    {"Semaine":"S18","Titre de l’activité":"Participer à un débat","Objectif":"Écouter, répondre et reformuler.","Compétence du référentiel":"Interagir dans une discussion.","Attendu associé":"Répondre sans couper et utiliser les connecteurs d’opposition (“je ne suis pas d’accord car…”)."},
+    {"Semaine":"S19","Titre de l’activité":"Donner des consignes collectives","Objectif":"Parler pour faire agir un groupe.","Compétence du référentiel":"Adapter sa parole à une situation fonctionnelle.","Attendu associé":"Donner une série d’instructions orales cohérentes."},
+    {"Semaine":"S20","Titre de l’activité":"Raconter une histoire courte","Objectif":"Produire un récit oral complet.","Compétence du référentiel":"Organiser un propos narratif.","Attendu associé":"Employer les temps du récit (imparfait, passé composé) à l’oral."},
+    {"Semaine":"S21","Titre de l’activité":"Décrire un lieu","Objectif":"Employer des repères spatiaux dans la description.","Compétence du référentiel":"Produire un discours descriptif structuré.","Attendu associé":"Utiliser “à gauche”, “au fond”, “près de…” dans son discours."},
+    {"Semaine":"S22","Titre de l’activité":"Imaginer un dialogue","Objectif":"Inventer une courte scène entre deux personnages.","Compétence du référentiel":"Créer et jouer un dialogue oral.","Attendu associé":"Respecter la structure question–réponse et les émotions du ton."},
+    {"Semaine":"S23","Titre de l’activité":"Lire à haute voix un texte court","Objectif":"Lire sans hésitation et en respectant la ponctuation.","Compétence du référentiel":"Lire à voix haute pour un auditoire.","Attendu associé":"Marquer les pauses et intonations selon la ponctuation."},
+    {"Semaine":"S24","Titre de l’activité":"Résumer une histoire entendue","Objectif":"Dire l’essentiel en quelques phrases.","Compétence du référentiel":"Reformuler l’essentiel d’un message.","Attendu associé":"Identifier et restituer les éléments clés d’un texte."},
+    {"Semaine":"S25","Titre de l’activité":"Décrire une image collective","Objectif":"Observer et partager des observations orales.","Compétence du référentiel":"Décrire et interpréter collectivement.","Attendu associé":"Prendre la parole pour compléter les idées d’autrui."},
+    {"Semaine":"S26","Titre de l’activité":"Présenter un exposé","Objectif":"Parler en continu sur un sujet préparé.","Compétence du référentiel":"S’exprimer oralement de manière suivie.","Attendu associé":"Maintenir l’attention de l’auditoire pendant une courte présentation."},
+    {"Semaine":"S27","Titre de l’activité":"Raconter avec des images séquentielles","Objectif":"Organiser une histoire avec des images.","Compétence du référentiel":"Produire un récit structuré.","Attendu associé":"Utiliser les connecteurs temporels pour ordonner le récit."},
+    {"Semaine":"S28","Titre de l’activité":"Décrire un objet technique","Objectif":"Employer un vocabulaire spécifique.","Compétence du référentiel":"Produire un discours informatif précis.","Attendu associé":"Décrire la fonction et l’usage d’un objet technologique."},
+    {"Semaine":"S29","Titre de l’activité":"Le jeu de rôle","Objectif":"Interpréter un personnage en situation.","Compétence du référentiel":"Interagir dans une mise en scène.","Attendu associé":"Respecter la posture, le ton et les émotions du personnage."},
+    {"Semaine":"S30","Titre de l’activité":"Bilan de l’expression orale","Objectif":"Faire le point sur ses progrès à l’oral.","Compétence du référentiel":"Évaluer sa production et son écoute.","Attendu associé":"Identifier ce qu’il réussit bien et ce qu’il doit encore améliorer."}
+  ]
+},
+    "Lire": {
+  "columns": ["Semaine", "Titre de l’activité", "Objectif", "Compétence du référentiel", "Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Titre de l’activité":"Lire pour le plaisir","Objectif":"Redécouvrir la lecture comme source de plaisir.","Compétence du référentiel":"Manifester le goût de la lecture.","Attendu associé":"Choisir et lire un livre court adapté à son niveau."},
+    {"Semaine":"S2","Titre de l’activité":"Lire un texte narratif court","Objectif":"Identifier les éléments d’une histoire.","Compétence du référentiel":"Comprendre le sens global d’un texte narratif.","Attendu associé":"Repérer le début, le problème et la fin d’un récit."},
+    {"Semaine":"S3","Titre de l’activité":"Comprendre une consigne écrite","Objectif":"Lire et exécuter une consigne scolaire.","Compétence du référentiel":"Lire pour réaliser une tâche.","Attendu associé":"Suivre correctement une consigne comportant plusieurs actions."},
+    {"Semaine":"S4","Titre de l’activité":"Retrouver les informations","Objectif":"Apprendre à chercher dans le texte.","Compétence du référentiel":"Prélever des informations explicites.","Attendu associé":"Souligner ou relever les réponses directement dans le texte."},
+    {"Semaine":"S5","Titre de l’activité":"Lire entre les lignes","Objectif":"Découvrir les informations implicites.","Compétence du référentiel":"Élaborer des inférences simples.","Attendu associé":"Déduire une émotion ou une intention non dite."},
+    {"Semaine":"S6","Titre de l’activité":"Les personnages de l’histoire","Objectif":"Identifier le rôle des personnages principaux.","Compétence du référentiel":"Repérer les éléments essentiels du texte.","Attendu associé":"Décrire un personnage et son rôle dans le récit."},
+    {"Semaine":"S7","Titre de l’activité":"Le lieu et le temps","Objectif":"Comprendre où et quand se passe l’histoire.","Compétence du référentiel":"Construire une représentation mentale cohérente.","Attendu associé":"Identifier les indices de lieu et de temps."},
+    {"Semaine":"S8","Titre de l’activité":"L’ordre du récit","Objectif":"Remettre des phrases dans l’ordre.","Compétence du référentiel":"Comprendre la chronologie d’un texte.","Attendu associé":"Reconstituer le déroulement logique du récit."},
+    {"Semaine":"S9","Titre de l’activité":"Le narrateur et les pronoms","Objectif":"Identifier qui parle dans un texte.","Compétence du référentiel":"Repérer la situation d’énonciation.","Attendu associé":"Dire si le narrateur raconte à la 1re ou 3e personne."},
+    {"Semaine":"S10","Titre de l’activité":"Les connecteurs du récit","Objectif":"Observer les mots qui relient les phrases.","Compétence du référentiel":"Repérer les organisateurs textuels.","Attendu associé":"Identifier “d’abord”, “puis”, “ensuite”, “enfin” dans un texte."},
+    {"Semaine":"S11","Titre de l’activité":"Lire un message documentaire","Objectif":"Identifier la structure d’un texte informatif.","Compétence du référentiel":"Lire pour s’informer.","Attendu associé":"Retrouver les sous-titres, schémas, mots clés."},
+    {"Semaine":"S12","Titre de l’activité":"Trouver le titre juste","Objectif":"Identifier l’idée principale du texte.","Compétence du référentiel":"Dégager le sens global d’un texte.","Attendu associé":"Choisir le titre le plus pertinent parmi plusieurs propositions."},
+    {"Semaine":"S13","Titre de l’activité":"Lire des dialogues","Objectif":"Repérer les marques du dialogue et les interlocuteurs.","Compétence du référentiel":"Identifier les signes de ponctuation et leur fonction.","Attendu associé":"Comprendre qui parle et ce qui est dit."},
+    {"Semaine":"S14","Titre de l’activité":"Lire des poèmes","Objectif":"Découvrir la musicalité et les images du langage.","Compétence du référentiel":"Lire pour ressentir.","Attendu associé":"Repérer les rimes et les répétitions dans un poème."},
+    {"Semaine":"S15","Titre de l’activité":"Lire des textes injonctifs","Objectif":"Comprendre une recette ou une règle de jeu.","Compétence du référentiel":"Lire pour agir.","Attendu associé":"Identifier les verbes à l’impératif et suivre une procédure."},
+    {"Semaine":"S16","Titre de l’activité":"Lire une affiche ou une publicité","Objectif":"Identifier les messages implicites.","Compétence du référentiel":"Comprendre un texte informatif ou incitatif.","Attendu associé":"Dire à qui s’adresse le message et ce qu’il veut provoquer."},
+    {"Semaine":"S17","Titre de l’activité":"Lire un texte explicatif","Objectif":"Comprendre comment quelque chose fonctionne.","Compétence du référentiel":"Lire pour s’informer et comprendre.","Attendu associé":"Identifier les étapes d’un processus dans un texte."},
+    {"Semaine":"S18","Titre de l’activité":"Lire un texte descriptif","Objectif":"Observer comment l’auteur décrit un lieu ou un personnage.","Compétence du référentiel":"Comprendre la fonction descriptive.","Attendu associé":"Repérer les adjectifs et les repères spatiaux."},
+    {"Semaine":"S19","Titre de l’activité":"Lire pour apprendre","Objectif":"Comprendre un texte de sciences ou d’histoire.","Compétence du référentiel":"Lire pour acquérir des connaissances.","Attendu associé":"Prélever et reformuler une information scientifique."},
+    {"Semaine":"S20","Titre de l’activité":"Lire des consignes complexes","Objectif":"Gérer plusieurs étapes de lecture.","Compétence du référentiel":"Lire et suivre un texte fonctionnel.","Attendu associé":"Exécuter correctement des consignes à plusieurs niveaux."},
+    {"Semaine":"S21","Titre de l’activité":"Lire et comparer deux textes","Objectif":"Identifier les ressemblances et différences.","Compétence du référentiel":"Lire plusieurs textes pour en dégager le sens commun.","Attendu associé":"Repérer les éléments communs et distinctifs."},
+    {"Semaine":"S22","Titre de l’activité":"Lire des textes poétiques variés","Objectif":"Ressentir les émotions et images des mots.","Compétence du référentiel":"Lire pour ressentir et interpréter.","Attendu associé":"Exprimer ce que le texte évoque en soi."},
+    {"Semaine":"S23","Titre de l’activité":"Lire une BD ou un album","Objectif":"Lire les images et le texte conjointement.","Compétence du référentiel":"Comprendre un récit multimodal.","Attendu associé":"Identifier le lien entre bulles, images et narration."},
+    {"Semaine":"S24","Titre de l’activité":"Lire des textes humoristiques","Objectif":"Comprendre le double sens et les jeux de mots.","Compétence du référentiel":"Lire pour interpréter.","Attendu associé":"Repérer le décalage entre texte et image ou sens caché."},
+    {"Semaine":"S25","Titre de l’activité":"Lire une fable ou un conte","Objectif":"Identifier la morale implicite.","Compétence du référentiel":"Lire pour interpréter le sens symbolique.","Attendu associé":"Expliquer la leçon ou la morale d’un texte."},
+    {"Semaine":"S26","Titre de l’activité":"Lire un texte de théâtre","Objectif":"Repérer les personnages et les répliques.","Compétence du référentiel":"Lire un texte théâtral.","Attendu associé":"Identifier les didascalies et le ton attendu."},
+    {"Semaine":"S27","Titre de l’activité":"Lire un texte informatif complexe","Objectif":"Comprendre un texte de vulgarisation adapté.","Compétence du référentiel":"Lire pour comprendre un exposé structuré.","Attendu associé":"Retrouver les causes et conséquences d’un phénomène."},
+    {"Semaine":"S28","Titre de l’activité":"Lire un texte littéraire long","Objectif":"Maintenir la compréhension sur plusieurs pages.","Compétence du référentiel":"Lire de manière suivie et autonome.","Attendu associé":"Reformuler les événements importants d’un chapitre."},
+    {"Semaine":"S29","Titre de l’activité":"Lire pour débattre","Objectif":"Lire un texte d’opinion et exprimer son avis.","Compétence du référentiel":"Lire pour réfléchir et argumenter.","Attendu associé":"Identifier l’opinion de l’auteur et la comparer à la sienne."},
+    {"Semaine":"S30","Titre de l’activité":"Bilan lecture et projet final","Objectif":"Réinvestir toutes les stratégies de lecture.","Compétence du référentiel":"Lire pour comprendre, interpréter et apprécier.","Attendu associé":"Identifier ses progrès et ses préférences de lecteur."}
+  ]
+},
+    "Ecouter": {
+  "columns": ["Semaine", "Titre de l’activité", "Objectif", "Compétence du référentiel", "Attendu associé"],
+  "rows": [
+    {"Semaine":"S1","Titre de l’activité":"Les sons qui racontent","Objectif":"Découvrir que l’écoute permet de comprendre un message.","Compétence du référentiel":"Manifester sa compréhension d’un message entendu.","Attendu associé":"Repérer les informations essentielles d’un court message."},
+    {"Semaine":"S2","Titre de l’activité":"J’écoute pour comprendre","Objectif":"Apprendre à écouter attentivement une consigne orale.","Compétence du référentiel":"Vérifier et justifier sa compréhension d’un document.","Attendu associé":"Reformuler une consigne entendue."},
+    {"Semaine":"S3","Titre de l’activité":"J’écoute et j’imagine","Objectif":"Développer la représentation mentale d’un message entendu.","Compétence du référentiel":"(Se) construire une représentation mentale.","Attendu associé":"Illustrer ou mimer un texte lu à haute voix par l’enseignant."},
+    {"Semaine":"S4","Titre de l’activité":"Devine l’intention !","Objectif":"Identifier l’intention de communication d’un message.","Compétence du référentiel":"Manifester sa compréhension – intentions de communication.","Attendu associé":"Dire si le message informe, persuade, enjoint ou émeut."},
+    {"Semaine":"S5","Titre de l’activité":"La chasse aux indices","Objectif":"Apprendre à prélever les informations explicites.","Compétence du référentiel":"Prélever des informations explicites.","Attendu associé":"Répondre à des questions précises après écoute d’un texte."},
+    {"Semaine":"S6","Titre de l’activité":"Entre les lignes","Objectif":"Découvrir les informations implicites d’un message.","Compétence du référentiel":"Élaborer des inférences.","Attendu associé":"Déduire des éléments non dits dans un récit entendu."},
+    {"Semaine":"S7","Titre de l’activité":"Le sens global","Objectif":"Apprendre à reformuler le sens d’un document sonore.","Compétence du référentiel":"Percevoir le sens global.","Attendu associé":"Exprimer en une phrase ce que raconte le texte entendu."},
+    {"Semaine":"S8","Titre de l’activité":"Vrai ou faux ?","Objectif":"Distinguer le réel et l’imaginaire dans un message.","Compétence du référentiel":"Distinguer le réel et l’imaginaire.","Attendu associé":"Identifier les éléments vraisemblables ou invraisemblables."},
+    {"Semaine":"S9","Titre de l’activité":"L’écoute active","Objectif":"Adopter une posture d’écoute et respecter les tours de parole.","Compétence du référentiel":"Écouter dans une situation d’échanges.","Attendu associé":"Témoigner de son écoute par gestes et réactions adéquates."},
+    {"Semaine":"S10","Titre de l’activité":"Les bruits qui parlent","Objectif":"Identifier les liens texte–illustration–son.","Compétence du référentiel":"Mettre en relation le texte et les illustrations.","Attendu associé":"Expliquer un lien entre un bruit et l’action racontée."},
+    {"Semaine":"S11","Titre de l’activité":"Les émotions du son","Objectif":"Identifier les émotions transmises par la voix et la musique.","Compétence du référentiel":"Manifester sa compréhension – susciter des émotions.","Attendu associé":"Exprimer l’émotion ressentie à l’écoute d’un extrait."},
+    {"Semaine":"S12","Titre de l’activité":"Les consignes enchaînées","Objectif":"Suivre plusieurs instructions successives.","Compétence du référentiel":"Percevoir le sens global d’un message injonctif.","Attendu associé":"Exécuter correctement trois consignes orales."},
+    {"Semaine":"S13","Titre de l’activité":"Les genres de messages","Objectif":"Découvrir différents genres oraux (récit, info, pub…).","Compétence du référentiel":"Identifier le genre du message entendu.","Attendu associé":"Dire quel type de message on a entendu."},
+    {"Semaine":"S14","Titre de l’activité":"Les connecteurs de l’oral","Objectif":"Identifier les mots qui structurent le discours.","Compétence du référentiel":"Repérer les organisateurs textuels.","Attendu associé":"Repérer “d’abord, ensuite, enfin…” dans un récit oral."},
+    {"Semaine":"S15","Titre de l’activité":"Les reprises orales","Objectif":"Reconnaître les pronoms et substituts dans un message.","Compétence du référentiel":"Utiliser les reprises d’informations.","Attendu associé":"Retrouver à qui ou à quoi renvoient “il”, “elle”, “cela”…"},
+    {"Semaine":"S16","Titre de l’activité":"Le débat d’idées","Objectif":"Écouter pour réagir de manière pertinente.","Compétence du référentiel":"Écouter dans une situation d’échanges.","Attendu associé":"Reformuler les arguments entendus avant de répondre."},
+    {"Semaine":"S17","Titre de l’activité":"L’écoute critique","Objectif":"Identifier la fiabilité ou la valeur d’un message.","Compétence du référentiel":"Porter un jugement critique sur un document.","Attendu associé":"Donner un avis sur la clarté et la crédibilité d’un message."},
+    {"Semaine":"S18","Titre de l’activité":"Les voix et les sons","Objectif":"Repérer les paramètres du corps et de la voix.","Compétence du référentiel":"Repérer les paramètres vocaux.","Attendu associé":"Identifier volume, intonation, débit dans un extrait sonore."},
+    {"Semaine":"S19","Titre de l’activité":"Les dialogues","Objectif":"Comprendre un échange entre plusieurs locuteurs.","Compétence du référentiel":"Manifester sa compréhension d’un dialogue.","Attendu associé":"Dire qui parle et de quoi il s’agit."},
+    {"Semaine":"S20","Titre de l’activité":"Les émotions partagées","Objectif":"Écouter pour ressentir et partager.","Compétence du référentiel":"Pratiquer une écoute participative.","Attendu associé":"Décrire les émotions ou valeurs perçues dans une histoire."},
+    {"Semaine":"S21","Titre de l’activité":"Les récits du monde","Objectif":"Écouter un conte d’une autre culture.","Compétence du référentiel":"Culture littéraire orale.","Attendu associé":"Identifier les éléments culturels d’un conte entendu."},
+    {"Semaine":"S22","Titre de l’activité":"Les indices du temps","Objectif":"Comprendre les repères temporels à l’oral.","Compétence du référentiel":"Repérer les connecteurs temporels.","Attendu associé":"Situer les actions dans le bon ordre."},
+    {"Semaine":"S23","Titre de l’activité":"Les consignes techniques","Objectif":"Écouter pour réaliser une action.","Compétence du référentiel":"Vérifier et justifier sa compréhension.","Attendu associé":"Réaliser correctement un montage ou un dessin selon l’oral."},
+    {"Semaine":"S24","Titre de l’activité":"Les points de vue","Objectif":"Identifier le narrateur et son intention.","Compétence du référentiel":"Pratiquer une écoute distanciée.","Attendu associé":"Distinguer faits et opinions dans un message entendu."},
+    {"Semaine":"S25","Titre de l’activité":"L’écoute en groupe","Objectif":"Coopérer dans une activité d’écoute collective.","Compétence du référentiel":"Écouter dans une situation d’échanges.","Attendu associé":"Respecter le temps de parole et réagir avec bienveillance."},
+    {"Semaine":"S26","Titre de l’activité":"Les histoires à suites","Objectif":"Imaginer une suite à partir d’un récit oral.","Compétence du référentiel":"Manifester sa compréhension – donner du plaisir.","Attendu associé":"Proposer une suite cohérente à une histoire entendue."},
+    {"Semaine":"S27","Titre de l’activité":"Les mots-clés","Objectif":"Identifier les mots essentiels du message.","Compétence du référentiel":"Prélever des informations essentielles.","Attendu associé":"Noter ou répéter les mots-clés d’un message."},
+    {"Semaine":"S28","Titre de l’activité":"Les écoutes croisées","Objectif":"Comparer deux versions d’un même texte.","Compétence du référentiel":"Vérifier et justifier sa compréhension.","Attendu associé":"Expliquer les différences entre deux lectures."},
+    {"Semaine":"S29","Titre de l’activité":"L’écoute et l’action","Objectif":"Réagir par une action à un message entendu.","Compétence du référentiel":"Assigner un but à l’écoute.","Attendu associé":"Adapter son comportement à une consigne orale."},
+    {"Semaine":"S30","Titre de l’activité":"Bilan d’écoute","Objectif":"Évaluer sa progression en écoute.","Compétence du référentiel":"Évaluer sa compréhension et son attitude d’écoute.","Attendu associé":"Identifier ses progrès et ses points à améliorer."}
+  ]
 }
+}
+}
+
+
 
 
 
