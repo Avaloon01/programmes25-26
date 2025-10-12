@@ -266,7 +266,7 @@
       "rows": [
         {"Semaine":"S5","Thème":"Millénaire et siècle","Activité / Objectif":"Comprendre la différence entre les deux","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Différencier la durée d’un siècle et d’un millénaire."},
         {"Semaine":"S6","Thème":"Associer une date à un siècle/millénaire","Activité / Objectif":"Exercices pratiques","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Associer une date donnée au siècle et au millénaire correspondants."},
-        {"Semaine":"S7","Objectif":"Tester les connaissances","Compétence du référentiel":"S1 à S6","Attendu associé":"Bilans"},
+        {"Semaine":"S7","Activité / Objectif":"Tester les connaissances","Compétence du référentiel":"S1 à S6","Attendu":"Bilans"},
         {"Semaine":"S8","Thème":"Les 5 grandes périodes conventionnelles","Activité / Objectif":"Découverte de la frise globale","Compétence du référentiel":"Mobiliser des repères temporels","Attendu":"Identifier et nommer les cinq grandes périodes conventionnelles de l’histoire."},
         {"Semaine":"S9","Thème":"Situer les périodes les unes par rapport aux autres","Activité / Objectif":"Avant / après","Compétence du référentiel":"Situer dans le temps","Attendu":"Situer les périodes conventionnelles les unes par rapport aux autres (avant / après)."},
         {"Semaine":"S10","Thème":"Réalités d’aujourd’hui : école obligatoire","Activité / Objectif":"Comparer avec le passé","Compétence du référentiel":"Inscrire une réalité d’aujourd’hui dans une perspective historique","Attendu":"Expliquer le sens et la portée de l’obligation scolaire actuelle."},
@@ -302,7 +302,7 @@
       "rows": [
         {"Semaine":"S5","Thème":"Les quatre directions cardinales","Activité / Objectif":"Rose des vents, boussole","Compétence du référentiel":"Utiliser des repères spatiaux pour s’orienter","Attendu":"Indiquer les quatre directions cardinales sur une rose des vents ou sur le terrain à l’aide d’une boussole."},
         {"Semaine":"S6","Thème":"Se situer dans l’école","Activité / Objectif":"Lecture de plans simples","Compétence du référentiel":"Utiliser des représentations de l’espace","Attendu":"Lire un plan simple pour se situer et se déplacer dans un espace connu."},
-        {"Semaine":"S7","Objectif":"Tester les connaissances","Compétence du référentiel":"S1 à S6","Attendu associé":"Bilans"},
+        {"Semaine":"S7","Activité / Objectif":"Tester les connaissances","Compétence du référentiel":"S1 à S6","Attendu":"Bilans"},
         {"Semaine":"S8","Thème":"Principales villes de Belgique","Activité / Objectif":"Carte des villes","Compétence du référentiel":"Utiliser des repères spatiaux","Attendu":"Nommer et localiser les principales villes de Belgique sur une carte."},
         {"Semaine":"S9","Thème":"Cours d’eau principaux","Activité / Objectif":"Meuse, Escaut, Sambre, Yser","Compétence du référentiel":"Utiliser des repères spatiaux naturels","Attendu":"Nommer et situer les principaux cours d’eau de Belgique sur une carte."},
         {"Semaine":"S10","Thème":"Grands ensembles morphologiques","Activité / Objectif":"Littoral, Basse, Moyenne, Haute Belgique","Compétence du référentiel":"Caractériser un paysage","Attendu":"Identifier les grands ensembles morphologiques de Belgique et leurs caractéristiques dominantes."},
