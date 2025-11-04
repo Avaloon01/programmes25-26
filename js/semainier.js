@@ -1,28 +1,28 @@
 const DATA_URL = "/data/competences_attendus.json";
-const STORAGE_KEY_MODEL = "semainier_models_v2"; // stocke le HTML modèle (avec 'semaine x')
-const STORAGE_KEY_LASTWEEK = "semainier_last_week_v2";
+const STORAGE_KEY_MODEL = "semainier_models_v2_2";   // stocke le HTML modèle (avec 'semaine x')
+const STORAGE_KEY_LASTWEEK = "semainier_last_week_v2_2";
 
 const SUBJECT_ALIASES = [
-  { sheet: "Math  ", tests: [/(\b|_)math(\b|_)/i] },
-  { sheet: "Géométrie  ", tests: [/géométrie|geometrie/i] },
-  { sheet: "Algèbre  ", tests: [/alg(e|è)bre/i] },
-  { sheet: "Grandeurs  ", tests: [/grandeurs?/i] },
-  { sheet: "Traitement de données  ", tests: [/traitement\s+de\s+donn(e|é)es/i] },
+  { sheet: "Math", tests: [/(\b|_)math(\b|_)/i] },
+  { sheet: "Géométrie", tests: [/géométrie|geometrie/i] },
+  { sheet: "Algèbre", tests: [/alg(e|è)bre/i] },
+  { sheet: "Grandeurs", tests: [/grandeurs?/i] },
+  { sheet: "Traitement de données", tests: [/traitement\s+de\s+donn(e|é)es/i] },
   { sheet: "Fluences", tests: [/fluence(s)?/i] },
-  { sheet: "Écriture  ", tests: [/écriture|ecriture/i] },
+  { sheet: "Écriture", tests: [/écriture|ecriture/i] },
   { sheet: "Lire", tests: [/\blire\b|lecture/i] },
   { sheet: "Parler", tests: [/parler|expression\s+orale/i] },
   { sheet: "Ecouter", tests: [/écouter|ecouter|compr(é|e)hension\s+orale/i] },
   { sheet: "Sciences", tests: [/sciences?/i] },
-  { sheet: "Histoire  ", tests: [/histoire/i] },
-  { sheet: "Géographie  ", tests: [/g(é|e)ographie/i] },
+  { sheet: "Histoire", tests: [/histoire/i] },
+  { sheet: "Géographie", tests: [/g(é|e)ographie/i] },
   { sheet: "Economie sociale", tests: [/economie\s+sociale|économie\s+sociale/i] },
   { sheet: "ECA", tests: [/\beca\b|arts?\s+(plastiques|visuels|musique)/i] },
   { sheet: "FMTTN", tests: [/\bfmttn\b|education\s+physique|gym|eps/i] },
 ];
 
-let INDEX = {};  // { "Math  ": { "S1": "attendu", ... }, ... }
-let MODELS = {}; // { slot: "<html avec semaine x>", ... }
+let INDEX = {};   // { "Math  ": { "S1": "attendu", ... }, "Math": {...}, "math": {...} }
+let MODELS = {};  // { slot: "<html modèle>", ... }
 
 const $ = (s)=>document.querySelector(s);
 
@@ -35,21 +35,23 @@ async function init(){
 
   document.querySelectorAll("#tableSemainier td.cell").forEach(td=>{
     const slot = td.dataset.slot;
-    if(!MODELS[slot]) MODELS[slot] = td.innerHTML; // modèle de base (avec 'semaine x')
+    if(!MODELS[slot]) MODELS[slot] = td.innerHTML; 
     td.contentEditable = "true";
 
     td.addEventListener("blur", ()=> {
       const week = $("#selectSemaine")?.value || null;
-      const subject = detectSubject(td.innerText, td.innerHTML);
+      const subjectKeyGuess = detectSubject(td.innerText, td.innerHTML);
       let html = td.innerHTML;
 
-      if(week && subject){
-        const att = getAttendu(subject, week);
+      if(week && subjectKeyGuess){
+        const sheetKey = normalizeSheetKey(subjectKeyGuess);
+        const att = getAttendu(sheetKey, week);
         if(att){
           const attEsc = escapeReg(att);
           html = html.replace(new RegExp(attEsc, "gi"), "semaine x");
         }
       }
+
       MODELS[slot] = html;
       saveModels();
     });
@@ -85,14 +87,23 @@ async function loadAndIndex(){
     const json = await res.json();
     const programmes = json?.programmes || {};
 
-    Object.entries(programmes).forEach(([sheet, obj])=>{
+    Object.entries(programmes).forEach(([rawSheetKey, obj])=>{
       const rows = obj?.rows || [];
       rows.forEach(r=>{
-        const w = String(r.Semaine||"").trim(); // ex "S1"
-        const att = String(r["Attendu associé"]||"").trim();
+        const w = String(r.Semaine||"").trim(); 
+        const att = String(r["Attendu associé"] || r["Attendu"] || "").trim(); 
         if(!w || !att) return;
-        if(!INDEX[sheet]) INDEX[sheet] = {};
-        INDEX[sheet][w] = att;
+
+        const sheetTrim = rawSheetKey.trim();
+        const sheetLower = sheetTrim.toLowerCase();
+
+        if(!INDEX[rawSheetKey]) INDEX[rawSheetKey] = {};
+        if(!INDEX[sheetTrim])   INDEX[sheetTrim]   = {};
+        if(!INDEX[sheetLower])  INDEX[sheetLower]  = {};
+
+        INDEX[rawSheetKey][w] = att;
+        INDEX[sheetTrim][w]   = att;
+        INDEX[sheetLower][w]  = att;
       });
     });
   }catch(e){
@@ -108,13 +119,13 @@ function applyWeek(){
     const slot = td.dataset.slot;
     const modelHTML = MODELS[slot] || td.innerHTML;
 
-    const subject = detectSubject(stripTags(modelHTML), modelHTML);
+    const subjectGuess = detectSubject(stripTags(modelHTML), modelHTML);
     let rendered = modelHTML;
 
-    if(subject){
-      const attendu = getAttendu(subject, week);
+    if(subjectGuess){
+      const sheetKey = normalizeSheetKey(subjectGuess);
+      const attendu = getAttendu(sheetKey, week);
       if(attendu){
-        // Remplacer toutes les occurrences "semaine x" (insensible casse/espaces)
         rendered = replaceSemaineX(rendered, attendu);
       }
     }
@@ -133,22 +144,28 @@ function detectSubject(txt, html){
   return null;
 }
 
-function getAttendu(sheet, week){
-  return INDEX?.[sheet]?.[week] || null;
+function normalizeSheetKey(sheetGuess){
+  if(INDEX[sheetGuess]) return sheetGuess;
+  const t = sheetGuess.trim();
+  if(INDEX[t]) return t;
+  const l = t.toLowerCase();
+  if(INDEX[l]) return l;
+
+  const allKeys = Object.keys(INDEX);
+  const found = allKeys.find(k => k.trim().toLowerCase() === l);
+  return found || sheetGuess;
 }
 
+function getAttendu(sheetKey, week){
+  return INDEX?.[sheetKey]?.[week] || null;
+}
 function replaceSemaineX(html, attendu){
-  // variantes tolérées : "semaine x", "Semaine  x", "semaine  X" etc.
-  // on remplace uniquement le texte "semaine x" (pas d'autres X).
   return html.replace(/\bsemaine\s*x\b/gi, sanitizeAttendu(attendu));
 }
 
 function sanitizeAttendu(att){
-  // simple nettoyage si besoin ; on peut aussi wrapper :
-  // return `<span class="attendu">${escapeHTML(att)}</span>`;
   return escapeHTML(att);
 }
-
 function loadModels(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY_MODEL);
