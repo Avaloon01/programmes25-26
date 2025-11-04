@@ -8,7 +8,6 @@ const SUBJECT_ALIASES = [
   { sheet: "Algèbre", tests: [/alg(e|è)bre/i] },
   { sheet: "Grandeurs", tests: [/grandeurs?/i] },
   { sheet: "Traitement de données", tests: [/traitement\s+de\s+donn(e|é)es/i] },
-  { sheet: "Fluences", tests: [/fluence(s)?/i] },
   { sheet: "Savoir écrire", tests: [/écrire/i] },
   { sheet: "Savoir lire", tests: [/fluence/i] },
   { sheet: "Savoir parler", tests: [/parler|expression\s+orale/i] },
