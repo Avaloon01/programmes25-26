@@ -4,7 +4,7 @@ const STORAGE_KEY_LASTWEEK = "semainier_last_week_v2_2";
 
 const SUBJECT_ALIASES = [
   { sheet: "Math", tests: [/(\b|_)math(\b|_)/i] },
-  { sheet: "Géométrie", tests: [/géométrie|geometrie/i] },
+  { sheet: "Géométrie", tests: [/figures/i] },
   { sheet: "Algèbre", tests: [/alg(e|è)bre/i] },
   { sheet: "Grandeurs", tests: [/grandeurs?/i] },
   { sheet: "Traitement de données", tests: [/traitement\s+de\s+donn(e|é)es/i] },
