@@ -58,7 +58,15 @@
     <div class="toolbar">
       <div class="field">
         <label for="selectSemaine">Semaine</label>
-        <select id="selectSemaine" aria-label="Choisir la semaine"></select>
+        <select id="selectSemaine" aria-label="Choisir la semaine">
+  <script>
+    for(let i=1;i<=35;i++){
+      const opt=document.createElement('option');
+      opt.value='S'+i; opt.textContent='S'+i;
+      document.currentScript.parentElement.appendChild(opt);
+    }
+  </script>
+</select>
       </div>
 
       <div class="field">
