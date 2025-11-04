@@ -10,7 +10,7 @@ const SUBJECT_ALIASES = [
   { sheet: "Traitement de données", tests: [/traitement\s+de\s+donn(e|é)es/i] },
   { sheet: "Fluences", tests: [/fluence(s)?/i] },
   { sheet: "Savoir écrire", tests: [/écrire/i] },
-  { sheet: "Savoir lire", tests: [/\blire\b|lecture/i] },
+  { sheet: "Savoir lire", tests: [/fluence/i] },
   { sheet: "Savoir parler", tests: [/parler|expression\s+orale/i] },
   { sheet: "Savoir écouter", tests: [/écouter|ecouter|compr(é|e)hension\s+orale/i] },
   { sheet: "Sciences", tests: [/sciences/i] },
