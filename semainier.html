@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Semainier – Auto-complétion par semaine</title>
+
+<!-- Styles internes (dont impression A4 paysage) -->
+<style>
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --ink:#1f2a44;
+    --muted:#6b7280; --accent:#5b7cfa; --border:#d1d5db;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,Segoe UI,Roboto,Arial}
+  .page{max-width:1200px;margin:auto;padding:20px;display:grid;gap:14px}
+  header{background:var(--panel);padding:14px 16px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .hgroup{min-width:260px}
+  h1{font-size:1.15rem;margin:0 0 4px}
+  small{color:var(--muted)}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap}
+  .field{display:flex;flex-direction:column;gap:4px}
+  label{font-size:.8rem;color:var(--muted)}
+  select,button{font:inherit;border:1px solid var(--border);border-radius:10px;padding:8px 12px;background:#fff;color:var(--ink)}
+  button{background:var(--accent);color:#fff;border:none;font-weight:600;cursor:pointer}
+  .ghost{background:#fff;color:var(--ink);border:1px solid var(--border);font-weight:600}
+  .table-wrap{background:var(--panel);border-radius:16px;box-shadow:0 10px 26px rgba(0,0,0,.07);overflow-x:auto;padding:12px}
+  table{border-collapse:collapse;width:100%;min-width:900px;table-layout:fixed}
+  thead th{position:sticky;top:0;background:#eef2ff;border:1px solid var(--border);padding:8px;text-align:center}
+  tbody td{border:1px solid var(--border);vertical-align:top;background:#fff}
+  .horaire{background:#f3f4f6;font-weight:700;text-align:center;width:100px}
+  .cell{padding:6px;outline:none}
+  .hint{font-size:.8rem;color:var(--muted);text-align:right}
+  .block-auto{margin-top:6px;font-size:.78rem;line-height:1.25;background:#f9fafb;border:1px solid var(--border);border-radius:8px;padding:6px}
+  .block-auto .matiere{font-weight:700;color:var(--accent);margin-bottom:2px}
+  .footer-nav{display:flex;gap:10px;justify-content:flex-end}
+  .back{background:#111827;color:#fff}
+
+  /* Impression A4 paysage */
+  @media print{
+    @page{size:A4 landscape;margin:10mm}
+    header,.footer-nav,.hint{display:none !important}
+    body{background:#fff}
+    .page{max-width:100%;padding:0}
+    .table-wrap{box-shadow:none;padding:0}
+    table{font-size:12px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="hgroup">
+      <h1>Semainier</h1>
+      <small>Écris librement dans les cases. Clique « Appliquer la semaine » pour compléter les zones contenant “semaine x”.</small>
+    </div>
+
+    <div class="toolbar">
+      <div class="field">
+        <label for="selectSemaine">Semaine</label>
+        <select id="selectSemaine" aria-label="Choisir la semaine"></select>
+      </div>
+
+      <div class="field">
+        <label>&nbsp;</label>
+        <button id="btnApply">Appliquer la semaine</button>
+      </div>
+
+      <div class="field">
+        <label>&nbsp;</label>
+        <button id="btnClear" class="ghost" title="Effacer uniquement vos notes locales">Effacer mes notes</button>
+      </div>
+
+      <div class="field">
+        <label>&nbsp;</label>
+        <button id="btnPrint" class="ghost" title="Imprimer ou exporter en PDF (A4 paysage)">Imprimer / PDF</button>
+      </div>
+
+      <div class="field">
+        <label>&nbsp;</label>
+        <a class="ghost" href="index.html" style="text-decoration:none;display:inline-block;padding:8px 12px;border-radius:10px">← Retour à l’accueil</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="hint">Astuce : tape “<em>… semaine x</em>” dans une case (ex. <em>math semaine x</em>), puis applique la semaine : la compétence et l’attendu s’ajoutent automatiquement.</div>
+
+  <div class="table-wrap">
+    <table id="tableSemainier">
+      <thead>
+        <tr>
+          <th class="horaire">Heure</th>
+          <th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Ligne 1 -->
+        <tr>
+          <td class="horaire">8h15–9h05</td>
+          <td class="cell" data-slot="Lun_1">fluence semaine x avec Madame Aurélie<br> découverte du texte</td>
+          <td class="cell" data-slot="Mar_1">religion</td>
+          <td class="cell" data-slot="Mer_1">neerlandais semaine x</td>
+          <td class="cell" data-slot="Jeu_1">traitement de données semaine x</td>
+          <td class="cell" data-slot="Ven_1">algèbre semaine x</td>
+        </tr>
+        <!-- Ligne 2 -->
+        <tr>
+          <td class="horaire">9h10–10h00</td>
+          <td class="cell" data-slot="Lun_2">math semaine x – explication du thème et jeux</td>
+          <td class="cell" data-slot="Mar_2">rituels + grandeurs semaine x</td>
+          <td class="cell" data-slot="Mer_2">rituel + grandeurs semaine x</td>
+          <td class="cell" data-slot="Jeu_2">rituels + grandeurs semaine x</td>
+          <td class="cell" data-slot="Ven_2">corrections des devoirs</td>
+        </tr>
+        <!-- Ligne 3 -->
+        <tr>
+          <td class="horaire">10h15–11h10</td>
+          <td class="cell" data-slot="Lun_3">géographie semaine x</td>
+          <td class="cell" data-slot="Mar_3">gymnastique</td>
+          <td class="cell" data-slot="Mer_3">savoir écrire – semaine x</td>
+          <td class="cell" data-slot="Jeu_3">neerlandais semaine x</td>
+          <td class="cell" data-slot="Ven_3">Peca italien</td>
+        </tr>
+        <!-- Ligne 4 -->
+        <tr>
+          <td class="horaire">11h10–12h00</td>
+          <td class="cell" data-slot="Lun_4">/</td>
+          <td class="cell" data-slot="Mar_4">solides et figures semaine x</td>
+          <td class="cell" data-slot="Mer_4">gymnastique</td>
+          <td class="cell" data-slot="Jeu_4">citoyenneté</td>
+          <td class="cell" data-slot="Ven_4">fluence semaine x – évaluation</td>
+        </tr>
+        <!-- Ligne 5 -->
+        <tr>
+          <td class="horaire">13h30–14h20</td>
+          <td class="cell" data-slot="Lun_5">histoire semaine x</td>
+          <td class="cell" data-slot="Mar_5">recherche scientifique</td>
+          <td class="cell" data-slot="Mer_5">/</td>
+          <td class="cell" data-slot="Jeu_5">SEE + arts</td>
+          <td class="cell" data-slot="Ven_5">bilan des matières semaine x</td>
+        </tr>
+        <!-- Ligne 6 -->
+        <tr>
+          <td class="horaire">14h20–15h15</td>
+          <td class="cell" data-slot="Lun_6">neerlandais semaine x</td>
+          <td class="cell" data-slot="Mar_6">suite</td>
+          <td class="cell" data-slot="Mer_6">/</td>
+          <td class="cell" data-slot="Jeu_6">SEE + arts</td>
+          <td class="cell" data-slot="Ven_6">conseil de classe</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-nav">
+    <a class="back" href="index.html" style="text-decoration:none;padding:10px 14px;border-radius:10px">← Retour à l’accueil</a>
+  </div>
+</div>
+
+<!-- Script dédié -->
+<script src="js/semainier.js"></script>
+</body>
+</html>
