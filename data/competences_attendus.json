@@ -6,10 +6,10 @@
     "Grandeurs  ",
     "Traitement de données  ",
     "Fluences",
-    "Écriture  ",
-    "Lire",
-    "Parler",
-    "Ecouter",
+    "Savoir écrire",
+    "Savoir lire",
+    "Savoir parler",
+    "Savoir écouter",
     "Sciences",
     "Histoire  ",
     "Géographie  ",
@@ -226,7 +226,7 @@
         {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Participer à une lecture collective ou en duo en maintenant la synchronisation.","Attendus observables et indicateurs de progression":""}
       ]
     },
-    "Écriture  ": {
+    "Savoir écrire  ": {
       "columns": ["Semaine", "Matière", "Focalisation", "Compétence du référentiel", "Attendu"],
       "rows": [
         {"Semaine":"S5","Matière":"Ponctuation de base","Focalisation":"Majuscules et point / ? / !","Compétence du référentiel":"Maîtriser les conventions de l’écrit.","Attendu":"Utiliser correctement la majuscule en début de phrase et le point, le point d’interrogation, le point d’exclamation en fin."},
@@ -433,7 +433,7 @@
     {"Semaine":"S10","Objectif":"Utiliser les outils numériques pour créer un contenu simple.","Compétence du référentiel":"Produire un document numérique dans le respect de l’éthique","Attendu associé":"Mettre en forme un texte et une image en respectant le droit à l'image, Se protéger des fakes news. Créer un fichier, le déplacer, le renommer."}
   ]
   },
- "Parler": {
+ "Savoir parler": {
   "columns": ["Semaine", "Titre de l’activité", "Objectif", "Compétence du référentiel", "Attendu associé"],
   "rows": [
     {"Semaine":"S1","Titre de l’activité":"Je me présente à la classe","Objectif":"Se présenter oralement en respectant les formules de politesse.","Compétence du référentiel":"Prendre la parole de manière audible et claire.","Attendu associé":"Dire son prénom, quelques goûts, en regardant l’auditoire."},
@@ -468,7 +468,7 @@
     {"Semaine":"S30","Titre de l’activité":"Bilan de l’expression orale","Objectif":"Faire le point sur ses progrès à l’oral.","Compétence du référentiel":"Évaluer sa production et son écoute.","Attendu associé":"Identifier ce qu’il réussit bien et ce qu’il doit encore améliorer."}
   ]
 },
-    "Lire": {
+    "Savoir lire": {
   "columns": ["Semaine", "Titre de l’activité", "Objectif", "Compétence du référentiel", "Attendu associé"],
   "rows": [
     {"Semaine":"S1","Titre de l’activité":"Lire pour le plaisir","Objectif":"Redécouvrir la lecture comme source de plaisir.","Compétence du référentiel":"Manifester le goût de la lecture.","Attendu associé":"Choisir et lire un livre court adapté à son niveau."},
@@ -503,7 +503,7 @@
     {"Semaine":"S30","Titre de l’activité":"Bilan lecture et projet final","Objectif":"Réinvestir toutes les stratégies de lecture.","Compétence du référentiel":"Lire pour comprendre, interpréter et apprécier.","Attendu associé":"Identifier ses progrès et ses préférences de lecteur."}
   ]
 },
-    "Ecouter": {
+    "Savoir écouter": {
   "columns": ["Semaine", "Titre de l’activité", "Objectif", "Compétence du référentiel", "Attendu associé"],
   "rows": [
     {"Semaine":"S1","Titre de l’activité":"Les sons qui racontent","Objectif":"Découvrir que l’écoute permet de comprendre un message.","Compétence du référentiel":"Manifester sa compréhension d’un message entendu.","Attendu associé":"Repérer les informations essentielles d’un court message."},
