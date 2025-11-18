@@ -226,7 +226,7 @@
         {"Catégorie":"Autonomie et attitude de lecteur","Compétence formulée dans le référentiel":"Participer à une lecture collective ou en duo en maintenant la synchronisation.","Attendus observables et indicateurs de progression":""}
       ]
     },
-    "Savoir écrire  ": {
+    "Savoir écrire": {
       "columns": ["Semaine", "Matière", "Focalisation", "Compétence du référentiel", "Attendu"],
       "rows": [
         {"Semaine":"S5","Matière":"Ponctuation de base","Focalisation":"Majuscules et point / ? / !","Compétence du référentiel":"Maîtriser les conventions de l’écrit.","Attendu":"Utiliser correctement la majuscule en début de phrase et le point, le point d’interrogation, le point d’exclamation en fin."},
