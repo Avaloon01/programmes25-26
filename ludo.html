@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ludothèque de classe – Scan code-barres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Librairie de scan de code-barres QuaggaJS depuis un CDN -->
+  <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+
+    #interactive {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #interactive video {
+      width: 100%;
+      height: auto;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      background: #1976d2;
+      color: #fff;
+    }
+
+    button.secondary {
+      background: #757575;
+    }
+
+    button.danger {
+      background: #d32f2f;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    label {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.3rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.3rem;
+      text-align: left;
+    }
+
+    th {
+      background: #eeeeee;
+    }
+
+    .small {
+      font-size: 0.8rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ludothèque de classe – Scan & enregistre</h1>
+  <p class="small">
+    1. Clique sur « Démarrer le scan » et vise le code-barres du jeu.<br>
+    2. Le code sera détecté automatiquement. Complète les infos du jeu.<br>
+    3. Clique sur « Ajouter à la ludothèque ». Les données sont gardées dans ce navigateur.
+  </p>
+
+  <!-- SECTION SCAN -->
+  <div class="section">
+    <h2>1. Scanner le code-barres</h2>
+    <div id="interactive"></div>
+
+    <div class="controls">
+      <button id="startScanBtn">Démarrer le scan</button>
+      <button id="stopScanBtn" class="secondary" disabled>Arrêter</button>
+      <button id="clearLastBtn" class="secondary">Effacer le dernier code</button>
+    </div>
+
+    <p class="small" id="scanStatus">Statut : en attente...</p>
+  </div>
+
+  <!-- SECTION FORMULAIRE -->
+  <div class="section">
+    <h2>2. Informations du jeu</h2>
+    <label>
+      Code-barres
+      <input type="text" id="barcodeInput" placeholder="Scanne ou tape le code-barres">
+    </label>
+
+    <label>
+      Nom du jeu
+      <input type="text" id="nameInput" placeholder="ex. Dixit, Concept, Timeline...">
+    </label>
+
+    <label>
+      Nombre de joueurs (ex. 2–6)
+      <input type="text" id="playersInput" placeholder="ex. 2–4, 3–8...">
+    </label>
+
+    <label>
+      Domaine principal
+      <select id="domainInput">
+        <option value="">— choisir —</option>
+        <option value="Français">Français</option>
+        <option value="Mathématiques">Mathématiques</option>
+        <option value="Eveil">Éveil</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </label>
+
+    <label>
+      Remarque / sous-domaine (optionnel)
+      <input type="text" id="noteInput" placeholder="ex. Vocabulaire, calcul mental, coopération...">
+    </label>
+
+    <div class="controls">
+      <button id="addGameBtn">Ajouter à la ludothèque</button>
+      <button id="exportCsvBtn" class="secondary">Exporter en CSV</button>
+      <button id="clearAllBtn" class="danger">Effacer toute la ludothèque</button>
+    </div>
+
+    <p class="small" id="saveStatus">Ludothèque chargée.</p>
+  </div>
+
+  <!-- SECTION TABLEAU -->
+  <div class="section">
+    <h2>3. Ma ludothèque</h2>
+    <table id="libraryTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Code-barres</th>
+          <th>Nom</th>
+          <th>Joueurs</th>
+          <th>Domaine</th>
+          <th>Remarque</th>
+          <th>✖</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- lignes ajoutées dynamiquement -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // =========================
+    // Gestion du scan QuaggaJS
+    // =========================
+    const startScanBtn = document.getElementById('startScanBtn');
+    const stopScanBtn  = document.getElementById('stopScanBtn');
+    const clearLastBtn = document.getElementById('clearLastBtn');
+    const scanStatus   = document.getElementById('scanStatus');
+    const barcodeInput = document.getElementById('barcodeInput');
+
+    let quaggaRunning = false;
+
+    function startScanner() {
+      if (quaggaRunning) return;
+
+      scanStatus.textContent = "Statut : initialisation du scanner...";
+
+      Quagga.init({
+        inputStream: {
+          type: "LiveStream",
+          constraints: {
+            facingMode: "environment", // caméra arrière si possible
+            width: 640,
+            height: 480
+          },
+          target: document.querySelector('#interactive')
+        },
+        decoder: {
+          readers: ["ean_reader", "ean_8_reader", "upc_reader", "upc_e_reader"]
+        },
+        locate: true
+      }, function(err) {
+        if (err) {
+          console.error(err);
+          scanStatus.textContent = "Erreur initialisation : " + err;
+          return;
+        }
+        Quagga.start();
+        quaggaRunning = true;
+        startScanBtn.disabled = true;
+        stopScanBtn.disabled = false;
+        scanStatus.textContent = "Statut : scanner en cours, vise le code-barres...";
+      });
+
+      Quagga.onDetected(onBarcodeDetected);
+    }
+
+    function stopScanner() {
+      if (!quaggaRunning) return;
+      Quagga.stop();
+      Quagga.offDetected(onBarcodeDetected);
+      quaggaRunning = false;
+      startScanBtn.disabled = false;
+      stopScanBtn.disabled = true;
+      scanStatus.textContent = "Statut : scanner arrêté.";
+    }
+
+    function onBarcodeDetected(result) {
+      const code = result.codeResult.code;
+      // On évite de spammer si le même code arrive plusieurs fois
+      if (barcodeInput.value === code) return;
+
+      barcodeInput.value = code;
+      scanStatus.textContent = "Code détecté : " + code + " (tu peux maintenant compléter les infos du jeu).";
+
+      // Option : arrêter le scanner après une détection
+      stopScanner();
+    }
+
+    startScanBtn.addEventListener('click', startScanner);
+    stopScanBtn.addEventListener('click', stopScanner);
+    clearLastBtn.addEventListener('click', () => {
+      barcodeInput.value = "";
+      scanStatus.textContent = "Statut : code effacé, prêt à rescanner.";
+    });
+
+    // =========================
+    // Gestion de la ludothèque
+    // =========================
+    const nameInput   = document.getElementById('nameInput');
+    const playersInput= document.getElementById('playersInput');
+    const domainInput = document.getElementById('domainInput');
+    const noteInput   = document.getElementById('noteInput');
+    const addGameBtn  = document.getElementById('addGameBtn');
+    const exportCsvBtn= document.getElementById('exportCsvBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const saveStatus  = document.getElementById('saveStatus');
+    const tableBody   = document.querySelector('#libraryTable tbody');
+
+    const STORAGE_KEY = "ludotheque_classe";
+
+    let library = [];
+
+    function loadLibrary() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      if (data) {
+        try {
+          library = JSON.parse(data);
+        } catch(e) {
+          console.error("Erreur parse localStorage", e);
+          library = [];
+        }
+      }
+      renderTable();
+      saveStatus.textContent = "Ludothèque chargée (" + library.length + " jeux).";
+    }
+
+    function saveLibrary() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
+      saveStatus.textContent = "Ludothèque enregistrée (" + library.length + " jeux).";
+    }
+
+    function renderTable() {
+      tableBody.innerHTML = "";
+      library.forEach((item, index) => {
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.barcode || ""}</td>
+          <td>${item.name || ""}</td>
+          <td>${item.players || ""}</td>
+          <td>${item.domain || ""}</td>
+          <td>${item.note || ""}</td>
+          <td><button data-index="${index}" class="danger" style="font-size:0.7rem;padding:0.2rem 0.4rem;">X</button></td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      // Boutons supprimer ligne
+      tableBody.querySelectorAll('button.danger').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) {
+            library.splice(idx, 1);
+            saveLibrary();
+            renderTable();
+          }
+        });
+      });
+    }
+
+    function addGame() {
+      const barcode = barcodeInput.value.trim();
+      const name    = nameInput.value.trim();
+      const players = playersInput.value.trim();
+      const domain  = domainInput.value;
+      const note    = noteInput.value.trim();
+
+      if (!barcode && !name) {
+        alert("Au minimum, indique un code-barres ou un nom de jeu.");
+        return;
+      }
+
+      library.push({ barcode, name, players, domain, note });
+      saveLibrary();
+      renderTable();
+
+      // On garde le code-barres (au cas où même boîte, versions différentes)
+      nameInput.value = "";
+      playersInput.value = "";
+      // domainInput.value = ""; // si tu veux garder la dernière sélection, commente cette ligne
+      noteInput.value = "";
+    }
+
+    function exportCsv() {
+      if (library.length === 0) {
+        alert("La ludothèque est vide.");
+        return;
+      }
+
+      const header = ["index","barcode","nom","joueurs","domaine","remarque"];
+      const rows = [header];
+
+      library.forEach((item, idx) => {
+        rows.push([
+          idx + 1,
+          item.barcode || "",
+          item.name || "",
+          item.players || "",
+          item.domain || "",
+          item.note || ""
+        ]);
+      });
+
+      const csvContent = rows.map(r =>
+        r.map(val => `"${String(val).replace(/"/g, '""')}"`).join(";")
+      ).join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const date = new Date().toISOString().slice(0,10);
+      a.download = "ludotheque_classe_" + date + ".csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function clearAll() {
+      if (!confirm("Effacer TOUTE la ludothèque ?")) return;
+      library = [];
+      saveLibrary();
+      renderTable();
+    }
+
+    addGameBtn.addEventListener('click', addGame);
+    exportCsvBtn.addEventListener('click', exportCsv);
+    clearAllBtn.addEventListener('click', clearAll);
+
+    // Charge les données au démarrage
+    window.addEventListener('load', loadLibrary);
+  </script>
+</body>
+</html>
