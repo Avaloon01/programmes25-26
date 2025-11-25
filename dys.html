@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comprendre et accompagner les troubles DYS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --primary: #4a6fdc;
+      --primary-light: #e2e7ff;
+      --accent: #ffb347;
+      --text: #203047;
+      --card-bg: #ffffff;
+      --border-soft: #d4d9eb;
+      --danger: #c0392b;
+      --success: #1e8449;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #eef1ff, #f9fbff);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #4a6fdc, #7e9dff);
+      color: white;
+      padding: 1.5rem 1.5rem 1.8rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2vw + 1rem, 2.1rem);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    header h1 span.icon {
+      font-size: 1.6rem;
+    }
+
+    header p {
+      margin: 0.4rem 0 0;
+      max-width: 900px;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    .tagline {
+      margin-top: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      font-size: 0.8rem;
+    }
+
+    .tagline span {
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 1.5rem auto 2.5rem;
+      padding: 0 1rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 850px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        order: -1;
+      }
+    }
+
+    .sidebar {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border-soft);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(40, 68, 150, 0.08);
+    }
+
+    .sidebar h2 {
+      margin: 0 0 0.7rem;
+      font-size: 1.1rem;
+    }
+
+    .sidebar p {
+      margin: 0 0 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .dys-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .dys-button {
+      width: 100%;
+      text-align: left;
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.7rem;
+      border: 1px solid transparent;
+      background: #f5f7ff;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s ease, transform 0.1s ease,
+        box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .dys-button span.label {
+      font-weight: 600;
+    }
+
+    .dys-button span.short {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin-left: 0.4rem;
+    }
+
+    .dys-button span.arrow {
+      font-size: 1rem;
+      opacity: 0.6;
+    }
+
+    .dys-button:hover {
+      background: var(--primary-light);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .dys-button.active {
+      background: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 3px 10px rgba(74, 111, 220, 0.18);
+    }
+
+    .sidebar .warning {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      padding: 0.6rem 0.7rem;
+      border-left: 3px solid var(--danger);
+      background: #fff4f2;
+      border-radius: 0.5rem;
+    }
+
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1.2rem 1.3rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 18px rgba(32, 48, 71, 0.06);
+      animation: fadeIn 0.25s ease;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: #eef1ff;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.1rem;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 750px) {
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h3 {
+      margin-top: 0.2rem;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
+    }
+
+    ul {
+      margin: 0.4rem 0 0.2rem;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+    }
+
+    li {
+      margin-bottom: 0.2rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .badge {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #f7f8ff;
+    }
+
+    .alert {
+      font-size: 0.85rem;
+      margin-top: 0.7rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 0.6rem;
+      border-left: 3px solid var(--accent);
+      background: #fffaf3;
+    }
+
+    .alert strong {
+      font-weight: 600;
+    }
+
+    .specialists {
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.78rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: #e9f7ef;
+      color: var(--success);
+      margin-right: 0.3rem;
+      margin-top: 0.2rem;
+    }
+
+    .global-footer {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      opacity: 0.85;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .legend {
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      <span class="icon">🧠</span>
+      Comprendre et accompagner les troubles DYS en classe
+    </h1>
+    <p>
+      Cette page te donne des repères <strong>pédagogiques</strong> sur les principaux
+      troubles DYS et des pistes concrètes pour adapter ta classe. Elle ne remplace
+      <strong>jamais</strong> un avis médical ou un bilan spécialisé.
+    </p>
+    <div class="tagline">
+      <span>Rôle de l’enseignant :</span>
+      repérer, rassurer, adapter… et orienter si besoin.
+    </div>
+  </header>
+
+  <main>
+    <!-- MENU LATÉRAL -->
+    <aside class="sidebar">
+      <h2>Choisis un trouble DYS</h2>
+      <p>Clique sur un bouton pour afficher les signes d’alerte et les aménagements possibles.</p>
+
+      <div class="dys-list">
+        <button class="dys-button active" data-target="dyslexie">
+          <span><span class="label">Dyslexie</span><span class="short">lecture</span></span>
+          <span class="arrow">▶</span>
+        </button>
+        <button class="dys-button" data-target="dysorthographie">
+          <span><span class="label">Dysorthographie</span><span class="short">orthographe</span></span>
+          <span class="arrow">▶</span>
+        </button>
+        <button class="dys-button" data-target="dyscalculie">
+          <span><span class="label">Dyscalculie</span><span class="short">maths</span></span>
+          <span class="arrow">▶</span>
+        </button>
+        <button class="dys-button" data-target="dyspraxie">
+          <span><span class="label">Dyspraxie / TDC</span><span class="short">gestes</span></span>
+          <span class="arrow">▶</span>
+        </button>
+        <button class="dys-button" data-target="dysgraphie">
+          <span><span class="label">Dysgraphie</span><span class="short">écriture</span></span>
+          <span class="arrow">▶</span>
+        </button>
+        <button class="dys-button" data-target="dysphasie">
+          <span><span class="label">Dysphasie / TDL</span><span class="short">langage oral</span></span>
+          <span class="arrow">▶</span>
+        </button>
+      </div>
+
+      <div class="warning">
+        <strong>Important :</strong>
+        <br />
+        tu ne poses pas de diagnostic. Tu observes, tu notes tes
+        préoccupations, tu échanges avec les parents, l’équipe (PMS/Centre
+        psycho-médico-social, PSE, logopède, neuropsychologue…) qui décidera
+        des bilans à réaliser.
+      </div>
+
+      <p class="legend">
+        DYS = troubles spécifiques, durables, des apprentissages (lecture, écriture,
+        langage, mathématiques…), chez des élèves qui ne présentent pas
+        d’autre problème majeur expliquant ces difficultés.
+      </p>
+    </aside>
+
+    <!-- ZONE DE CONTENU -->
+    <section class="content-area">
+      <!-- Carte générique (toujours visible) -->
+      <article class="card">
+        <h2>
+          🌱 Quand s’inquiéter ? Que faire en cas de doute ?
+        </h2>
+        <p class="note">
+          Beaucoup d’enfants ont des difficultés ponctuelles. On commence à parler de
+          «&nbsp;suspicion de trouble DYS&nbsp;» quand les difficultés sont
+          <strong>importantes, durables</strong> et résistent aux aides habituelles.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes généraux qui doivent t’alerter</h3>
+            <ul>
+              <li>Difficultés très marquées dans un domaine (lecture, écriture, maths…) par rapport au reste.</li>
+              <li>Écarts importants avec les camarades malgré un travail sérieux.</li>
+              <li>Fatigue, lenteur extrême, grande frustration face aux tâches scolaires.</li>
+              <li>Progrès très lents malgré les aides déjà mises en place.</li>
+              <li>Discours des parents : « on s’entraîne beaucoup… mais ça ne rentre pas ».</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Démarche possible (enseignant)</h3>
+            <ul>
+              <li>Observer et prendre des notes concrètes (exemples de copies, photos, dates).</li>
+              <li>Essayer quelques <strong>aménagements simples</strong> (police, temps, consignes orales…).</li>
+              <li>Échanger avec la famille dans un climat rassurant.</li>
+              <li>Proposer un avis du PMS / PSE / médecin ou pédiatre.</li>
+              <li>En fonction des conclusions : bilans logopédie, neuropsychologie, psychomotricité…</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert">
+          <strong>Rappel :</strong>
+          un trouble DYS se confirme par un
+          <strong>diagnostic pluridisciplinaire</strong>, pas par une impression isolée.
+          Ton rôle est essentiel pour repérer, mais tu ne portes jamais l’étiquette seul.
+        </div>
+      </article>
+
+      <!-- DYSLEXIE -->
+      <article class="card dys-section" id="dyslexie">
+        <h2>
+          📚 Dyslexie
+          <span class="pill">Lecture &amp; langage écrit</span>
+        </h2>
+        <p class="note">
+          La dyslexie est un trouble spécifique et durable de
+          <strong>l’apprentissage de la lecture</strong> et de son automatisation. La
+          compréhension peut être bonne, mais l’accès au texte écrit est très coûteux
+          et reste lent même après des années d’entraînement.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes qui peuvent t’alerter en classe</h3>
+            <ul>
+              <li>Lecture très lente, hachée, avec beaucoup d’hésitations.</li>
+              <li>Confusions de sons proches (p/b, t/d, f/v, an/en…).</li>
+              <li>Inversions ou omissions de lettres, sauts de mots ou de lignes.</li>
+              <li>Grande difficulté à lire à voix haute, mais meilleure compréhension à l’oral.</li>
+              <li>Orthographe très instable, même pour les mots très fréquents.</li>
+              <li>Fatigue rapide, plaintes de maux de tête ou de « lettres qui bougent ».</li>
+              <li>Décalage important entre expression orale (riche) et production écrite.</li>
+            </ul>
+
+            <div class="specialists">
+              <strong>Orienter vers :</strong><br />
+              <span class="chip">👂 ORL (si doute auditif)</span>
+              <span class="chip">👁️ Ophtalmologue (si doute visuel)</span>
+              <span class="chip">🗣️ Logopède / orthophoniste</span>
+              <span class="chip">🧠 Neuropsychologue (si besoin)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Aménagements possibles en classe</h3>
+            <ul>
+              <li>Lire à haute voix les consignes importantes, laisser le temps de les relire.</li>
+              <li>Limiter la quantité de lecture brute dans les évaluations (textes plus courts, supports audio).</li>
+              <li>Ne pas faire lire à voix haute devant toute la classe sans accord de l’élève.</li>
+              <li>Autoriser la règle de lecture, surlignage, cache pour guider la ligne.</li>
+              <li>Utiliser une police claire (sans empattement), interligne plus grand, papier non éblouissant.</li>
+              <li>Fournir les leçons déjà dactylographiées, éviter les longs copiages.</li>
+              <li>Évaluer prioritairement la <strong>compréhension</strong> plutôt que la vitesse de lecture.</li>
+              <li>Permettre l’usage d’outils numériques (synthèse vocale, textes audio) si possible.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Temps majoré</span>
+              <span class="badge">Consignes orales</span>
+              <span class="badge">Support adapté</span>
+              <span class="badge">Évaluation différenciée</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DYSORTHOGRAPHIE -->
+      <article class="card dys-section hidden" id="dysorthographie">
+        <h2>
+          ✏️ Dysorthographie
+          <span class="pill">Orthographe &amp; écriture</span>
+        </h2>
+        <p class="note">
+          La dysorthographie est un trouble spécifique et durable de
+          <strong>l’orthographe</strong>. L’élève continue à faire de très nombreuses erreurs,
+          y compris sur des mots connus, malgré les apprentissages et les corrections.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes qui peuvent t’alerter</h3>
+            <ul>
+              <li>Très grand nombre de fautes dans tous les écrits, même courts.</li>
+              <li>Erreurs phonologiques (« bato » pour « bateau », « anfan » pour « enfant »).</li>
+              <li>Variations d’un même mot dans le même texte (« maman », « mamant », « mamam »).</li>
+              <li>Difficultés persistantes avec les accords, les terminaisons, les mots-outils.</li>
+              <li>Élève qui connaît souvent la règle à l’oral, mais ne l’applique pas à l’écrit.</li>
+              <li>Écriture parfois difficile à relire car corrigée, raturée, réécrite plusieurs fois.</li>
+            </ul>
+
+            <div class="specialists">
+              <strong>Orienter vers :</strong><br />
+              <span class="chip">🗣️ Logopède / orthophoniste</span>
+              <span class="chip">🧠 Neuropsychologue (si d’autres difficultés associées)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Aménagements possibles</h3>
+            <ul>
+              <li>Distinguer les évaluations de <strong>contenu</strong> (idées, structure) et celles d’orthographe.</li>
+              <li>Réduire la quantité d’écriture manuscrite (réponses à choix, mots à relier, etc.).</li>
+              <li>Autoriser l’ordinateur pour les productions longues (correcteur orthographique guidé).</li>
+              <li>Donner des listes de mots fréquents, tableaux de conjugaison, mémo visibles en classe.</li>
+              <li>Corriger avec un code simple, éviter la feuille « rouge » entièrement barbouillée.</li>
+              <li>Valoriser les progrès (moins d’erreurs sur une famille de mots, bonne structure de texte).</li>
+              <li>Prévoir du temps supplémentaire pour les dictées ou proposer des dictées aménagées.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Tolérance aux fautes</span>
+              <span class="badge">Outils mémoire</span>
+              <span class="badge">Clavier autorisé</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DYSCALCULIE -->
+      <article class="card dys-section hidden" id="dyscalculie">
+        <h2>
+          🔢 Dyscalculie
+          <span class="pill">Mathématiques &amp; nombres</span>
+        </h2>
+        <p class="note">
+          La dyscalculie est un trouble spécifique des apprentissages qui touche
+          <strong>le sens du nombre</strong> et les <strong>raisonnements mathématiques</strong>
+          (comptage, opérations, problèmes), malgré un enseignement régulier et des capacités
+          intellectuelles ordinaires.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes qui peuvent t’alerter</h3>
+            <ul>
+              <li>Grande difficulté à retenir les faits numériques de base (tables, compléments à 10…).</li>
+              <li>Confusions fréquentes de signes (+, -, ×, ÷, &lt;, &gt;).</li>
+              <li>Erreurs dans l’alignement des chiffres, les placements dans les colonnes.</li>
+              <li>Décompte sur les doigts très prolongé, même pour des calculs simples.</li>
+              <li>Difficultés à lire/écrire les nombres (63 pour 36, 501 pour 510, etc.).</li>
+              <li>Problèmes de compréhension des quantités, des mesures, de l’heure, de la monnaie.</li>
+              <li>Anxiété importante lors des séances de maths, évitement, blocages.</li>
+            </ul>
+
+            <div class="specialists">
+              <strong>Orienter vers :</strong><br />
+              <span class="chip">🧠 Neuropsychologue</span>
+              <span class="chip">🗣️ Logopède avec expertise en logique-math</span>
+              <span class="chip">💪 Psychomotricien (si troubles associés)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Aménagements possibles</h3>
+            <ul>
+              <li>Utiliser beaucoup de <strong>matériel concret</strong> (jetons, cubes, droites graduées, schémas).</li>
+              <li>Autoriser les tables imprimées, fiches de références, tableaux de conversion.</li>
+              <li>Réduire la quantité de calculs à faire, se concentrer sur la stratégie plutôt que la vitesse.</li>
+              <li>Écrire clairement les consignes, segmenter les problèmes en étapes.</li>
+              <li>Mettre en couleur les étapes d’un calcul posé (unité, dizaine, centaine…).</li>
+              <li>Éviter de noter « zéro » pour les erreurs de calcul simple si la procédure est correcte.</li>
+              <li>Proposer des évaluations différenciées (moins d’exercices, plus de temps, soutien visuel).</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Supports visuels</span>
+              <span class="badge">Réduction de quantité</span>
+              <span class="badge">Mise en couleur</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DYSPRAXIE -->
+      <article class="card dys-section hidden" id="dyspraxie">
+        <h2>
+          🤲 Dyspraxie / TDC
+          <span class="pill">Gestes &amp; coordination</span>
+        </h2>
+        <p class="note">
+          La dyspraxie (ou trouble développemental de la coordination) touche la
+          <strong>planification et la coordination des gestes</strong>. L’élève sait ce qu’il
+          veut faire, mais son corps n’exécute pas facilement le geste.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes qui peuvent t’alerter</h3>
+            <ul>
+              <li>Gêne marquée dans les activités motrices fines (découper, coller, tracer, écrire…).</li>
+              <li>Écriture très lente, crispée, fatigante, parfois illisible.</li>
+              <li>Maladresse importante (fait souvent tomber, renverse, se cogne).</li>
+              <li>Grande difficulté à recopier du tableau, se repérer dans la page, utiliser une règle.</li>
+              <li>Élève intelligent à l’oral, mais travaux écrits pauvres car « tout son temps est dans le geste ».</li>
+            </ul>
+
+            <div class="specialists">
+              <strong>Orienter vers :</strong><br />
+              <span class="chip">💪 Psychomotricien / ergothérapeute</span>
+              <span class="chip">🧠 Neuropsychologue</span>
+              <span class="chip">🗣️ Logopède (si troubles associés)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Aménagements possibles</h3>
+            <ul>
+              <li>Limiter le nombre de choses à écrire à la main, proposer des fiches déjà préparées.</li>
+              <li>Autoriser l’ordinateur ou la tablette pour les productions longues.</li>
+              <li>Éviter de demander de recopier les consignes : les fournir imprimées ou par photo.</li>
+              <li>Adapter le matériel : ciseaux ergonomiques, surligneurs, règle avec poignée, cahier avec lignes repères.</li>
+              <li>Laisser plus de temps pour coller, découper, ranger le matériel.</li>
+              <li>Ne pas sanctionner la présentation si le contenu est correct.</li>
+              <li>Si possible, placer l’élève dans un endroit calme, proche du tableau.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Allègement graphique</span>
+              <span class="badge">Outils adaptés</span>
+              <span class="badge">Clavier autorisé</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DYSGRAPHIE -->
+      <article class="card dys-section hidden" id="dysgraphie">
+        <h2>
+          ✍️ Dysgraphie
+          <span class="pill">Qualité &amp; vitesse d’écriture</span>
+        </h2>
+        <p class="note">
+          La dysgraphie est un trouble centré sur
+          <strong>l’écriture manuscrite</strong> : lente, douloureuse, très difficile à
+          relire, sans que cela soit uniquement expliqué par un manque d’apprentissage
+          ou de soin.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes qui peuvent t’alerter</h3>
+            <ul>
+              <li>Écriture illisible, très irrégulière, changeant souvent de taille ou de forme.</li>
+              <li>Douleurs au poignet, à la main, fatigue rapide quand il faut écrire.</li>
+              <li>Lenteur extrême pour copier quelques lignes.</li>
+              <li>Élève capable de dire beaucoup de choses à l’oral, mais qui produit peu à l’écrit.</li>
+              <li>Tracés de formes géométriques ou de lettres très coûteux, peu automatisés.</li>
+            </ul>
+
+            <div class="specialists">
+              <strong>Orienter vers :</strong><br />
+              <span class="chip">💪 Psychomotricien / ergothérapeute</span>
+              <span class="chip">🧠 Neuropsychologue (si autres difficultés)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Aménagements possibles</h3>
+            <ul>
+              <li>Réduire la quantité d’écriture manuscrite, privilégier l’oral ou le clavier.</li>
+              <li>Donner des supports à trous, des schémas à compléter plutôt qu’à copier.</li>
+              <li>Autoriser les réponses sous forme de mots-clés plutôt que de longues phrases.</li>
+              <li>Ne pas sanctionner la calligraphie si le sens est correct.</li>
+              <li>Permettre l’usage d’un stylo ergonomique, de guides d’écriture.</li>
+              <li>Prévoir du temps supplémentaire pour les évaluations écrites.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Allègement de copie</span>
+              <span class="badge">Production orale</span>
+              <span class="badge">Stylo adapté</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DYSPHASIE / TDL -->
+      <article class="card dys-section hidden" id="dysphasie">
+        <h2>
+          🗣️ Dysphasie / TDL
+          <span class="pill">Langage oral</span>
+        </h2>
+        <p class="note">
+          La dysphasie (aujourd’hui souvent appelée trouble développemental du langage)
+          est un trouble spécifique et durable du <strong>langage oral</strong> : comprendre,
+          organiser et produire des phrases est difficile, alors que les autres domaines
+          peuvent être préservés.
+        </p>
+
+        <div class="grid-two">
+          <div>
+            <h3>Signes qui peuvent t’alerter</h3>
+            <ul>
+              <li>Parole difficile à comprendre, phrases très courtes ou mal construites.</li>
+              <li>Confusion fréquente de mots, difficultés à trouver les mots justes.</li>
+              <li>Compréhension limitée des consignes orales complexes.</li>
+              <li>Besoin de répétitions fréquentes, d’exemples concrets pour comprendre.</li>
+              <li>Décalage entre ce que l’élève comprend et ce qu’il arrive à dire.</li>
+              <li>Fatigue, retrait ou comportements de « clown » pour masquer la gêne.</li>
+            </ul>
+
+            <div class="specialists">
+              <strong>Orienter vers :</strong><br />
+              <span class="chip">👂 ORL (entendre correctement ?)</span>
+              <span class="chip">🗣️ Logopède / orthophoniste spécialisé langage oral</span>
+              <span class="chip">🧠 Neuropsychologue (si troubles associés)</span>
+            </div>
+          </div>
+
+          <div>
+            <h3>Aménagements possibles</h3>
+            <ul>
+              <li>Donner les consignes en plusieurs étapes, avec gestes, images ou exemple au tableau.</li>
+              <li>Vérifier la compréhension en demandant de reformuler avec ses propres mots.</li>
+              <li>Éviter de mettre l’élève en difficulté dans les tours de lecture/présentation imposés.</li>
+              <li>Laisser du temps pour répondre, ne pas compléter systématiquement ses phrases.</li>
+              <li>S’appuyer sur le visuel (pictogrammes, photos, schémas, mots-clés écrits).</li>
+              <li>Favoriser les binômes bienveillants qui peuvent aider à reformuler.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Consignes fractionnées</span>
+              <span class="badge">Supports visuels</span>
+              <span class="badge">Temps de réponse</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PIED GLOBAL -->
+      <article class="card">
+        <h2>🧩 Construire un parcours adapté</h2>
+        <p class="note">
+          Selon ton pays / ta région, il existe des dispositifs officiels
+          (plans d’accompagnement, aménagements raisonnables, aides spécialisées…)
+          pour formaliser ces adaptations. Renseigne-toi auprès de ta direction,
+          du PMS / du service d’accompagnement ou de la médecine scolaire.
+        </p>
+        <ul>
+          <li>Garder des traces des aménagements qui fonctionnent bien.</li>
+          <li>Partager ces informations avec les collègues (continuité entre années / cycles).</li>
+          <li>Associer les parents comme partenaires, pas comme « juges » des difficultés.</li>
+          <li>Veiller à ce que l’élève ne soit pas réduit à son trouble : valoriser ses forces.</li>
+        </ul>
+        <p class="global-footer">
+          Ce document est un <strong>guide pédagogique</strong>. Pour toute décision de
+          bilan ou d’orientation précise, appuie-toi sur les professionnels de ton
+          réseau (PMS, médecins, logopèdes, neuropsychologues, psychomotriciens, etc.).
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    // Gestion des boutons et affichage des sections
+    const buttons = document.querySelectorAll(".dys-button");
+    const sections = document.querySelectorAll(".dys-section");
+
+    function showSection(id) {
+      sections.forEach((sec) => {
+        sec.classList.toggle("hidden", sec.id !== id);
+      });
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+
+        // Activer / désactiver les boutons
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Afficher la bonne section
+        showSection(target);
+      });
+    });
+
+    // section par défaut
+    showSection("dyslexie");
+  </script>
+</body>
+</html>
