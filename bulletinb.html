@@ -4,115 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bulletin P4 — FWB</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#f4f2ee; --surface:#fff; --ink:#1a1814; --ink2:#6b6660; --ink3:#a8a39e;
-  --border:#e0ddd6; --radius:12px; --gold:#c8973a; --red:#8b3a3a; --amber:#9a6e1a; --green:#2d5a3d;
-  --d0:#2d5a3d; --d1:#3a4a6b; --d2:#6b3a2d; --d3:#4a3a6b;
-  --tr:0.2s cubic-bezier(0.4,0,0.2,1);
-}
+:root{--bg:#f4f2ee;--sur:#fff;--ink:#1a1814;--ink2:#6b6660;--ink3:#a8a39e;--brd:#e0ddd6;--r:12px;--gold:#c8973a;--red:#8b3a3a;--amb:#9a6e1a;--grn:#2d5a3d;--d0:#2d5a3d;--d1:#3a4a6b;--d2:#6b3a2d;--d3:#4a3a6b;--tr:.2s cubic-bezier(.4,0,.2,1);}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:15px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
 .app{display:grid;grid-template-columns:240px 1fr;min-height:100vh;}
-.sidebar{background:var(--ink);color:#f4f2ee;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
-.sidebar-header{padding:24px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.sidebar-logo{font-family:'DM Serif Display',serif;font-size:19px;margin-bottom:3px;color:#f4f2ee;}
-.sidebar-sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.4);font-weight:500;}
-.sidebar-label{padding:16px 18px 6px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.35);font-weight:600;}
-.eleve-btn{display:flex;align-items:center;gap:8px;padding:7px 18px;cursor:pointer;border:none;background:none;color:rgba(244,242,238,.65);width:100%;text-align:left;font-family:'DM Sans',sans-serif;font-size:13px;transition:all var(--tr);}
-.eleve-btn:hover{background:rgba(255,255,255,.07);color:#f4f2ee;}
-.eleve-btn.active{background:rgba(255,255,255,.12);color:#f4f2ee;font-weight:500;}
-.eleve-btn.active .edot{background:var(--gold);}
+.sb{background:var(--ink);color:#f4f2ee;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sb-hdr{padding:24px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sb-logo{font-family:'DM Serif Display',serif;font-size:19px;margin-bottom:3px;color:#f4f2ee;}
+.sb-sub{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.4);font-weight:500;}
+.sb-lbl{padding:16px 18px 6px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.35);font-weight:600;}
+.ebtn{display:flex;align-items:center;gap:8px;padding:7px 18px;cursor:pointer;border:none;background:none;color:rgba(244,242,238,.65);width:100%;text-align:left;font-family:'DM Sans',sans-serif;font-size:13px;transition:all var(--tr);}
+.ebtn:hover{background:rgba(255,255,255,.07);color:#f4f2ee;}
+.ebtn.on{background:rgba(255,255,255,.12);color:#f4f2ee;font-weight:500;}
+.ebtn.on .edot{background:var(--gold);}
 .edot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);flex-shrink:0;transition:background var(--tr);}
-.emini{margin-left:auto;font-size:10px;color:rgba(244,242,238,.35);font-variant-numeric:tabular-nums;}
+.emn{margin-left:auto;font-size:10px;color:rgba(244,242,238,.35);font-variant-numeric:tabular-nums;}
 .main{display:flex;flex-direction:column;min-height:100vh;}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
-.topbar-name{font-family:'DM Serif Display',serif;font-size:21px;color:var(--ink);flex:1;}
-.tscore{font-size:12px;color:var(--ink2);background:var(--bg);padding:5px 12px;border-radius:20px;border:1px solid var(--border);font-variant-numeric:tabular-nums;}
-.tscore strong{color:var(--green);}
+.topbar{background:var(--sur);border-bottom:1px solid var(--brd);padding:0 28px;height:60px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;}
+.tname{font-family:'DM Serif Display',serif;font-size:21px;color:var(--ink);flex:1;}
+.tsco{font-size:12px;color:var(--ink2);background:var(--bg);padding:5px 12px;border-radius:20px;border:1px solid var(--brd);}
+.tsco strong{color:var(--grn);}
 .pills{display:flex;gap:5px;}
-.pill{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);cursor:pointer;transition:all var(--tr);font-family:'DM Sans',sans-serif;}
-.pill:hover{border-color:var(--green);color:var(--green);}
-.pill.active{background:var(--ink);color:#f4f2ee;border-color:var(--ink);}
-.btn-exp{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--tr);font-weight:500;}
-.btn-exp:hover{background:var(--ink);color:#f4f2ee;border-color:var(--ink);}
+.pill{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid var(--brd);background:var(--sur);color:var(--ink2);cursor:pointer;transition:all var(--tr);font-family:'DM Sans',sans-serif;}
+.pill:hover{border-color:var(--grn);color:var(--grn);}
+.pill.on{background:var(--ink);color:#f4f2ee;border-color:var(--ink);}
+.bexp{display:flex;align-items:center;gap:5px;font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--brd);background:var(--sur);color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--tr);font-weight:500;}
+.bexp:hover{background:var(--ink);color:#f4f2ee;border-color:var(--ink);}
 .sdot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1s ease infinite;display:none;}
 .sdot.on{display:block;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.content{padding:24px 28px;flex:1;}
+.cnt{padding:24px 28px;flex:1;}
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;text-align:center;color:var(--ink3);}
 .empty h3{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink2);margin:12px 0 6px;}
 .empty p{font-size:13px;}
-.dblock{margin-bottom:24px;}
-.dhdr{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;user-select:none;color:#fff;transition:filter var(--tr);}
+.dblk{margin-bottom:24px;}
+.dhdr{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:var(--r) var(--r) 0 0;cursor:pointer;user-select:none;color:#fff;transition:filter var(--tr);}
 .dhdr:hover{filter:brightness(1.08);}
 .dhdr.d0{background:var(--d0);}
 .dhdr.d1{background:var(--d1);}
 .dhdr.d2{background:var(--d2);}
 .dhdr.d3{background:var(--d3);}
-.dtitle{font-family:'DM Serif Display',serif;font-size:15px;flex:1;}
-.dstats{font-size:11px;opacity:.7;font-variant-numeric:tabular-nums;}
-.dchev{font-size:10px;opacity:.6;transition:transform var(--tr);}
-.dchev.open{transform:rotate(90deg);}
-.dbody{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);overflow:hidden;background:var(--surface);}
+.dtit{font-family:'DM Serif Display',serif;font-size:15px;flex:1;}
+.dsta{font-size:11px;opacity:.7;font-variant-numeric:tabular-nums;}
+.dchv{font-size:10px;opacity:.6;transition:transform var(--tr);}
+.dchv.op{transform:rotate(90deg);}
+.dbdy{border:1px solid var(--brd);border-top:none;border-radius:0 0 var(--r) var(--r);overflow:hidden;background:var(--sur);}
 .pw{display:flex;align-items:center;gap:8px;min-width:90px;}
 .pb{flex:1;height:3px;background:rgba(255,255,255,.2);border-radius:2px;}
 .pf{height:100%;border-radius:2px;background:rgba(255,255,255,.65);transition:width .4s;}
-.cblock{border-top:1px solid var(--border);}
-.cblock:first-child{border-top:none;}
+.cblk{border-top:1px solid var(--brd);}
+.cblk:first-child{border-top:none;}
 .chdr{display:flex;align-items:center;gap:8px;padding:9px 16px;background:#faf9f7;cursor:pointer;user-select:none;transition:background var(--tr);}
 .chdr:hover{background:#f2f0eb;}
-.ctitle{font-size:12px;font-weight:600;color:var(--ink);flex:1;}
-.cstats{font-size:10px;color:var(--ink3);}
-.cchev{font-size:9px;color:var(--ink3);transition:transform var(--tr);}
-.cchev.open{transform:rotate(90deg);}
-.att-table{width:100%;border-collapse:collapse;}
-.att-table th{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:7px 16px;text-align:left;background:#fdfcfb;border-bottom:1px solid var(--border);}
-.att-table th:last-child{text-align:center;}
+.ctit{font-size:12px;font-weight:600;color:var(--ink);flex:1;}
+.csta{font-size:10px;color:var(--ink3);}
+.cchv{font-size:9px;color:var(--ink3);transition:transform var(--tr);}
+.cchv.op{transform:rotate(90deg);}
+.att{width:100%;border-collapse:collapse;}
+.att th{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding:7px 16px;text-align:left;background:#fdfcfb;border-bottom:1px solid var(--brd);}
+.att th:last-child{text-align:center;}
 .arow{border-bottom:1px solid #f0eee8;transition:background var(--tr);}
 .arow:last-child{border-bottom:none;}
 .arow:hover{background:#faf8f5;}
 .arow.acq{opacity:.45;}
 .arow td{padding:9px 16px;vertical-align:middle;}
-.sbadge{font-size:10px;font-weight:600;color:var(--ink3);background:var(--bg);padding:2px 6px;border-radius:4px;white-space:nowrap;}
-.atext{font-size:12px;color:var(--ink);line-height:1.5;}
+.sbdg{font-size:10px;font-weight:600;color:var(--ink3);background:var(--bg);padding:2px 6px;border-radius:4px;white-space:nowrap;}
+.atxt{font-size:12px;color:var(--ink);line-height:1.5;}
 .sg{display:flex;gap:3px;justify-content:center;white-space:nowrap;}
-.sbtn{width:30px;height:30px;border-radius:7px;border:1.5px solid var(--border);background:var(--bg);font-size:12px;font-weight:600;cursor:pointer;color:var(--ink3);font-family:'DM Sans',sans-serif;transition:all var(--tr);display:flex;align-items:center;justify-content:center;}
-.sbtn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.1);}
-.sbtn.s0.on{background:#fde8e8;border-color:#c97070;color:var(--red);}
-.sbtn.s1.on{background:#fff3cc;border-color:#d4a840;color:var(--amber);}
-.sbtn.s2.on{background:#d6f0d6;border-color:#5ca05c;color:var(--green);}
+.sbt{width:30px;height:30px;border-radius:7px;border:1.5px solid var(--brd);background:var(--bg);font-size:12px;font-weight:600;cursor:pointer;color:var(--ink3);font-family:'DM Sans',sans-serif;transition:all var(--tr);display:flex;align-items:center;justify-content:center;}
+.sbt:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.1);}
+.sbt.s0.on{background:#fde8e8;border-color:#c97070;color:var(--red);}
+.sbt.s1.on{background:#fff3cc;border-color:#d4a840;color:var(--amb);}
+.sbt.s2.on{background:#d6f0d6;border-color:#5ca05c;color:var(--grn);}
 .toast{position:fixed;bottom:20px;right:20px;background:var(--ink);color:#f4f2ee;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:500;transform:translateY(60px);opacity:0;transition:all .28s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:999;}
-.toast.show{transform:translateY(0);opacity:1;}
-@media(max-width:760px){.app{grid-template-columns:1fr;}.sidebar{height:auto;position:relative;}.topbar{padding:8px 14px;flex-wrap:wrap;height:auto;gap:6px;}.content{padding:14px;}}
+.toast.on{transform:translateY(0);opacity:1;}
+@media(max-width:760px){.app{grid-template-columns:1fr;}.sb{height:auto;position:relative;}.topbar{padding:8px 14px;flex-wrap:wrap;height:auto;gap:6px;}.cnt{padding:14px;}}
 </style>
 </head>
 <body>
 <div class="app">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">Bulletin P4</div>
-      <div class="sidebar-sub">Fédération Wallonie-Bruxelles</div>
+  <aside class="sb">
+    <div class="sb-hdr">
+      <div class="sb-logo">Bulletin P4</div>
+      <div class="sb-sub">Fédération Wallonie-Bruxelles</div>
     </div>
-    <div class="sidebar-label">Élèves</div>
+    <div class="sb-lbl">Élèves</div>
     <div id="elist"></div>
   </aside>
   <main class="main">
     <div class="topbar">
-      <div class="topbar-name" id="tname">Sélectionne un élève</div>
+      <div class="tname" id="tname">Sélectionne un élève</div>
       <div class="sdot" id="sdot"></div>
-      <div class="tscore" id="tscore" style="display:none"></div>
+      <div class="tsco" id="tsco" style="display:none"></div>
       <div class="pills" id="pills" style="display:none">
-        <button class="pill active" data-f="all">Tout</button>
-        <button class="pill" data-f="non-acquis">Non acquis</button>
-        <button class="pill" data-f="acquis">Acquis</button>
+        <button class="pill on" data-f="all">Tout</button>
+        <button class="pill" data-f="na">Non acquis</button>
+        <button class="pill" data-f="acq">Acquis</button>
       </div>
-      <button class="btn-exp" id="bexp" style="display:none" onclick="exportCSV()">
+      <button class="bexp" id="bexp" style="display:none" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CSV
       </button>
     </div>
-    <div class="content" id="content">
+    <div class="cnt" id="cnt">
       <div class="empty">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         <h3>Aucun élève sélectionné</h3>
@@ -124,327 +119,240 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 <div class="toast" id="toast"></div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycby-zv5wJyPvzIpEyFvvLlB-HyhhWqeYzenl5u8g8rbqlnZojTcz3uBNVXcRgZeLgw0D7A/exec";
+const API = "https://script.google.com/macros/s/AKfycby0I164vO6HHQvM-daJqhel2YVhTU72CI2vYYaCUHKivLmv2xjOqyLhtC5QN4bU7pryLw/exec";
 
 const ELEVES = [ "Ayat","Jaad","Amir","Houdaifa","Sarra","Mohamed","Redouane","Mounia","Mariana","Aslam","Ines","Elyas","Sofia","Safya","Rayan","Imrane","Jade","Lamar","Nevisse","Eduard","Inès"
-]
-;
+];
+
 
 // ══════════════════════════════════════════════════════════════
-//  STRUCTURE OFFICIELLE FWB — données réorganisées
+//  DONNÉES — format : [semaine, texte]
+//  Les IDs sont générés automatiquement au démarrage
+//  NE PAS mettre d'ID en 3e position ici
 // ══════════════════════════════════════════════════════════════
-const BULLETIN = [
-  // ─────────────────────────────────────────────────────────────
-  // DOMAINE 1 : Français, art et culture
-  // ─────────────────────────────────────────────────────────────
+const RAW = [
   {
     domaine: "Français, art et culture",
     champs: [
-      {
-        champ: "Prendre la parole (parler)",
-        attendus: [
-          ["S1","Dire son prénom, quelques goûts, en regardant l'auditoire."],
-          ["S2","Présenter quelqu'un en phrases simples et complètes."],
-          ["S4","Parler distinctement et à un volume adapté au lieu."],
-          ["S5","Employer les formules de politesse et attendre son tour."],
-          ["S6","Employer un vocabulaire précis pour décrire un objet."],
-        ]
-      },
-      {
-        champ: "Comprendre un message entendu (écouter)",
-        attendus: [
-          // Pas d'attendus spécifiques fournis — champ présent pour cohérence avec le bulletin officiel
-        ]
-      },
-      {
-        champ: "Comprendre un message écrit (lire)",
-        attendus: [
-          ["S1","Choisir et lire un livre adapté à son niveau."],
-          ["S2","Repérer le début, le problème et la fin d'un récit."],
-          ["S3","Suivre correctement une consigne comportant plusieurs actions."],
-          ["S4","Souligner ou relever les réponses directement dans le texte."],
-          ["S6","Décrire un personnage et ses émotions."],
-          ["S7","Identifier les indices de lieu et de temps."],
-          ["S8","Repérer les informations explicites dans un texte court."],
-          ["S9","Lire un texte avec une vitesse adaptée en respectant la ponctuation et l'expressivité."],
-          ["S10","Lire à voix haute avec assurance et une bonne intonation."],
-          ["S11","Comprendre le sens global d'un texte."],
-          ["S12","Repérer les informations implicites dans un texte."],
-          ["S13","Distinguer les principaux types de textes."],
-          ["S14","Reconnaître les caractéristiques d'un texte narratif."],
-          ["S15","Lire à voix haute un album jeunesse en mettant du cœur et de l'expressivité."],
-        ]
-      },
-      {
-        champ: "Produire un écrit (écrire)",
-        attendus: [
-          ["S1","Copier sans erreur une phrase courte en respectant la présentation."],
-          ["S2","Écrire une phrase complète lisiblement avec majuscule et point."],
-          ["S3","Produire un écrit court en respectant la consigne."],
-          ["S4","Rédiger 3 à 4 phrases cohérentes sur un sujet connu."],
-          ["S5","Utiliser la ponctuation (. ? !) correctement dans une production."],
-          ["S6","Utiliser le code CHAMPION pour se corriger."],
-          ["S7","Planifier son récit en identifiant QUI ? QUAND ? OÙ ? QUOI ? LA FIN ?"],
-          ["S8","Écrire son texte — le début."],
-          ["S9","Écrire son texte — le problème et les actions."],
-          ["S10","Écrire son texte — la fin."],
-          ["S11","Utiliser le dictionnaire de manière autonome."],
-          ["S12","Organiser ses idées de manière logique."],
-          ["S13","Accorder correctement les mots les plus fréquents au pluriel."],
-          ["S14","Répondre à une question en mobilisant les éléments de la question."],
-          ["S15","Identifier le verbe conjugué / le verbe à l'infinitif."],
-          ["S16","Résumer un album jeunesse."],
-          ["S17","Utiliser les homophones (a/à)."],
-          ["S18","Utiliser les homophones (c'est/ces/ses/s'est)."],
-          ["S19","Utiliser les homophones (son/sont)."],
-          ["S20","Utiliser les homophones (ou/où)."],
-        ]
-      },
-      {
-        champ: "Pratiquer les arts pour s'exprimer (PECA)",
-        attendus: [
-          ["S1","Relier une région à un style de musique."],
-          ["S2","Associer une période à un style de musique."],
-          ["S3","Se représenter et parler de soi à travers une musique."],
-          ["S4","Découper et coller en respectant la symétrie."],
-          ["S5","Réaliser un mobile en utilisant le vocabulaire : équilibre stable, instable, déséquilibre."],
-          ["S6","Faire le lien entre l'art contemporain, le cirque et la recherche de l'équilibre."],
-          ["S7","Repérer des œuvres du pop art."],
-          ["S8","Peindre à la manière du pixel art."],
-          ["S9","Identifier des productions réalisées à la linogravure."],
-        ]
-      },
-      {
-        champ: "Se questionner, rechercher, tenter et garder des traces",
-        attendus: [
-          // Champ transversal — peut être complété selon les projets menés en classe
-        ]
-      },
+      { champ: "Prendre la parole (parler)", attendus: [
+        ["S1","Dire son prénom, quelques goûts, en regardant l'auditoire."],
+        ["S2","Présenter quelqu'un en phrases simples et complètes."],
+        ["S4","Parler distinctement et à un volume adapté au lieu."],
+        ["S5","Employer les formules de politesse et attendre son tour."],
+        ["S6","Employer un vocabulaire précis pour décrire un objet."],
+      ]},
+      { champ: "Comprendre un message entendu (écouter)", attendus: [
+        ["S4","Exprimer en une phrase ce que raconte le texte entendu."],
+        ["S5","Reformuler une consigne entendue."],
+        ["S6","Déduire des éléments non dits dans un récit entendu."],
+        ["S8","Identifier les éléments vraisemblables ou invraisemblables."],
+        ["S9","Témoigner de son écoute par gestes et réactions adéquates."],
+      ]},
+      { champ: "Comprendre un message écrit (lire)", attendus: [
+        ["S1","Choisir et lire un livre adapté à son niveau."],
+        ["S2","Repérer le début, le problème et la fin d'un récit."],
+        ["S3","Suivre correctement une consigne comportant plusieurs actions."],
+        ["S4","Souligner ou relever les réponses directement dans le texte."],
+        ["S6","Décrire un personnage et ses émotions."],
+        ["S7","Identifier les indices de lieu et de temps."],
+        ["S8","Repérer les informations explicites dans un texte court."],
+        ["S9","Lire un texte avec une vitesse adaptée en respectant la ponctuation et l'expressivité."],
+        ["S10","Lire à voix haute avec assurance et une bonne intonation."],
+        ["S11","Comprendre le sens global d'un texte."],
+        ["S12","Repérer les informations implicites dans un texte."],
+        ["S13","Distinguer les principaux types de textes."],
+        ["S14","Reconnaître les caractéristiques d'un texte narratif."],
+        ["S15","Lire à voix haute un album jeunesse en mettant du cœur et de l'expressivité."],
+      ]},
+      { champ: "Produire un écrit (écrire)", attendus: [
+        ["S1","Copier sans erreur une phrase courte en respectant la présentation."],
+        ["S2","Écrire une phrase complète lisiblement avec majuscule et point."],
+        ["S3","Produire un écrit court en respectant la consigne."],
+        ["S4","Rédiger 3 à 4 phrases cohérentes sur un sujet connu."],
+        ["S5","Utiliser la ponctuation (. ? !) correctement dans une production."],
+        ["S6","Utiliser le code CHAMPION pour se corriger."],
+        ["S7","Planifier son récit : QUI ? QUAND ? OÙ ? QUOI ? LA FIN ?"],
+        ["S8","Écrire son texte — le début."],
+        ["S9","Écrire son texte — le problème et les actions."],
+        ["S10","Écrire son texte — la fin."],
+        ["S11","Utiliser le dictionnaire de manière autonome."],
+        ["S12","Organiser ses idées de manière logique."],
+        ["S13","Accorder correctement les mots les plus fréquents au pluriel."],
+        ["S14","Répondre à une question en mobilisant les éléments de la question."],
+        ["S15","Identifier le verbe conjugué / le verbe à l'infinitif."],
+        ["S16","Résumer un album jeunesse."],
+        ["S17","Utiliser les homophones (a/à)."],
+        ["S18","Utiliser les homophones (c'est/ces/ses/s'est)."],
+        ["S19","Utiliser les homophones (son/sont)."],
+        ["S20","Utiliser les homophones (ou/où)."],
+      ]},
+      { champ: "Pratiquer les arts pour s'exprimer (PECA)", attendus: [
+        ["S1","Relier une région à un style de musique."],
+        ["S2","Associer une période à un style de musique."],
+        ["S3","Se représenter et parler de soi à travers une musique."],
+        ["S4","Découper et coller en respectant la symétrie."],
+        ["S5","Réaliser un mobile : équilibre stable, instable, déséquilibre."],
+        ["S6","Faire le lien entre l'art contemporain, le cirque et l'équilibre."],
+        ["S7","Repérer des œuvres du pop art."],
+        ["S8","Peindre à la manière du pixel art."],
+        ["S9","Identifier des productions réalisées à la linogravure."],
+      ]},
+      { champ: "Se questionner, rechercher, tenter et garder des traces", attendus: [] },
     ]
   },
-
-  // ─────────────────────────────────────────────────────────────
-  // DOMAINE 2 : Langues modernes
-  // ─────────────────────────────────────────────────────────────
   {
     domaine: "Langues modernes",
     champs: [
-      {
-        champ: "Oser prendre la parole (néerlandais — P3+)",
-        attendus: [
-          // À compléter selon le programme de néerlandais utilisé en classe
-        ]
-      },
-      {
-        champ: "Comprendre un message oral / écrit",
-        attendus: [
-          // À compléter selon le programme de néerlandais utilisé en classe
-        ]
-      },
+      { champ: "Oser prendre la parole (néerlandais)", attendus: [] },
+      { champ: "Comprendre un message oral / écrit", attendus: [] },
     ]
   },
-
-  // ─────────────────────────────────────────────────────────────
-  // DOMAINE 3 : Mathématiques, sciences et techniques
-  // ─────────────────────────────────────────────────────────────
   {
     domaine: "Mathématiques, sciences et techniques",
     champs: [
-      {
-        champ: "Maîtriser les nombres et les opérations",
-        attendus: [
-          // Calcul mental
-          ["S1","Effectuer des additions mentales simples et estimer un résultat."],
-          ["S2","Effectuer des soustractions simples et vérifier le résultat."],
-          ["S3","Utiliser la commutativité et la décomposition pour le calcul mental."],
-          ["S4","Appliquer les tables de multiplication simples."],
-          ["S5","Identifier les régularités et les liens entre tables."],
-          ["S6","Utiliser la relation multiplication ⇄ division pour vérifier un calcul."],
-          ["S7","Identifier l'opération adéquate selon le contexte."],
-          ["S8","Utiliser la valeur positionnelle des chiffres dans un nombre."],
-          ["S9","Comprendre le système décimal et les décalages de rangs (×/÷ 10, 100, 1000)."],
-          ["S10","Identifier les régularités et liens entre tables (T2, T4, T8)."],
-          ["S11","Identifier les régularités et liens entre tables (T3, T6, T9)."],
-          // Numération
-          ["S3","Dire, lire, écrire les nombres ≤ 100 000 ; utiliser unités/dizaines/centaines/milliers."],
-          ["S4","Représenter/écrire en numération décimale (abaque, classes)."],
-          ["S5","Décomposer et recomposer des nombres (3 à 6 chiffres)."],
-          ["S6","Comparer/ordonner des nombres (signes <, >, =)."],
-          ["S7","Compter par 100, 200, 500, 1 000 ; repérer une régularité."],
-          ["S8","Compter par 100, 200, 500, 1 000 ; déterminer la régularité d'une suite numérique."],
-          ["S9","Compléter ou prolonger des suites en respectant une régularité donnée."],
-          // Calcul écrit
-          ["S10","Placer les nombres afin de réaliser une multiplication écrite."],
-          ["S11","Réaliser une multiplication écrite avec 1 chiffre au second facteur."],
-          ["S12","Réaliser une multiplication écrite avec 2 chiffres au second facteur."],
-          ["S13","Placer les nombres afin de réaliser une division écrite."],
-          ["S14","Réaliser une division écrite avec 3 chiffres dans le dividende."],
-        ]
-      },
-      {
-        champ: "Analyser et traiter les données",
-        attendus: [
-          ["S5","Lire un tableau à une entrée et prélever les informations."],
-          ["S6","Compléter un tableau simple avec des données."],
-          ["S7","Calculer un total et comparer des valeurs dans un tableau."],
-          ["S8","Se poser une question qui mènera à une collecte de données."],
-          ["S9","Écrire des questions afin de collecter des données via questionnaire."],
-          ["S10","Nommer des catégories."],
-          ["S11","Classer les données dans des catégories et les présenter."],
-          ["S12","Conclure grâce aux données."],
-          ["S13","Retrouver les données pour effectuer une proportionnalité."],
-          ["S14","Tracer un tableau et nommer deux catégories (règle de trois)."],
-          ["S15","Placer les éléments connus dans un tableau (règle de trois)."],
-          ["S16","Trouver le lien qui unit deux grandeurs (direct)."],
-          ["S17","Trouver le lien qui unit deux grandeurs (en passant par 1)."],
-          ["S18","Trouver le lien qui unit deux grandeurs (autre que 1)."],
-        ]
-      },
-      {
-        champ: "Mesurer et agir sur les grandeurs",
-        attendus: [
-          ["S5","Maîtriser le vocabulaire des longueurs ; comparer et classer."],
-          ["S6","Mesurer avec la règle (cm, mm) et indiquer l'unité."],
-          ["S7","Choisir une unité pertinente pour estimer puis mesurer."],
-          ["S8","Calculer le périmètre d'un rectangle et d'un carré."],
-          ["S9","Calculer le périmètre d'une forme quelconque."],
-          ["S10","Utiliser l'échelle pour réaliser une réduction."],
-          ["S11","Mesurer l'aire d'un carré."],
-          ["S12","Mesurer l'aire d'un rectangle."],
-        ]
-      },
-      {
-        champ: "Se repérer dans l'espace (géométrie)",
-        attendus: [
-          ["S2","Identifier points, segments, droites, demi-droites, angles droits ; utiliser le vocabulaire."],
-          ["S3","Tracer et comparer des segments à la latte ; exprimer longueur et nom."],
-          ["S4","Tracer des perpendiculaires avec l'équerre."],
-          ["S5","Réinvestir segments + perpendiculaires dans des figures simples."],
-          ["S6","Tracer des parallèles ; reconnaître le symbole //."],
-          ["S7","Tracer un rectangle ; identifier côtés parallèles et perpendiculaires."],
-          ["S9","Tracer un carré à partir d'un côté donné ; reconnaître les propriétés d'égalité des côtés et d'angles droits."],
-          ["S10","Tracer un parallélogramme en utilisant la notion de parallélisme ; identifier les côtés opposés."],
-          ["S12","Identifier l'angle droit et tracer un triangle rectangle."],
-          ["S13","Construire un triangle possédant deux côtés isométriques."],
-          ["S14","Construire un triangle dont les trois côtés sont égaux ; reconnaître la régularité."],
-          ["S15","Construire un triangle à l'intérieur d'un carré ou rectangle."],
-          ["S16","Distinguer les différents types de triangles et leurs caractéristiques (angles, côtés)."],
-          ["S17","Tracer une diagonale dans un rectangle ou un carré et reconnaître ses propriétés."],
-          ["S18","Tracer les diagonales d'un carré ou d'un rectangle et observer qu'elles se coupent en leur milieu."],
-        ]
-      },
-      {
-        champ: "Utiliser la démarche scientifique",
-        attendus: [
-          ["S2","Distinguer vivant / non-vivant et justifier."],
-          ["S3","Comprendre la notion de cycle."],
-          ["S4","Décrire le cycle de l'eau."],
-          ["S5","Présenter un message pour expliquer comment l'eau se répartit sur terre."],
-          ["S10","Citer les besoins du corps pour être en forme."],
-          ["S11","Adopter des comportements sains pour respecter son corps et ses besoins."],
-          ["S12","Identifier le produit brut et le produit transformé."],
-        ]
-      },
-      {
-        champ: "Maîtriser les gestes techniques, les outils et les matériaux",
-        attendus: [
-          // À compléter selon les activités FMTTN menées en classe
-        ]
-      },
-      {
-        champ: "Utiliser, comprendre et s'approprier le numérique en toute sécurité",
-        attendus: [
-          // À compléter selon les activités numériques menées en classe
-        ]
-      },
+      { champ: "Maîtriser les nombres et les opérations", attendus: [
+        ["S1","Effectuer des additions mentales simples et estimer un résultat."],
+        ["S2","Effectuer des soustractions simples et vérifier le résultat."],
+        ["S3","Utiliser la commutativité et la décomposition pour le calcul mental."],
+        ["S3","Dire, lire, écrire les nombres ≤ 100 000 ; utiliser unités/dizaines/centaines/milliers."],
+        ["S4","Appliquer les tables de multiplication simples."],
+        ["S4","Représenter/écrire en numération décimale (abaque, classes)."],
+        ["S5","Identifier les régularités et les liens entre tables."],
+        ["S5","Décomposer et recomposer des nombres (3 à 6 chiffres)."],
+        ["S6","Utiliser la relation multiplication ⇄ division pour vérifier un calcul."],
+        ["S6","Comparer/ordonner des nombres (signes < > =)."],
+        ["S7","Identifier l'opération adéquate selon le contexte."],
+        ["S7","Compter par 100, 200, 500, 1 000 ; repérer une régularité."],
+        ["S8","Utiliser la valeur positionnelle des chiffres dans un nombre."],
+        ["S8","Compter par 100, 200, 500, 1 000 ; déterminer la régularité d'une suite numérique."],
+        ["S9","Comprendre le système décimal et les décalages de rangs (x/÷ 10, 100, 1000)."],
+        ["S9","Compléter ou prolonger des suites en respectant une régularité donnée."],
+        ["S10","Identifier les régularités et liens entre tables T2, T4, T8."],
+        ["S10","Placer les nombres afin de réaliser une multiplication écrite."],
+        ["S11","Identifier les régularités et liens entre tables T3, T6, T9."],
+        ["S11","Réaliser une multiplication écrite avec 1 chiffre au second facteur."],
+        ["S12","Réaliser une multiplication écrite avec 2 chiffres au second facteur."],
+        ["S13","Placer les nombres afin de réaliser une division écrite."],
+        ["S14","Réaliser une division écrite avec 3 chiffres dans le dividende."],
+      ]},
+      { champ: "Analyser et traiter les données", attendus: [
+        ["S5","Lire un tableau à une entrée et prélever les informations."],
+        ["S6","Compléter un tableau simple avec des données."],
+        ["S7","Calculer un total et comparer des valeurs dans un tableau."],
+        ["S8","Se poser une question qui mènera à une collecte de données."],
+        ["S9","Écrire des questions afin de collecter des données via questionnaire."],
+        ["S10","Nommer des catégories."],
+        ["S11","Classer les données dans des catégories et les présenter."],
+        ["S12","Conclure grâce aux données."],
+        ["S13","Retrouver les données pour effectuer une proportionnalité."],
+        ["S14","Tracer un tableau et nommer deux catégories (règle de trois)."],
+        ["S15","Placer les éléments connus dans un tableau (règle de trois)."],
+        ["S16","Trouver le lien qui unit deux grandeurs (direct)."],
+        ["S17","Trouver le lien qui unit deux grandeurs (en passant par 1)."],
+        ["S18","Trouver le lien qui unit deux grandeurs (autre que 1)."],
+      ]},
+      { champ: "Mesurer et agir sur les grandeurs", attendus: [
+        ["S5","Maîtriser le vocabulaire des longueurs ; comparer et classer."],
+        ["S6","Mesurer avec la règle (cm, mm) et indiquer l'unité."],
+        ["S7","Choisir une unité pertinente pour estimer puis mesurer."],
+        ["S8","Calculer le périmètre d'un rectangle et d'un carré."],
+        ["S9","Calculer le périmètre d'une forme quelconque."],
+        ["S10","Utiliser l'échelle pour réaliser une réduction."],
+        ["S11","Mesurer l'aire d'un carré."],
+        ["S12","Mesurer l'aire d'un rectangle."],
+      ]},
+      { champ: "Se repérer dans l'espace (géométrie)", attendus: [
+        ["S2","Identifier points, segments, droites, demi-droites, angles droits ; utiliser le vocabulaire."],
+        ["S3","Tracer et comparer des segments à la latte ; exprimer longueur et nom."],
+        ["S4","Tracer des perpendiculaires avec l'équerre."],
+        ["S5","Réinvestir segments et perpendiculaires dans des figures simples."],
+        ["S6","Tracer des parallèles ; reconnaître le symbole //."],
+        ["S7","Tracer un rectangle ; identifier côtés parallèles et perpendiculaires."],
+        ["S9","Tracer un carré à partir d'un côté donné ; reconnaître les propriétés d'égalité des côtés et d'angles droits."],
+        ["S10","Tracer un parallélogramme en utilisant la notion de parallélisme ; identifier les côtés opposés."],
+        ["S12","Identifier l'angle droit et tracer un triangle rectangle."],
+        ["S13","Construire un triangle possédant deux côtés isométriques."],
+        ["S14","Construire un triangle dont les trois côtés sont égaux ; reconnaître la régularité."],
+        ["S15","Construire un triangle à l'intérieur d'un carré ou rectangle."],
+        ["S16","Distinguer les différents types de triangles et leurs caractéristiques (angles, côtés)."],
+        ["S17","Tracer une diagonale dans un rectangle ou un carré et reconnaître ses propriétés."],
+        ["S18","Tracer les diagonales d'un carré ou d'un rectangle et observer qu'elles se coupent en leur milieu."],
+      ]},
+      { champ: "Utiliser la démarche scientifique", attendus: [
+        ["S2","Distinguer vivant / non-vivant et justifier."],
+        ["S3","Comprendre la notion de cycle."],
+        ["S4","Décrire le cycle de l'eau."],
+        ["S5","Présenter un message pour expliquer comment l'eau se répartit sur terre."],
+        ["S10","Citer les besoins du corps pour être en forme."],
+        ["S11","Adopter des comportements sains pour respecter son corps et ses besoins."],
+        ["S12","Identifier le produit brut et le produit transformé."],
+      ]},
+      { champ: "Maîtriser les gestes techniques, les outils et les matériaux", attendus: [] },
+      { champ: "Utiliser, comprendre et s'approprier le numérique en toute sécurité", attendus: [] },
     ]
   },
-
-  // ─────────────────────────────────────────────────────────────
-  // DOMAINE 4 : Sciences humaines, philosophie & citoyenneté
-  // ─────────────────────────────────────────────────────────────
   {
     domaine: "Sciences humaines, philosophie et citoyenneté",
     champs: [
-      {
-        champ: "Mobiliser des repères temporels et spatiaux (histoire / géographie)",
-        attendus: [
-          // Histoire
-          ["S5","Différencier la durée d'un siècle et d'un millénaire."],
-          ["S6","Associer une date à son siècle et à son millénaire."],
-          ["S7","Citer les périodes conventionnelles de l'histoire."],
-          ["S8","Collaborer pour présenter un thème durant une période historique."],
-          ["S9","Situer des personnages, lieux et moments dans le temps."],
-          // Géographie
-          ["S4","Écrire le vocabulaire des directions."],
-          ["S5","Indiquer N-E-S-O sur une rose des vents."],
-          ["S6","Situer les classes de l'école par rapport à la rose des vents."],
-          ["S7","Situer des personnages, lieux et moments dans l'espace."],
-          ["S8","Utiliser l'index pour retrouver une page et des coordonnées."],
-          ["S9","Utiliser la légende d'une carte."],
-        ]
-      },
-      {
-        champ: "Porter un regard critique sur des traces du passé, sur des phénomènes",
-        attendus: [
-          // Champ transversal lié à l'histoire et aux sciences — à compléter
-        ]
-      },
-      {
-        champ: "Construire la citoyenneté dans l'égalité en dignité et en droits",
-        attendus: [
-          // À compléter selon les projets de citoyenneté menés en classe
-        ]
-      },
-      {
-        champ: "Construire sa pensée et ses croyances (cours philosophiques)",
-        attendus: [
-          // À compléter selon le cours philosophique suivi
-        ]
-      },
-      {
-        champ: "Apprendre à se connaître et à connaître les autres",
-        attendus: [
-          // À compléter selon les activités menées
-        ]
-      },
+      { champ: "Mobiliser des repères temporels et spatiaux", attendus: [
+        ["S5","Différencier la durée d'un siècle et d'un millénaire."],
+        ["S6","Associer une date à son siècle et à son millénaire."],
+        ["S7","Citer les périodes conventionnelles de l'histoire."],
+        ["S8","Collaborer pour présenter un thème durant une période historique."],
+        ["S9","Situer des personnages, lieux et moments dans le temps."],
+        ["S4","Écrire le vocabulaire des directions."],
+        ["S5","Indiquer N-E-S-O sur une rose des vents."],
+        ["S6","Situer les classes de l'école par rapport à la rose des vents."],
+        ["S7","Situer des personnages, lieux et moments dans l'espace."],
+        ["S8","Utiliser l'index pour retrouver une page et des coordonnées."],
+        ["S9","Utiliser la légende d'une carte."],
+      ]},
+      { champ: "Porter un regard critique sur des traces du passé", attendus: [] },
+      { champ: "Construire la citoyenneté dans l'égalité en dignité et en droits", attendus: [] },
+      { champ: "Construire sa pensée et ses croyances (cours philosophiques)", attendus: [] },
+      { champ: "Apprendre à se connaître et à connaître les autres", attendus: [] },
     ]
   },
 ];
 
-// Filtrer les champs sans attendus pour l'affichage
-// (ils apparaissent dans la structure mais ne génèrent pas de lignes vides)
-
-// Générer IDs uniques
-let gid = 0;
-BULLETIN.forEach(d => d.champs.forEach(c => c.attendus.forEach(a => { a.push('a'+(++gid)); })));
+// ══════════════════════════════════════════════════════════════
+//  GÉNÉRATION DES IDs — toujours sur a[2], jamais en doublon
+// ══════════════════════════════════════════════════════════════
+let _gid = 0;
+const BULLETIN = RAW.map(d => ({
+  domaine: d.domaine,
+  champs: d.champs.map(c => ({
+    champ: c.champ,
+    attendus: c.attendus.map(a => [a[0], a[1], 'a' + (++_gid)])
+  }))
+}));
 
 // ── STATE ──────────────────────────────────────────────────────
 let cur = null, scores = {}, filter = 'all', openD = {}, openC = {}, stimer = null;
 
 function init() {
-  try { const r = localStorage.getItem('bul_p4_v3'); if(r) scores = JSON.parse(r); } catch(e){}
+  try { const r = localStorage.getItem('bul_p4_v4'); if (r) scores = JSON.parse(r); } catch(e) {}
   renderSidebar();
   document.querySelectorAll('.pill').forEach(p => {
     p.onclick = () => {
       filter = p.dataset.f;
-      document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
-      p.classList.add('active');
+      document.querySelectorAll('.pill').forEach(x => x.classList.remove('on'));
+      p.classList.add('on');
       renderBulletin();
     };
   });
   updateAllMinis();
 }
 
-function sid(s){ return s.replace(/[^a-zA-Z0-9]/g,'_'); }
+function sid(s) { return s.replace(/[^a-zA-Z0-9]/g, '_'); }
 
 function renderSidebar() {
   const list = document.getElementById('elist');
   list.innerHTML = '';
   ELEVES.forEach(e => {
     const btn = document.createElement('button');
-    btn.className = 'eleve-btn'; btn.dataset.eleve = e;
-    btn.innerHTML = `<span class="edot"></span><span>${e}</span><span class="emini" id="mini-${sid(e)}"></span>`;
+    btn.className = 'ebtn'; btn.dataset.e = e;
+    btn.innerHTML = `<span class="edot"></span><span>${e}</span><span class="emn" id="mn-${sid(e)}"></span>`;
     btn.onclick = () => selectEleve(e);
     list.appendChild(btn);
   });
@@ -452,9 +360,9 @@ function renderSidebar() {
 
 async function selectEleve(e) {
   cur = e;
-  document.querySelectorAll('.eleve-btn').forEach(b => b.classList.toggle('active', b.dataset.eleve===e));
+  document.querySelectorAll('.ebtn').forEach(b => b.classList.toggle('on', b.dataset.e === e));
   document.getElementById('tname').textContent = e;
-  ['tscore','pills','bexp'].forEach(id => document.getElementById(id).style.display='');
+  ['tsco','pills','bexp'].forEach(id => document.getElementById(id).style.display = '');
   renderBulletin();
   try {
     const resp = await fetch(API + '?action=get&eleve=' + encodeURIComponent(e));
@@ -464,10 +372,10 @@ async function selectEleve(e) {
       Object.assign(scores[e], data.scores);
       saveLocal(); renderBulletin(); updateMini(e);
     }
-  } catch(err) { console.warn('Mode local', err); }
+  } catch(err) { console.warn('Mode local activé', err); }
 }
 
-function getScore(id){ return scores[cur]?.[id] ?? -1; }
+function getScore(id) { return scores[cur]?.[id] ?? -1; }
 
 function setScore(id, val) {
   if (!cur) return;
@@ -477,7 +385,9 @@ function setScore(id, val) {
   saveLocal(); scheduleSave(); renderBulletin();
 }
 
-function saveLocal(){ try{ localStorage.setItem('bul_p4_v3', JSON.stringify(scores)); }catch(e){} }
+function saveLocal() {
+  try { localStorage.setItem('bul_p4_v4', JSON.stringify(scores)); } catch(e) {}
+}
 
 function scheduleSave() {
   if (stimer) clearTimeout(stimer);
@@ -485,68 +395,78 @@ function scheduleSave() {
     if (!cur) return;
     document.getElementById('sdot').classList.add('on');
     try {
-      await fetch(API, { method:'POST', mode:'no-cors',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ action:'set', eleve:cur, scores:scores[cur]||{} })
+      await fetch(API, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'set', eleve: cur, scores: scores[cur] || {} })
       });
       showToast('Sauvegardé ✓');
-    } catch(e){ showToast('Sauvegardé localement'); }
+    } catch(e) { showToast('Sauvegardé localement'); }
     document.getElementById('sdot').classList.remove('on');
   }, 1200);
 }
 
 function getDomStats(dom) {
-  let pts=0, total=0;
-  dom.champs.forEach(c => c.attendus.forEach(a => { total++; const s=getScore(a[2]); if(s>=0) pts+=s; }));
-  return {pts, total};
+  let pts = 0, total = 0;
+  dom.champs.forEach(c => c.attendus.forEach(a => {
+    total++;
+    const s = getScore(a[2]);
+    if (s >= 0) pts += s;
+  }));
+  return { pts, total };
 }
 
 function getAllStats() {
-  let pts=0, total=0;
-  BULLETIN.forEach(d => d.champs.forEach(c => c.attendus.forEach(a => { total++; const s=getScore(a[2]); if(s>=0) pts+=s; })));
-  return {pts, max:total*2, pct:Math.round((pts/(total*2))*100)};
+  let pts = 0, total = 0;
+  BULLETIN.forEach(d => d.champs.forEach(c => c.attendus.forEach(a => {
+    total++;
+    const s = getScore(a[2]);
+    if (s >= 0) pts += s;
+  })));
+  return { pts, max: total * 2, pct: Math.round((pts / (total * 2)) * 100) || 0 };
 }
 
 function updateMini(e) {
-  const el = document.getElementById('mini-'+sid(e)); if(!el) return;
-  const prev=cur; cur=e;
-  const {pts,max}=getAllStats(); cur=prev;
-  el.textContent = pts+'/'+max;
+  const el = document.getElementById('mn-' + sid(e)); if (!el) return;
+  const prev = cur; cur = e;
+  const { pts, max } = getAllStats();
+  cur = prev;
+  el.textContent = pts + '/' + max;
 }
-function updateAllMinis(){ ELEVES.forEach(e=>updateMini(e)); }
+
+function updateAllMinis() { ELEVES.forEach(e => updateMini(e)); }
 
 function renderBulletin() {
   if (!cur) return;
-  const content = document.getElementById('content');
-  content.innerHTML = '';
-  BULLETIN.forEach((dom,di) => {
-    // Ne pas afficher les domaines entièrement vides
+  const cnt = document.getElementById('cnt');
+  cnt.innerHTML = '';
+  BULLETIN.forEach((dom, di) => {
     const hasAny = dom.champs.some(c => c.attendus.length > 0);
     if (!hasAny) return;
-    content.appendChild(renderDomaine(dom, di));
+    cnt.appendChild(renderDom(dom, di));
   });
-  const {pts,max,pct} = getAllStats();
-  document.getElementById('tscore').innerHTML = `<strong>${pts}</strong> / ${max} pts — ${pct}%`;
+  const { pts, max, pct } = getAllStats();
+  document.getElementById('tsco').innerHTML = `<strong>${pts}</strong> / ${max} pts — ${pct}%`;
   updateMini(cur);
 }
 
-function renderDomaine(dom, di) {
+function renderDom(dom, di) {
   const isOpen = openD[di] !== false;
-  const {pts,total} = getDomStats(dom);
-  const pct = total>0 ? Math.round((pts/(total*2))*100) : 0;
-  const wrap = document.createElement('div'); wrap.className='dblock';
-  const hdr = document.createElement('div'); hdr.className=`dhdr d${di % 4}`;
-  hdr.innerHTML = `<span class="dchev ${isOpen?'open':''}">▶</span>
-    <span class="dtitle">${dom.domaine}</span>
+  const { pts, total } = getDomStats(dom);
+  const pct = total > 0 ? Math.round((pts / (total * 2)) * 100) : 0;
+  const wrap = document.createElement('div'); wrap.className = 'dblk';
+  const hdr = document.createElement('div'); hdr.className = 'dhdr d' + (di % 4);
+  hdr.innerHTML = `<span class="dchv ${isOpen ? 'op' : ''}">▶</span>
+    <span class="dtit">${dom.domaine}</span>
     <div class="pw"><div class="pb"><div class="pf" style="width:${pct}%"></div></div>
-    <span class="dstats">${pts}/${total*2}</span></div>`;
-  hdr.onclick = () => { openD[di]=!isOpen; renderBulletin(); };
+    <span class="dsta">${pts}/${total * 2}</span></div>`;
+  hdr.onclick = () => { openD[di] = !isOpen; renderBulletin(); };
   wrap.appendChild(hdr);
   if (isOpen) {
-    const body = document.createElement('div'); body.className='dbody';
-    dom.champs.forEach((ch,ci) => {
-      if (ch.attendus.length === 0) return; // masquer champs vides
-      body.appendChild(renderChamp(ch, `${di}_${ci}`));
+    const body = document.createElement('div'); body.className = 'dbdy';
+    dom.champs.forEach((ch, ci) => {
+      if (ch.attendus.length === 0) return;
+      body.appendChild(renderChamp(ch, di + '_' + ci));
     });
     wrap.appendChild(body);
   }
@@ -555,37 +475,45 @@ function renderDomaine(dom, di) {
 
 function renderChamp(ch, key) {
   const isOpen = openC[key] !== false;
-  const acq = ch.attendus.filter(a => getScore(a[2])===2).length;
-  const wrap = document.createElement('div'); wrap.className='cblock';
-  const hdr = document.createElement('div'); hdr.className='chdr';
-  hdr.innerHTML = `<span class="cchev ${isOpen?'open':''}">▶</span>
-    <span class="ctitle">${ch.champ}</span>
-    <span class="cstats">${acq}/${ch.attendus.length} acquis</span>`;
-  hdr.onclick = () => { openC[key]=!isOpen; renderBulletin(); };
+  const acq = ch.attendus.filter(a => getScore(a[2]) === 2).length;
+  const wrap = document.createElement('div'); wrap.className = 'cblk';
+  const hdr = document.createElement('div'); hdr.className = 'chdr';
+  hdr.innerHTML = `<span class="cchv ${isOpen ? 'op' : ''}">▶</span>
+    <span class="ctit">${ch.champ}</span>
+    <span class="csta">${acq}/${ch.attendus.length} acquis</span>`;
+  hdr.onclick = () => { openC[key] = !isOpen; renderBulletin(); };
   wrap.appendChild(hdr);
   if (!isOpen) return wrap;
-  const table = document.createElement('table'); table.className='att-table';
-  table.innerHTML = `<thead><tr><th style="width:52px">Sem.</th><th>Attendu</th><th style="width:120px;text-align:center">Évaluation</th></tr></thead>`;
+
+  const table = document.createElement('table'); table.className = 'att';
+  table.innerHTML = `<thead><tr>
+    <th style="width:52px">Sem.</th>
+    <th>Attendu</th>
+    <th style="width:120px;text-align:center">Évaluation</th>
+  </tr></thead>`;
   const tbody = document.createElement('tbody');
   let hasRows = false;
+
   ch.attendus.forEach(a => {
-    const [sem,texte,id] = a;
+    const sem = a[0], texte = a[1], id = a[2];
     const sc = getScore(id);
-    const isAcq = sc===2;
-    if (filter==='acquis' && !isAcq) return;
-    if (filter==='non-acquis' && isAcq) return;
+    const isAcq = sc === 2;
+    if (filter === 'acq' && !isAcq) return;
+    if (filter === 'na' && isAcq) return;
     hasRows = true;
     const tr = document.createElement('tr');
-    tr.className = 'arow' + (isAcq?' acq':'');
-    tr.innerHTML = `<td><span class="sbadge">${sem}</span></td>
-      <td><span class="atext">${texte}</span></td>
+    tr.className = 'arow' + (isAcq ? ' acq' : '');
+    tr.innerHTML = `
+      <td><span class="sbdg">${sem}</span></td>
+      <td><span class="atxt">${texte}</span></td>
       <td><div class="sg">
-        <button class="sbtn s0 ${sc===0?'on':''}" onclick="setScore('${id}',0)">0</button>
-        <button class="sbtn s1 ${sc===1?'on':''}" onclick="setScore('${id}',1)">1</button>
-        <button class="sbtn s2 ${sc===2?'on':''}" onclick="setScore('${id}',2)">2</button>
+        <button class="sbt s0 ${sc===0?'on':''}" onclick="setScore('${id}',0)" title="Non acquis">0</button>
+        <button class="sbt s1 ${sc===1?'on':''}" onclick="setScore('${id}',1)" title="En voie">1</button>
+        <button class="sbt s2 ${sc===2?'on':''}" onclick="setScore('${id}',2)" title="Acquis">2</button>
       </div></td>`;
     tbody.appendChild(tr);
   });
+
   if (!hasRows) {
     const tr = document.createElement('tr');
     tr.innerHTML = `<td colspan="3" style="text-align:center;padding:12px;font-size:12px;color:var(--ink3)">Aucun attendu dans ce filtre.</td>`;
@@ -599,12 +527,11 @@ function exportCSV() {
   if (!cur) return;
   const rows = [['Prénom','Domaine','Champ','Semaine','Attendu','Score','Statut']];
   BULLETIN.forEach(d => d.champs.forEach(c => c.attendus.forEach(a => {
-    const [sem,texte,id] = a;
-    const sc = scores[cur]?.[id];
+    const sc = scores[cur]?.[a[2]];
     const statut = sc===2?'Acquis':sc===1?'En voie':sc===0?'Non acquis':'Non évalué';
-    rows.push([cur, d.domaine, c.champ, sem, texte, sc!==undefined?sc:'', statut]);
+    rows.push([cur, d.domaine, c.champ, a[0], a[1], sc!==undefined?sc:'', statut]);
   })));
-  const csv = rows.map(r => r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -615,8 +542,8 @@ function exportCSV() {
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2000);
+  t.textContent = msg; t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2000);
 }
 
 init();
