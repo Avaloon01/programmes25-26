@@ -633,24 +633,47 @@ function renderBadge(){
     </div>${histHtml}`;
 }
 async function submitTraining(){
-  const song=document.getElementById('el-song').value;
-  const duration=parseInt(document.getElementById('el-duration').value)||0;
-  const comment=document.getElementById('el-comment').value.trim();
-  if(duration<1){document.getElementById('el-error').textContent='Entre une durée valide.';return;}
-  document.getElementById('el-submit').disabled=true;document.getElementById('el-error').textContent='';
-  try{
-    const res=await fetch(CFG.URL,{method:'POST',body:JSON.stringify({type:'log_training',student:currentStudent,song,duration,comment}),headers:{'Content-Type':'application/json'}});
-    const json=await res.json();
-    if(json.status==='ok'&&json.history)studentHistory=json.history;
-  }catch(e){console.warn(e);}
-  if(!studentHistory)studentHistory={sessions:[],totalMinutes:0};
-  studentHistory.sessions.push({date:new Date().toLocaleDateString('fr-BE'),song,duration,comment});
-  studentHistory.totalMinutes=(studentHistory.totalMinutes||0)+duration;
-  document.getElementById('el-comment').value='';
-  document.getElementById('el-submit').disabled=false;
-  document.getElementById('confirm-title').textContent='Bravo '+currentStudent+' !';
-  document.getElementById('confirm-sub').textContent=duration+' minute'+(duration>1?'s':'')+' sur « '+song+' » enregistrée'+(duration>1?'s':'')+'.';
-  showScreen('screen-confirm');
+  const song = document.getElementById('el-song').value;
+  const duration = parseInt(document.getElementById('el-duration').value) || 0;
+  const comment = document.getElementById('el-comment').value.trim();
+  
+  if(duration < 1){
+    document.getElementById('el-error').textContent = 'Entre une durée valide.';
+    return;
+  }
+  
+  document.getElementById('el-submit').disabled = true;
+  document.getElementById('el-error').textContent = 'Envoi en cours...';
+
+  try {
+    const payload = {
+      type: 'log_training',
+      student: currentStudent,
+      song: song,
+      duration: duration,
+      comment: comment
+    };
+
+    // On utilise text/plain pour éviter les erreurs de sécurité (CORS) pré-vol
+    await fetch(CFG.URL, {
+      method: 'POST',
+      mode: 'no-cors', 
+      body: JSON.stringify(payload)
+    });
+
+    // Comme 'no-cors' ne permet pas de lire la réponse, on simule le succès
+    // après l'envoi si aucune erreur n'est levée par le fetch lui-même
+    document.getElementById('el-comment').value = '';
+    document.getElementById('confirm-title').textContent = 'Bravo ' + currentStudent + ' !';
+    document.getElementById('confirm-sub').textContent = duration + ' minutes enregistrées.';
+    showScreen('screen-confirm');
+    
+  } catch (e) {
+    document.getElementById('el-error').textContent = 'Erreur lors de l\'envoi. Vérifie ta connexion.';
+    console.error(e);
+  } finally {
+    document.getElementById('el-submit').disabled = false;
+  }
 }
 
 // ── TABLEAUX PROF ────────────────────────────────────────────
