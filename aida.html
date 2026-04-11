@@ -654,6 +654,31 @@ async function submitTraining(){
       comment: comment
     };
 
+    // Astuce : On envoie les données en mode 'text/plain' 
+    // C'est le seul moyen d'éviter que le navigateur ne bloque la requête
+    await fetch(CFG.URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'text/plain' }, 
+      body: JSON.stringify(payload)
+    });
+
+    // On attend 500ms pour simuler le temps d'envoi avant de changer d'écran
+    setTimeout(() => {
+      document.getElementById('el-comment').value = '';
+      document.getElementById('el-submit').disabled = false;
+      document.getElementById('confirm-title').textContent = 'Bravo ' + currentStudent + ' !';
+      document.getElementById('confirm-sub').textContent = duration + ' minutes enregistrées.';
+      showScreen('screen-confirm');
+    }, 500);
+    
+  } catch (e) {
+    document.getElementById('el-error').textContent = 'Erreur technique. Réessaie.';
+    document.getElementById('el-submit').disabled = false;
+  }
+}
+
     // On utilise text/plain pour éviter les erreurs de sécurité (CORS) pré-vol
     await fetch(CFG.URL, {
       method: 'POST',
