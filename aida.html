@@ -565,16 +565,28 @@ function backToForm(){renderBadge();showScreen('screen-eleve');}
 
 // ── SYNC SHEETS ──────────────────────────────────────────────
 function setSt(m,c=''){const el=document.getElementById('sync-status');el.textContent=m;el.className='sync-status'+(c?' '+c:'');}
-async function saveToSheets(){
-  setSt('Enregistrement…','busy');document.getElementById('btn-save').disabled=true;
-  try{
-    const meta={derniere_sauvegarde:new Date().toLocaleString('fr-BE')};
-    const res=await fetch(CFG.URL,{method:'POST',body:JSON.stringify({chant:data,materiel:matData,meta}),headers:{'Content-Type':'application/json'}});
-    const json=await res.json();
-    if(json.status==='ok')setSt('✓ Enregistré – '+meta.derniere_sauvegarde,'ok');
-    else setSt('Erreur : '+json.message,'err');
-  }catch(e){setSt('Erreur réseau','err');}
-  document.getElementById('btn-save').disabled=false;
+async function saveToSheets() {
+  setSt('Enregistrement…', 'busy');
+  document.getElementById('btn-save').disabled = true;
+  try {
+    const meta = { derniere_sauvegarde: new Date().toLocaleString('fr-BE') };
+    
+    // On utilise "no-cors" si le mode standard échoue, 
+    // mais le format JSON nécessite souvent un envoi standard sans headers complexes
+    const res = await fetch(CFG.URL, {
+      method: 'POST',
+      mode: 'no-cors', // Ajoute ceci si l'erreur persiste
+      cache: 'no-cache',
+      body: JSON.stringify({ chant: data, materiel: matData, meta })
+    });
+
+    // Note : avec 'no-cors', on ne peut pas lire la réponse JSON du serveur
+    setSt('✓ Tentative d\'envoi terminée', 'ok'); 
+  } catch (e) {
+    setSt('Erreur réseau', 'err');
+    console.error(e);
+  }
+  document.getElementById('btn-save').disabled = false;
 }
 async function loadFromSheets(){
   setSt('Chargement…','busy');document.getElementById('btn-load').disabled=true;
