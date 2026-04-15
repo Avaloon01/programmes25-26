@@ -240,6 +240,21 @@
             }
         }
 
+        // Fonction utilitaire pour trouver une donnée même avec accents ou majuscules
+        function trouverValeur(objet, cleRecherchee) {
+            // Retire les accents et met en minuscules la clé qu'on cherche
+            const clePropre = cleRecherchee.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            for (let cle in objet) {
+                // Fait pareil pour les clés du tableau Google Sheet
+                const cleActuellePropre = cle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                if (cleActuellePropre === clePropre) {
+                    return objet[cle];
+                }
+            }
+            return null;
+        }
+
         // RÉCUPÉRER LES DONNÉES (GET)
         async function chargerSyntheses() {
             const liste = document.getElementById("liste-syntheses");
@@ -252,14 +267,23 @@
             loader.classList.add("flex");
 
             try {
-                const response = await fetch(SCRIPT_URL);
+                // Ajout d'un paramètre de temps pour forcer le rafraîchissement sans cache
+                const response = await fetch(SCRIPT_URL + "?t=" + new Date().getTime());
+                
+                if (!response.ok) {
+                    throw new Error(`Erreur réseau (${response.status})`);
+                }
+                
                 const result = await response.json();
                 
                 loader.classList.add("hidden");
                 loader.classList.remove("flex");
 
-                // Filtre les lignes vides et inverse l'ordre (du plus récent au plus ancien)
-                const fiches = result.filter(item => item.texte && item.texte.trim() !== "").reverse();
+                // Filtre les lignes vides en vérifiant la clé peu importe son format
+                const fiches = result.filter(item => {
+                    const txt = trouverValeur(item, "texte");
+                    return txt && String(txt).trim() !== "";
+                }).reverse(); // Inverse l'ordre (du plus récent au plus ancien)
 
                 if(fiches.length === 0) {
                     msgVide.classList.remove("hidden");
@@ -267,17 +291,25 @@
                 }
 
                 fiches.forEach(data => {
+                    // Extraction ultra-robuste des données (gère les colonnes "Prénom", "Numéro", etc.)
+                    const prenom = trouverValeur(data, "prenom") || 'Élève';
+                    const domaine = trouverValeur(data, "domaine") || 'Général';
+                    const champ = trouverValeur(data, "champ") || 'Sujet';
+                    const numero = trouverValeur(data, "numero") || '1';
+                    const titre = trouverValeur(data, "titre") || 'Leçon sans titre';
+                    const texte = trouverValeur(data, "texte") || '';
+
                     // Attribution d'une couleur selon la matière
                     let colorClass = "from-indigo-500 to-purple-500";
                     let badgeColor = "bg-indigo-100 text-indigo-700";
                     
-                    if(data.domaine === "Mathématiques") {
+                    if(domaine === "Mathématiques") {
                         colorClass = "from-blue-500 to-cyan-500";
                         badgeColor = "bg-blue-100 text-blue-700";
-                    } else if(data.domaine === "Français") {
+                    } else if(domaine === "Français") {
                         colorClass = "from-pink-500 to-rose-500";
                         badgeColor = "bg-pink-100 text-pink-700";
-                    } else if(data.domaine === "Éveil") {
+                    } else if(domaine === "Éveil") {
                         colorClass = "from-emerald-500 to-teal-500";
                         badgeColor = "bg-emerald-100 text-emerald-700";
                     }
@@ -290,24 +322,24 @@
                             <div class="flex justify-between items-start mb-4">
                                 <span class="font-bold text-gray-800 flex items-center gap-2">
                                     <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm">✍️</div>
-                                    ${data.prenom || 'Élève'}
+                                    ${prenom}
                                 </span>
                                 <span class="text-xs font-bold px-3 py-1 rounded-full ${badgeColor}">
-                                    ${data.domaine}
+                                    ${domaine}
                                 </span>
                             </div>
                             
                             <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                                ${data.titre || 'Leçon sans titre'}
+                                ${titre}
                             </h3>
                             
                             <div class="text-sm text-gray-500 mb-4 font-medium flex items-center gap-2">
                                 <i class="fa-solid fa-tag text-xs"></i>
-                                ${data.champ} (N°${data.numero || '1'})
+                                ${champ} (N°${numero})
                             </div>
                             
                             <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap flex-grow bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                                ${data.texte}
+                                ${texte}
                             </p>
                         </div>
                     `;
@@ -319,9 +351,12 @@
                 loader.classList.add("hidden");
                 loader.classList.remove("flex");
                 liste.innerHTML = `
-                    <div class="col-span-full text-center py-10 text-red-500 font-medium">
+                    <div class="col-span-full text-center py-10 text-red-500 font-medium bg-red-50 rounded-2xl border border-red-100">
                         <i class="fa-solid fa-triangle-exclamation mb-2 text-3xl"></i><br>
-                        Impossible de charger les fiches. Vérifie que le script Google Apps est correctement configuré.
+                        Impossible de charger les fiches.
+                        <div class="text-sm mt-2 text-gray-600 font-normal">
+                            Assure-toi que le script Google est bien déployé avec l'accès configuré sur <strong>"Tout le monde"</strong>.
+                        </div>
                     </div>
                 `;
             }
