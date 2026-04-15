@@ -1,369 +1,728 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de fiches</title>
-    
-    <!-- Script Tailwind CSS pour un design moderne -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Police Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-            background-image: radial-gradient(circle at top right, #e0e7ff, transparent 40%),
-                              radial-gradient(circle at bottom left, #fae8ff, transparent 40%);
-            background-attachment: fixed;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Synthèses</title>
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  <style>
+    /* ─── Variables ────────────────────────────────────────────── */
+    :root {
+      --bg:        #f0f4ff;
+      --surface:   #ffffff;
+      --border:    #e2e8f0;
+      --text:      #1e293b;
+      --muted:     #64748b;
+      --accent:    #6366f1;
+      --accent-dk: #4f46e5;
+      --success:   #10b981;
+      --error:     #ef4444;
+      --math:      #3b82f6;
+      --fr:        #ec4899;
+      --eveil:     #10b981;
+      --radius:    16px;
+      --shadow:    0 4px 24px rgba(99,102,241,.10);
+    }
 
-        /* Personnalisation des barres de défilement pour un look propre */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-    </style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+
+    /* ─── Header ───────────────────────────────────────────────── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+
+    .header-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .header-sub {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-top: 4px;
+      font-style: italic;
+      font-family: 'Lora', serif;
+    }
+
+    /* ─── Tabs ─────────────────────────────────────────────────── */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 28px 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: all .25s;
+    }
+
+    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(99,102,241,.35);
+    }
+
+    /* ─── Sections ─────────────────────────────────────────────── */
+    .section { display: none; animation: fadeUp .35s ease; }
+    .section.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Formulaire ────────────────────────────────────────────── */
+    .form-wrap {
+      max-width: 680px;
+      margin: 32px auto 0;
+      padding: 0 16px;
+    }
+
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-card h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-card h2 .icon {
+      width: 36px; height: 36px;
+      background: #ede9fe;
+      color: var(--accent);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    .field label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 7px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background: #fafbff;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99,102,241,.15);
+    }
+
+    .field textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 80px;
+      gap: 14px;
+    }
+
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; }
+      .form-card { padding: 24px 20px; }
+    }
+
+    /* ─── Bouton principal ──────────────────────────────────────── */
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(99,102,241,.30);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--accent-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99,102,241,.40);
+    }
+
+    .btn-submit:disabled { opacity: .65; cursor: not-allowed; transform: none; }
+
+    /* ─── Toast de confirmation ─────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 999;
+      opacity: 0;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    #toast.success { background: var(--success); }
+    #toast.error   { background: var(--error); }
+
+    /* ─── Grille des fiches ─────────────────────────────────────── */
+    .grid-wrap {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding: 0 16px;
+    }
+
+    .grid-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .filter-pill.math   { --accent: var(--math); }
+    .filter-pill.fr     { --accent: var(--fr); }
+    .filter-pill.eveil  { --accent: var(--eveil); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    /* ─── Cartes ────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.10);
+    }
+
+    .card-stripe {
+      height: 5px;
+    }
+
+    .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .card-author {
+      font-weight: 800;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .badge {
+      font-size: .72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 50px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      font-family: 'Lora', serif;
+      line-height: 1.35;
+    }
+
+    .card-meta {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    .card-texte {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: #475569;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      white-space: pre-wrap;
+      flex-grow: 1;
+      font-family: 'Lora', serif;
+    }
+
+    /* ─── Couleurs par domaine ──────────────────────────────────── */
+    .c-math   { background: var(--math); }
+    .c-fr     { background: var(--fr); }
+    .c-eveil  { background: var(--eveil); }
+    .c-gen    { background: var(--accent); }
+
+    .b-math  { background: #dbeafe; color: #1d4ed8; }
+    .b-fr    { background: #fce7f3; color: #be185d; }
+    .b-eveil { background: #d1fae5; color: #065f46; }
+    .b-gen   { background: #ede9fe; color: #5b21b6; }
+
+    /* ─── États (loader, vide, erreur) ─────────────────────────── */
+    .state-box {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--surface);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    .state-box i { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+    .state-box p { font-size: 1rem; font-weight: 600; }
+
+    .loader-ring {
+      width: 44px; height: 44px;
+      border: 4px solid #e2e8f0;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
-<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+<body>
 
-    <div class="max-w-6xl mx-auto w-full px-4 py-10 flex-grow">
-        
-        <!-- En-tête -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4 tracking-tight">
-                Espace d'apprentissage
-            </h1>
-            <p class="text-gray-600 text-lg">Crée et consulte les synthèses de tes leçons.</p>
-        </header>
+  <!-- ─── Header ──────────────────────────────────────────────── -->
+  <header>
+    <div class="header-title">
+      <i class="fa-solid fa-book-sparkles"></i>
+      Mes Synthèses
+    </div>
+    <p class="header-sub">Écris et consulte les résumés de tes leçons</p>
 
-        <!-- Navigation par onglets -->
-        <div class="flex justify-center gap-4 mb-10 flex-wrap">
-            <button onclick="switchTab('ecrire')" id="btn-tab-ecrire" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transform hover:-translate-y-0.5">
-                <i class="fa-solid fa-pen-nib"></i> Écrire une synthèse
-            </button>
-            <button onclick="switchTab('voir')" id="btn-tab-voir" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-gray-600 border border-gray-200 shadow hover:bg-gray-50 transform hover:-translate-y-0.5">
-                <i class="fa-solid fa-book-open"></i> Voir les synthèses
-            </button>
+    <div class="tabs">
+      <button class="tab-btn active" id="btn-ecrire" onclick="switchTab('ecrire')">
+        <i class="fa-solid fa-pen-nib"></i> Écrire
+      </button>
+      <button class="tab-btn" id="btn-voir" onclick="switchTab('voir')">
+        <i class="fa-solid fa-book-open"></i> Voir les fiches
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── Onglet : ÉCRIRE ──────────────────────────────────────── -->
+  <section id="ecrire" class="section active">
+    <div class="form-wrap">
+      <div class="form-card">
+        <h2>
+          <span class="icon"><i class="fa-solid fa-plus"></i></span>
+          Nouvelle synthèse
+        </h2>
+
+        <!-- Prénom -->
+        <div class="field">
+          <label for="prenom">Ton prénom</label>
+          <input type="text" id="prenom" placeholder="Ex : Lucas, Emma…" autocomplete="given-name">
         </div>
 
-        <!-- ONGLET : ÉCRIRE -->
-        <section id="ecrire" class="tab-content active max-w-3xl mx-auto">
-            <div class="bg-white/80 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-xl border border-white">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                    <span class="bg-indigo-100 text-indigo-600 p-2 rounded-xl"><i class="fa-solid fa-plus"></i></span>
-                    Nouvelle synthèse
-                </h2>
+        <!-- Domaine / Champ / Numéro -->
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0">
+            <label for="domaine">Domaine</label>
+            <select id="domaine" onchange="refreshChamps()">
+              <option value="Mathématiques">Mathématiques</option>
+              <option value="Français">Français</option>
+              <option value="Éveil">Éveil</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label for="champ">Champ d'étude</label>
+            <select id="champ"></select>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label for="numero">N°</label>
+            <input type="number" id="numero" min="1" value="1" style="text-align:center">
+          </div>
+        </div>
 
-                <div class="space-y-6">
-                    <!-- Prénom -->
-                    <div>
-                        <label for="prenom" class="block text-sm font-semibold text-gray-700 mb-2">Ton prénom</label>
-                        <input type="text" id="prenom" placeholder="Ex: Lucas" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50">
-                    </div>
+        <!-- Titre -->
+        <div class="field" style="margin-top:20px">
+          <label for="titre">Titre de la leçon</label>
+          <input type="text" id="titre" placeholder="Ex : Le passé composé, Les fractions…">
+        </div>
 
-                    <!-- Sélecteurs -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-                        <div class="md:col-span-5">
-                            <label for="domaine" class="block text-sm font-semibold text-gray-700 mb-2">Domaine</label>
-                            <select id="domaine" onchange="refreshChampOptions()" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 appearance-none cursor-pointer">
-                                <option value="Mathématiques">Mathématiques</option>
-                                <option value="Français">Français</option>
-                                <option value="Éveil">Éveil</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-5">
-                            <label for="champ" class="block text-sm font-semibold text-gray-700 mb-2">Champ d'étude</label>
-                            <select id="champ" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 appearance-none cursor-pointer"></select>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="numero" class="block text-sm font-semibold text-gray-700 mb-2">Numéro</label>
-                            <input type="number" id="numero" min="1" placeholder="1" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 text-center">
-                        </div>
-                    </div>
+        <!-- Texte -->
+        <div class="field">
+          <label for="texte">Ma synthèse</label>
+          <textarea id="texte" placeholder="Rédige ici ce que tu as retenu…"></textarea>
+        </div>
 
-                    <!-- Titre -->
-                    <div>
-                        <label for="titre" class="block text-sm font-semibold text-gray-700 mb-2">Titre de ta leçon</label>
-                        <input type="text" id="titre" placeholder="Ex: Le passé composé, Les fractions..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50">
-                    </div>
+        <!-- Bouton -->
+        <button class="btn-submit" id="btnEnvoyer" onclick="envoyerSynthese()">
+          <i class="fa-solid fa-paper-plane"></i> Enregistrer
+        </button>
+      </div>
+    </div>
+  </section>
 
-                    <!-- Contenu -->
-                    <div>
-                        <label for="texte" class="block text-sm font-semibold text-gray-700 mb-2">Contenu de la synthèse</label>
-                        <textarea id="texte" rows="6" placeholder="Rédige ici ce que tu as appris..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 resize-y"></textarea>
-                    </div>
+  <!-- ─── Onglet : VOIR ────────────────────────────────────────── -->
+  <section id="voir" class="section">
+    <div class="grid-wrap">
 
-                    <!-- Bouton envoi -->
-                    <div class="pt-4">
-                        <button id="btnEnvoyer" onclick="envoyerSynthese()" class="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all flex justify-center items-center gap-2 transform hover:-translate-y-1">
-                            <i class="fa-solid fa-paper-plane"></i> Enregistrer et poster
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <!-- Filtres -->
+      <div class="grid-controls">
+        <button class="filter-pill active" onclick="filtrer('tous', this)">Toutes</button>
+        <button class="filter-pill math"  onclick="filtrer('Mathématiques', this)">Maths</button>
+        <button class="filter-pill fr"    onclick="filtrer('Français', this)">Français</button>
+        <button class="filter-pill eveil" onclick="filtrer('Éveil', this)">Éveil</button>
+      </div>
 
-        <!-- ONGLET : VOIR -->
-        <section id="voir" class="tab-content">
-            
-            <!-- Loader -->
-            <div id="loader" class="hidden flex-col items-center justify-center py-20">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-4"></div>
-                <p class="text-gray-500 font-medium animate-pulse">Récupération des fiches...</p>
-            </div>
+      <!-- Grille -->
+      <div id="grille" class="grid"></div>
 
-            <!-- Grille des fiches -->
-            <div id="liste-syntheses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Les cartes seront injectées ici par le Javascript -->
-            </div>
-            
-            <!-- Message si vide -->
-            <div id="message-vide" class="hidden text-center py-20 bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-gray-300">
-                <i class="fa-solid fa-folder-open text-4xl text-gray-300 mb-3"></i>
-                <p class="text-gray-500 font-medium">Aucune synthèse trouvée. Sois le premier à en écrire une !</p>
-            </div>
-        </section>
+      <!-- États -->
+      <div id="etat" class="state-box" style="display:none"></div>
 
     </div>
+  </section>
 
-    <!-- Script JavaScript -->
-    <script>
-        // --- CONFIGURATION DE L'URL GOOGLE APPS SCRIPT ---
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgoypPI8k8CrFy1IBk2kRmsjinUsRXS60Pg_hEpKIikDnOQIgC_H7PigOt1S3ctvqnpg/exec";
+  <!-- ─── Toast ───────────────────────────────────────────────── -->
+  <div id="toast"></div>
 
-        const domainConfig = {
-            "Mathématiques": ["Arithmétique à l’Algèbre", "Espace et Géométrie", "Grandeurs et relations", "Organisation des données et statistique"],
-            "Français": ["Grammaire", "Conjugaison", "Outil de la langue"],
-            "Éveil": ["Sciences", "Histoire", "Géographie"]
-        };
+  <!-- ─── Script ──────────────────────────────────────────────── -->
+  <script>
+    // ── CONFIG ────────────────────────────────────────────────────
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgoypPI8k8CrFy1IBk2kRmsjinUsRXS60Pg_hEpKIikDnOQIgC_H7PigOt1S3ctvqnpg/exec";
 
-        // Met à jour la liste déroulante des champs
-        function refreshChampOptions() {
-            const domaine = document.getElementById("domaine").value;
-            const champSelect = document.getElementById("champ");
-            champSelect.innerHTML = "";
-            domainConfig[domaine].forEach(ch => {
-                let opt = document.createElement("option");
-                opt.value = ch; 
-                opt.textContent = ch;
-                champSelect.appendChild(opt);
-            });
+    const CHAMPS = {
+      "Mathématiques": ["Arithmétique à l'Algèbre", "Espace et Géométrie", "Grandeurs et relations", "Organisation des données et statistique"],
+      "Français":      ["Grammaire", "Conjugaison", "Outil de la langue"],
+      "Éveil":         ["Sciences", "Histoire", "Géographie"]
+    };
+
+    // Toutes les fiches chargées (pour le filtre local)
+    let toutesLesFiches = [];
+    let filtreCourant   = "tous";
+
+    // ── INIT ──────────────────────────────────────────────────────
+    refreshChamps();
+
+    // ── ONGLETS ───────────────────────────────────────────────────
+    function switchTab(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('btn-' + id).classList.add('active');
+      if (id === 'voir') chargerSyntheses();
+    }
+
+    // ── CHAMPS DYNAMIQUES ─────────────────────────────────────────
+    function refreshChamps() {
+      const domaine = document.getElementById("domaine").value;
+      const sel     = document.getElementById("champ");
+      sel.innerHTML = CHAMPS[domaine]
+        .map(c => `<option value="${c}">${c}</option>`)
+        .join("");
+    }
+
+    // ── ENVOI (via GET avec action=post) ──────────────────────────
+    async function envoyerSynthese() {
+      const btn = document.getElementById("btnEnvoyer");
+
+      const data = {
+        prenom:  document.getElementById("prenom").value.trim(),
+        domaine: document.getElementById("domaine").value,
+        champ:   document.getElementById("champ").value,
+        numero:  document.getElementById("numero").value || "1",
+        titre:   document.getElementById("titre").value.trim(),
+        texte:   document.getElementById("texte").value.trim()
+      };
+
+      // Validation côté client
+      if (!data.prenom) { showToast("Indique ton prénom !", "error"); return; }
+      if (!data.texte)  { showToast("La synthèse est vide !", "error"); return; }
+
+      // Feedback visuel
+      btn.disabled     = true;
+      btn.innerHTML    = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi…';
+
+      try {
+        // ✅ On passe par GET + URLSearchParams → pas de no-cors, réponse lisible
+        const params = new URLSearchParams({ action: "post", ...data });
+        const resp   = await fetch(SCRIPT_URL + "?" + params.toString());
+
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+
+        const result = await resp.json();
+
+        if (result.result === "success") {
+          // Reset formulaire
+          document.getElementById("titre").value = "";
+          document.getElementById("texte").value = "";
+          showToast("✅ Synthèse enregistrée !", "success");
+          // Bascule vers "voir" après un bref instant
+          setTimeout(() => switchTab('voir'), 900);
+        } else {
+          throw new Error(result.message || "Erreur inconnue");
         }
 
-        // Gère le changement d'onglet
-        function switchTab(tabId) {
-            // Cacher tous les contenus
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            
-            // Réinitialiser le style des boutons
-            const btnEcrire = document.getElementById('btn-tab-ecrire');
-            const btnVoir = document.getElementById('btn-tab-voir');
-            
-            btnEcrire.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-gray-600 border border-gray-200 shadow hover:bg-gray-50 transform hover:-translate-y-0.5";
-            btnVoir.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-gray-600 border border-gray-200 shadow hover:bg-gray-50 transform hover:-translate-y-0.5";
+      } catch (err) {
+        console.error(err);
+        showToast("Erreur : " + err.message, "error");
+      } finally {
+        btn.disabled  = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enregistrer';
+      }
+    }
 
-            // Activer l'onglet choisi
-            document.getElementById(tabId).classList.add('active');
-            
-            if(tabId === 'ecrire') {
-                btnEcrire.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transform hover:-translate-y-0.5";
-            } else {
-                btnVoir.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transform hover:-translate-y-0.5";
-                chargerSyntheses(); // Charger les données depuis Google Sheets
-            }
-        }
+    // ── CHARGEMENT ────────────────────────────────────────────────
+    async function chargerSyntheses() {
+      afficherEtat("loading");
 
-        // ENVOYER LES DONNÉES (POST)
-        async function envoyerSynthese() {
-            const btn = document.getElementById("btnEnvoyer");
-            const data = {
-                prenom: document.getElementById("prenom").value.trim(),
-                domaine: document.getElementById("domaine").value,
-                champ: document.getElementById("champ").value,
-                numero: document.getElementById("numero").value || "1",
-                titre: document.getElementById("titre").value.trim(),
-                texte: document.getElementById("texte").value.trim()
-            };
+      try {
+        const resp = await fetch(SCRIPT_URL + "?t=" + Date.now());
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
 
-            if (!data.prenom || !data.texte) {
-                alert("N'oublie pas ton prénom et le contenu de la synthèse !");
-                return;
-            }
+        const data = await resp.json();
 
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
-            btn.classList.add('opacity-70', 'cursor-not-allowed');
+        // Détection d'une erreur Apps Script
+        if (!Array.isArray(data)) throw new Error(data.message || "Réponse inattendue");
 
-            try {
-                // Utilisation de no-cors pour éviter les blocages de redirection Google
-                await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-                
-                // Reset du formulaire
-                document.getElementById("titre").value = "";
-                document.getElementById("texte").value = "";
-                
-                // Basculer vers l'onglet "voir" pour admirer le résultat
-                switchTab('voir');
+        toutesLesFiches = data.reverse(); // plus récent en premier
+        afficherFiches(toutesLesFiches);
 
-            } catch (e) {
-                console.error(e);
-                alert("Erreur lors de l'envoi de la fiche. Vérifie ta connexion.");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enregistrer et poster';
-                btn.classList.remove('opacity-70', 'cursor-not-allowed');
-            }
-        }
+      } catch (err) {
+        console.error(err);
+        afficherEtat("error", err.message);
+      }
+    }
 
-        // Fonction utilitaire pour trouver une donnée même avec accents ou majuscules
-        function trouverValeur(objet, cleRecherchee) {
-            // Retire les accents et met en minuscules la clé qu'on cherche
-            const clePropre = cleRecherchee.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            
-            for (let cle in objet) {
-                // Fait pareil pour les clés du tableau Google Sheet
-                const cleActuellePropre = cle.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                if (cleActuellePropre === clePropre) {
-                    return objet[cle];
-                }
-            }
-            return null;
-        }
+    // ── FILTRE LOCAL (pas de nouveau fetch) ───────────────────────
+    function filtrer(domaine, btn) {
+      filtreCourant = domaine;
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
 
-        // RÉCUPÉRER LES DONNÉES (GET)
-        async function chargerSyntheses() {
-            const liste = document.getElementById("liste-syntheses");
-            const loader = document.getElementById("loader");
-            const msgVide = document.getElementById("message-vide");
+      const filtrees = domaine === "tous"
+        ? toutesLesFiches
+        : toutesLesFiches.filter(f => f.domaine === domaine);
 
-            liste.innerHTML = "";
-            msgVide.classList.add("hidden");
-            loader.classList.remove("hidden");
-            loader.classList.add("flex");
+      afficherFiches(filtrees);
+    }
 
-            try {
-                // Ajout d'un paramètre de temps pour forcer le rafraîchissement sans cache
-                const response = await fetch(SCRIPT_URL + "?t=" + new Date().getTime());
-                
-                if (!response.ok) {
-                    throw new Error(`Erreur réseau (${response.status})`);
-                }
-                
-                const result = await response.json();
-                
-                loader.classList.add("hidden");
-                loader.classList.remove("flex");
+    // ── RENDU DES CARTES ──────────────────────────────────────────
+    function afficherFiches(fiches) {
+      const grille = document.getElementById("grille");
+      const etat   = document.getElementById("etat");
+      grille.innerHTML = "";
 
-                // Filtre les lignes vides en vérifiant la clé peu importe son format
-                const fiches = result.filter(item => {
-                    const txt = trouverValeur(item, "texte");
-                    return txt && String(txt).trim() !== "";
-                }).reverse(); // Inverse l'ordre (du plus récent au plus ancien)
+      if (fiches.length === 0) {
+        afficherEtat("vide");
+        return;
+      }
 
-                if(fiches.length === 0) {
-                    msgVide.classList.remove("hidden");
-                    return;
-                }
+      etat.style.display = "none";
 
-                fiches.forEach(data => {
-                    // Extraction ultra-robuste des données (gère les colonnes "Prénom", "Numéro", etc.)
-                    const prenom = trouverValeur(data, "prenom") || 'Élève';
-                    const domaine = trouverValeur(data, "domaine") || 'Général';
-                    const champ = trouverValeur(data, "champ") || 'Sujet';
-                    const numero = trouverValeur(data, "numero") || '1';
-                    const titre = trouverValeur(data, "titre") || 'Leçon sans titre';
-                    const texte = trouverValeur(data, "texte") || '';
+      fiches.forEach(f => {
+        const prenom  = f.prenom  || "Élève";
+        const domaine = f.domaine || "Général";
+        const champ   = f.champ   || "";
+        const numero  = f.numero  || "1";
+        const titre   = f.titre   || "Leçon sans titre";
+        const texte   = f.texte   || "";
 
-                    // Attribution d'une couleur selon la matière
-                    let colorClass = "from-indigo-500 to-purple-500";
-                    let badgeColor = "bg-indigo-100 text-indigo-700";
-                    
-                    if(domaine === "Mathématiques") {
-                        colorClass = "from-blue-500 to-cyan-500";
-                        badgeColor = "bg-blue-100 text-blue-700";
-                    } else if(domaine === "Français") {
-                        colorClass = "from-pink-500 to-rose-500";
-                        badgeColor = "bg-pink-100 text-pink-700";
-                    } else if(domaine === "Éveil") {
-                        colorClass = "from-emerald-500 to-teal-500";
-                        badgeColor = "bg-emerald-100 text-emerald-700";
-                    }
+        // Couleurs selon domaine
+        let stripe = "c-gen",  badge = "b-gen";
+        if (domaine === "Mathématiques") { stripe = "c-math";  badge = "b-math"; }
+        if (domaine === "Français")      { stripe = "c-fr";    badge = "b-fr";   }
+        if (domaine === "Éveil")         { stripe = "c-eveil"; badge = "b-eveil";}
 
-                    const card = document.createElement("div");
-                    card.className = "bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col group";
-                    card.innerHTML = `
-                        <div class="h-2 w-full bg-gradient-to-r ${colorClass}"></div>
-                        <div class="p-6 flex-grow flex flex-col">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="font-bold text-gray-800 flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm">✍️</div>
-                                    ${prenom}
-                                </span>
-                                <span class="text-xs font-bold px-3 py-1 rounded-full ${badgeColor}">
-                                    ${domaine}
-                                </span>
-                            </div>
-                            
-                            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                                ${titre}
-                            </h3>
-                            
-                            <div class="text-sm text-gray-500 mb-4 font-medium flex items-center gap-2">
-                                <i class="fa-solid fa-tag text-xs"></i>
-                                ${champ} (N°${numero})
-                            </div>
-                            
-                            <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap flex-grow bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                                ${texte}
-                            </p>
-                        </div>
-                    `;
-                    liste.appendChild(card);
-                });
+        // Initiale pour l'avatar
+        const initiale = prenom.charAt(0).toUpperCase();
 
-            } catch (e) {
-                console.error("Erreur de récupération:", e);
-                loader.classList.add("hidden");
-                loader.classList.remove("flex");
-                liste.innerHTML = `
-                    <div class="col-span-full text-center py-10 text-red-500 font-medium bg-red-50 rounded-2xl border border-red-100">
-                        <i class="fa-solid fa-triangle-exclamation mb-2 text-3xl"></i><br>
-                        Impossible de charger les fiches.
-                        <div class="text-sm mt-2 text-gray-600 font-normal">
-                            Assure-toi que le script Google est bien déployé avec l'accès configuré sur <strong>"Tout le monde"</strong>.
-                        </div>
-                    </div>
-                `;
-            }
-        }
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-stripe ${stripe}"></div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-author">
+                <span class="avatar ${stripe}">${initiale}</span>
+                ${escHtml(prenom)}
+              </span>
+              <span class="badge ${badge}">${escHtml(domaine)}</span>
+            </div>
+            <div class="card-title">${escHtml(titre)}</div>
+            <div class="card-meta">
+              <i class="fa-solid fa-tag" style="font-size:.7rem"></i>
+              ${escHtml(champ)} · N°${escHtml(String(numero))}
+            </div>
+            <div class="card-texte">${escHtml(texte)}</div>
+          </div>
+        `;
+        grille.appendChild(card);
+      });
+    }
 
-        // Initialisation au chargement
-        refreshChampOptions();
-    </script>
+    // ── ÉTATS UI ──────────────────────────────────────────────────
+    function afficherEtat(type, msg) {
+      const grille = document.getElementById("grille");
+      const etat   = document.getElementById("etat");
+      grille.innerHTML    = "";
+      etat.style.display  = "block";
+
+      if (type === "loading") {
+        etat.innerHTML = `<div class="loader-ring"></div><p>Chargement des fiches…</p>`;
+      } else if (type === "vide") {
+        etat.innerHTML = `<i class="fa-solid fa-folder-open"></i><p>Aucune synthèse pour l'instant.<br>Sois le premier à en écrire une !</p>`;
+      } else {
+        etat.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:var(--error)"></i><p>Impossible de charger les fiches.<br><small style="font-weight:400;color:var(--muted)">${escHtml(msg || "")}</small></p>`;
+      }
+    }
+
+    // ── TOAST ─────────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg, type = "") {
+      const t = document.getElementById("toast");
+      t.textContent  = msg;
+      t.className    = "show " + type;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.className = "", 3200);
+    }
+
+    // ── SÉCURITÉ : échappe le HTML ─────────────────────────────────
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  </script>
 </body>
 </html>
