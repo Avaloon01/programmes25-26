@@ -1,218 +1,334 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Générateur de fiches</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 24px;
-      font-family: "Poppins", sans-serif;
-      background: #f3f4f6; color: #111827;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; }
-
-    /* Navigation par onglets */
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tab-btn {
-      padding: 10px 20px; border: none; border-radius: 8px;
-      cursor: pointer; background: #e5e7eb; font-weight: 600;
-    }
-    .tab-btn.active { background: #4f46e5; color: white; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    .panel {
-      background: white; border-radius: 12px;
-      padding: 20px; box-shadow: 0 4px 18px rgba(15, 23, 42, 0.12);
-      margin-bottom: 16px;
-    }
-
-    h1 { font-size: 1.4rem; margin-top: 0; }
-    label { font-size: 0.85rem; font-weight: 600; color: #374151; display: block; margin-bottom: 4px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de fiches</title>
     
-    input, select, textarea {
-      width: 100%; font-family: inherit; font-size: 0.9rem;
-      padding: 10px; border-radius: 8px; border: 1px solid #d1d5db;
-      margin-bottom: 12px; outline: none;
-    }
-    textarea { min-height: 150px; }
+    <!-- Script Tailwind CSS pour un design moderne -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Police Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(circle at top right, #e0e7ff, transparent 40%),
+                              radial-gradient(circle at bottom left, #fae8ff, transparent 40%);
+            background-attachment: fixed;
+        }
 
-    .btn {
-      border: none; border-radius: 999px; padding: 10px 24px;
-      font-size: 0.9rem; font-weight: 600; cursor: pointer;
-      background: #4f46e5; color: white; transition: all 0.2s;
-    }
-    .btn:disabled { background: #9ca3af; }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
 
-    /* Style de la fiche "Ultra Jolie" pour l'onglet Voir */
-    #liste-syntheses { display: grid; gap: 20px; }
-    .card-post {
-      background: white; border-left: 6px solid #4f46e5;
-      padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-    .card-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
-    .card-author { font-weight: 600; color: #4f46e5; }
-    .card-meta { font-size: 0.8rem; color: #6b7280; }
-    .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; text-decoration: underline; }
-    .card-body { font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; }
-    .badge-tag { background: #eef2ff; color: #4338ca; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
-  </style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Personnalisation des barres de défilement pour un look propre */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
 </head>
-<body>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
 
-<div class="container">
-  <div class="tabs">
-    <button class="tab-btn active" onclick="openTab('ecrire')">Écrire une synthèse</button>
-    <button class="tab-btn" onclick="openTab('voir')">Voir les synthèses</button>
-  </div>
+    <div class="max-w-6xl mx-auto w-full px-4 py-10 flex-grow">
+        
+        <!-- En-tête -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4 tracking-tight">
+                Espace d'apprentissage
+            </h1>
+            <p class="text-gray-600 text-lg">Crée et consulte les synthèses de tes leçons.</p>
+        </header>
 
-  <div id="ecrire" class="tab-content active">
-    <div class="panel">
-      <h1>Nouvelle synthèse</h1>
-      
-      <label for="prenom">Ton prénom</label>
-      <input type="text" id="prenom" placeholder="Ex: Lucas">
-
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 200px;">
-          <label for="domaine">Domaine</label>
-          <select id="domaine" onchange="refreshChampOptions()">
-            <option value="Mathématiques">Mathématiques</option>
-            <option value="Français">Français</option>
-            <option value="Éveil">Éveil</option>
-          </select>
+        <!-- Navigation par onglets -->
+        <div class="flex justify-center gap-4 mb-10 flex-wrap">
+            <button onclick="switchTab('ecrire')" id="btn-tab-ecrire" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-pen-nib"></i> Écrire une synthèse
+            </button>
+            <button onclick="switchTab('voir')" id="btn-tab-voir" class="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-gray-600 border border-gray-200 shadow hover:bg-gray-50 transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-book-open"></i> Voir les synthèses
+            </button>
         </div>
-        <div style="flex: 1; min-width: 200px;">
-          <label for="champ">Champ</label>
-          <select id="champ"></select>
-        </div>
-        <div style="width: 80px;">
-          <label for="numero">N°</label>
-          <input type="number" id="numero" placeholder="1">
-        </div>
-      </div>
 
-      <label for="titre">Titre</label>
-      <input type="text" id="titre" placeholder="Le titre de ta leçon">
+        <!-- ONGLET : ÉCRIRE -->
+        <section id="ecrire" class="tab-content active max-w-3xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-xl border border-white">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                    <span class="bg-indigo-100 text-indigo-600 p-2 rounded-xl"><i class="fa-solid fa-plus"></i></span>
+                    Nouvelle synthèse
+                </h2>
 
-      <label for="texte">Contenu de la synthèse</label>
-      <textarea id="texte" placeholder="Rédige ici ce que tu as appris..."></textarea>
+                <div class="space-y-6">
+                    <!-- Prénom -->
+                    <div>
+                        <label for="prenom" class="block text-sm font-semibold text-gray-700 mb-2">Ton prénom</label>
+                        <input type="text" id="prenom" placeholder="Ex: Lucas" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50">
+                    </div>
 
-      <button class="btn" id="btnEnvoyer" onclick="envoyerSynthese()">Enregistrer et poster</button>
+                    <!-- Sélecteurs -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                        <div class="md:col-span-5">
+                            <label for="domaine" class="block text-sm font-semibold text-gray-700 mb-2">Domaine</label>
+                            <select id="domaine" onchange="refreshChampOptions()" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 appearance-none cursor-pointer">
+                                <option value="Mathématiques">Mathématiques</option>
+                                <option value="Français">Français</option>
+                                <option value="Éveil">Éveil</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-5">
+                            <label for="champ" class="block text-sm font-semibold text-gray-700 mb-2">Champ d'étude</label>
+                            <select id="champ" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 appearance-none cursor-pointer"></select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="numero" class="block text-sm font-semibold text-gray-700 mb-2">Numéro</label>
+                            <input type="number" id="numero" min="1" placeholder="1" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 text-center">
+                        </div>
+                    </div>
+
+                    <!-- Titre -->
+                    <div>
+                        <label for="titre" class="block text-sm font-semibold text-gray-700 mb-2">Titre de ta leçon</label>
+                        <input type="text" id="titre" placeholder="Ex: Le passé composé, Les fractions..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50">
+                    </div>
+
+                    <!-- Contenu -->
+                    <div>
+                        <label for="texte" class="block text-sm font-semibold text-gray-700 mb-2">Contenu de la synthèse</label>
+                        <textarea id="texte" rows="6" placeholder="Rédige ici ce que tu as appris..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all outline-none bg-white/50 resize-y"></textarea>
+                    </div>
+
+                    <!-- Bouton envoi -->
+                    <div class="pt-4">
+                        <button id="btnEnvoyer" onclick="envoyerSynthese()" class="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all flex justify-center items-center gap-2 transform hover:-translate-y-1">
+                            <i class="fa-solid fa-paper-plane"></i> Enregistrer et poster
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ONGLET : VOIR -->
+        <section id="voir" class="tab-content">
+            
+            <!-- Loader -->
+            <div id="loader" class="hidden flex-col items-center justify-center py-20">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-4"></div>
+                <p class="text-gray-500 font-medium animate-pulse">Récupération des fiches...</p>
+            </div>
+
+            <!-- Grille des fiches -->
+            <div id="liste-syntheses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Les cartes seront injectées ici par le Javascript -->
+            </div>
+            
+            <!-- Message si vide -->
+            <div id="message-vide" class="hidden text-center py-20 bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-gray-300">
+                <i class="fa-solid fa-folder-open text-4xl text-gray-300 mb-3"></i>
+                <p class="text-gray-500 font-medium">Aucune synthèse trouvée. Sois le premier à en écrire une !</p>
+            </div>
+        </section>
+
     </div>
-  </div>
 
-  <div id="voir" class="tab-content">
-    <div id="liste-syntheses">
-      <p style="text-align: center; color: #6b7280;">Les synthèses s'afficheront ici après l'envoi.</p>
-    </div>
-  </div>
-</div>
+    <!-- Script JavaScript -->
+    <script>
+        // --- CONFIGURATION DE L'URL GOOGLE APPS SCRIPT ---
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgoypPI8k8CrFy1IBk2kRmsjinUsRXS60Pg_hEpKIikDnOQIgC_H7PigOt1S3ctvqnpg/exec";
 
-<script>
-  // --- CONFIGURATION ---
-  // COPIEZ VOTRE URL MACRO GOOGLE ICI :
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgoypPI8k8CrFy1IBk2kRmsjinUsRXS60Pg_hEpKIikDnOQIgC_H7PigOt1S3ctvqnpg/exec";
+        const domainConfig = {
+            "Mathématiques": ["Arithmétique à l’Algèbre", "Espace et Géométrie", "Grandeurs et relations", "Organisation des données et statistique"],
+            "Français": ["Grammaire", "Conjugaison", "Outil de la langue"],
+            "Éveil": ["Sciences", "Histoire", "Géographie"]
+        };
 
-  const domainConfig = {
-    "Mathématiques": ["Arithmétique à l’Algèbre", "Espace et Géométrie", "Grandeurs et relations", "Organisation des données et statistique"],
-    "Français": ["Grammaire", "Conjugaison", "Outil de la langue"],
-    "Éveil": ["Sciences", "Histoire", "Géographie"]
-  };
+        // Met à jour la liste déroulante des champs
+        function refreshChampOptions() {
+            const domaine = document.getElementById("domaine").value;
+            const champSelect = document.getElementById("champ");
+            champSelect.innerHTML = "";
+            domainConfig[domaine].forEach(ch => {
+                let opt = document.createElement("option");
+                opt.value = ch; 
+                opt.textContent = ch;
+                champSelect.appendChild(opt);
+            });
+        }
 
-  function refreshChampOptions() {
-    const domaine = document.getElementById("domaine").value;
-    const champSelect = document.getElementById("champ");
-    champSelect.innerHTML = "";
-    domainConfig[domaine].forEach(ch => {
-      let opt = document.createElement("option");
-      opt.value = ch; opt.textContent = ch;
-      champSelect.appendChild(opt);
-    });
-  }
+        // Gère le changement d'onglet
+        function switchTab(tabId) {
+            // Cacher tous les contenus
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            // Réinitialiser le style des boutons
+            const btnEcrire = document.getElementById('btn-tab-ecrire');
+            const btnVoir = document.getElementById('btn-tab-voir');
+            
+            btnEcrire.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-gray-600 border border-gray-200 shadow hover:bg-gray-50 transform hover:-translate-y-0.5";
+            btnVoir.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-white text-gray-600 border border-gray-200 shadow hover:bg-gray-50 transform hover:-translate-y-0.5";
 
-  function openTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    event.currentTarget.classList.add('active');
-  }
+            // Activer l'onglet choisi
+            document.getElementById(tabId).classList.add('active');
+            
+            if(tabId === 'ecrire') {
+                btnEcrire.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transform hover:-translate-y-0.5";
+            } else {
+                btnVoir.className = "flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:shadow-indigo-300 transform hover:-translate-y-0.5";
+                chargerSyntheses(); // Charger les données depuis Google Sheets
+            }
+        }
 
-  async function envoyerSynthese() {
-    const btn = document.getElementById("btnEnvoyer");
-    const data = {
-      prenom: document.getElementById("prenom").value.trim(),
-      domaine: document.getElementById("domaine").value,
-      champ: document.getElementById("champ").value,
-      numero: document.getElementById("numero").value,
-      titre: document.getElementById("titre").value.trim(),
-      texte: document.getElementById("texte").value.trim()
-    };
+        // ENVOYER LES DONNÉES (POST)
+        async function envoyerSynthese() {
+            const btn = document.getElementById("btnEnvoyer");
+            const data = {
+                prenom: document.getElementById("prenom").value.trim(),
+                domaine: document.getElementById("domaine").value,
+                champ: document.getElementById("champ").value,
+                numero: document.getElementById("numero").value || "1",
+                titre: document.getElementById("titre").value.trim(),
+                texte: document.getElementById("texte").value.trim()
+            };
 
-    if (!data.prenom || !data.texte) {
-      alert("N'oublie pas ton prénom et le contenu de la synthèse !");
-      return;
-    }
+            if (!data.prenom || !data.texte) {
+                alert("N'oublie pas ton prénom et le contenu de la synthèse !");
+                return;
+            }
 
-    btn.disabled = true;
-    btn.textContent = "Envoi en cours...";
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
 
-    try {
-      // Envoi vers Google Sheets
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        cache: "no-cache",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
+            try {
+                // Utilisation de no-cors pour éviter les blocages de redirection Google
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                
+                // Reset du formulaire
+                document.getElementById("titre").value = "";
+                document.getElementById("texte").value = "";
+                
+                // Basculer vers l'onglet "voir" pour admirer le résultat
+                switchTab('voir');
 
-      // Ajout visuel dans l'onglet "Voir"
-      ajouterSyntheseGraphique(data);
-      
-      alert("Bravo ! Ta synthèse a été postée.");
-      
-      // Reset formulaire
-      document.getElementById("titre").value = "";
-      document.getElementById("texte").value = "";
-      openTab('voir');
+            } catch (e) {
+                console.error(e);
+                alert("Erreur lors de l'envoi de la fiche. Vérifie ta connexion.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enregistrer et poster';
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
 
-    } catch (e) {
-      console.error(e);
-      alert("Erreur lors de l'envoi.");
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Enregistrer et poster";
-    }
-  }
+        // RÉCUPÉRER LES DONNÉES (GET)
+        async function chargerSyntheses() {
+            const liste = document.getElementById("liste-syntheses");
+            const loader = document.getElementById("loader");
+            const msgVide = document.getElementById("message-vide");
 
-  function ajouterSyntheseGraphique(data) {
-    const liste = document.getElementById("liste-syntheses");
-    if(liste.querySelector('p')) liste.innerHTML = ""; // Vide le message vide
+            liste.innerHTML = "";
+            msgVide.classList.add("hidden");
+            loader.classList.remove("hidden");
+            loader.classList.add("flex");
 
-    const card = document.createElement("div");
-    card.className = "card-post";
-    card.innerHTML = `
-      <div class="card-header">
-        <span class="card-author">✍️ ${data.prenom}</span>
-        <span class="card-meta">
-          <span class="badge-tag">${data.domaine}</span>
-          <span class="badge-tag">${data.champ} ${data.numero ? 'n°'+data.numero : ''}</span>
-        </span>
-      </div>
-      <div class="card-title">${data.titre}</div>
-      <div class="card-body">${data.texte}</div>
-    `;
-    liste.prepend(card); // La plus récente en haut
-  }
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const result = await response.json();
+                
+                loader.classList.add("hidden");
+                loader.classList.remove("flex");
 
-  // Initialisation
-  refreshChampOptions();
-</script>
+                // Filtre les lignes vides et inverse l'ordre (du plus récent au plus ancien)
+                const fiches = result.filter(item => item.texte && item.texte.trim() !== "").reverse();
 
+                if(fiches.length === 0) {
+                    msgVide.classList.remove("hidden");
+                    return;
+                }
+
+                fiches.forEach(data => {
+                    // Attribution d'une couleur selon la matière
+                    let colorClass = "from-indigo-500 to-purple-500";
+                    let badgeColor = "bg-indigo-100 text-indigo-700";
+                    
+                    if(data.domaine === "Mathématiques") {
+                        colorClass = "from-blue-500 to-cyan-500";
+                        badgeColor = "bg-blue-100 text-blue-700";
+                    } else if(data.domaine === "Français") {
+                        colorClass = "from-pink-500 to-rose-500";
+                        badgeColor = "bg-pink-100 text-pink-700";
+                    } else if(data.domaine === "Éveil") {
+                        colorClass = "from-emerald-500 to-teal-500";
+                        badgeColor = "bg-emerald-100 text-emerald-700";
+                    }
+
+                    const card = document.createElement("div");
+                    card.className = "bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col group";
+                    card.innerHTML = `
+                        <div class="h-2 w-full bg-gradient-to-r ${colorClass}"></div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="font-bold text-gray-800 flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm">✍️</div>
+                                    ${data.prenom || 'Élève'}
+                                </span>
+                                <span class="text-xs font-bold px-3 py-1 rounded-full ${badgeColor}">
+                                    ${data.domaine}
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                                ${data.titre || 'Leçon sans titre'}
+                            </h3>
+                            
+                            <div class="text-sm text-gray-500 mb-4 font-medium flex items-center gap-2">
+                                <i class="fa-solid fa-tag text-xs"></i>
+                                ${data.champ} (N°${data.numero || '1'})
+                            </div>
+                            
+                            <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap flex-grow bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                                ${data.texte}
+                            </p>
+                        </div>
+                    `;
+                    liste.appendChild(card);
+                });
+
+            } catch (e) {
+                console.error("Erreur de récupération:", e);
+                loader.classList.add("hidden");
+                loader.classList.remove("flex");
+                liste.innerHTML = `
+                    <div class="col-span-full text-center py-10 text-red-500 font-medium">
+                        <i class="fa-solid fa-triangle-exclamation mb-2 text-3xl"></i><br>
+                        Impossible de charger les fiches. Vérifie que le script Google Apps est correctement configuré.
+                    </div>
+                `;
+            }
+        }
+
+        // Initialisation au chargement
+        refreshChampOptions();
+    </script>
 </body>
 </html>
